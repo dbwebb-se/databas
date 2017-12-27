@@ -5,7 +5,7 @@
 #
 
 # kmom01
-me/kmom01/
+me/kmom01/mysql
 
 # kmom02
 me/kmom02/
@@ -14,16 +14,21 @@ me/kmom02/
 me/kmom03/
 
 # kmom04
-me/kmom04/
+me/kmom04/trans
+me/kmom04/express
+me/kmom04/express-sql
 
 # kmom05
-me/kmom05/
+me/kmom05/prog
 
 # kmom06
-#me/kmom06/
+me/kmom06/index
 
 # kmom10
 me/kmom10/proj
 
 # redovisa
 me/redovisa
+
+# app
+me/app
