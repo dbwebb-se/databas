@@ -1,0 +1,97 @@
+#
+# Inspect, tools to inspect a kmom.
+#
+# Usage: dbwebb inspect kmom01
+#
+# Sequence executed:
+# databas(), databaskmom01(), databaslast()
+#
+
+
+#
+# Test databas general
+#
+databas()
+{
+    inspectIntro
+}
+
+
+
+#
+# Test general, last in sequence
+#
+databaslast()
+{
+    inspectMe "me/redovisa"
+}
+
+
+
+#
+# Test databas kmom01
+#
+databaskmom01()
+{
+    :
+}
+
+
+
+#
+# Test databas kmom02
+#
+databaskmom02()
+{
+    :
+}
+
+
+
+#
+# Test databas kmom03
+#
+databaskmom03()
+{
+    :
+}
+
+
+
+#
+# Test databas kmom04
+#
+databaskmom04()
+{
+    :
+}
+
+
+
+#
+# Test databas kmom
+#
+databaskmom05()
+{
+    :
+}
+
+
+
+#
+# Test databas kmom
+#
+databaskmom06()
+{
+    :
+}
+
+
+
+#
+# Test databas kmom
+#
+databaskmom10()
+{
+    :
+}

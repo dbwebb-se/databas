@@ -1,0 +1,9 @@
+/bin/
+/build/
+/package-lock.json
+/me/
+node_modules
+vendor
+
+# Mac
+.DS_Store
