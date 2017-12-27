@@ -16,10 +16,8 @@
 -*.jpg
 -./.venv
 
-
 -*/build/*
 -*/coverage/*
--./me/*
 -*/node_modules/*
 -*/vendor/*
 

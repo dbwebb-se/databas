@@ -15,13 +15,11 @@
 /example/
 - build/
 - node_modules/
-- vendor/
 /example/**
 
 /me/
 - build/
 - node_modules/
-- vendor/
 /me/**
 
 - */
