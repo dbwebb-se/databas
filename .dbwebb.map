@@ -5,12 +5,14 @@
 #
 
 # kmom01
-me/kmom01/mysql
+me/kmom01/klient
 me/kmom01/skolan1
 
 # kmom02
 me/kmom02/skolan2
+me/kmom02/search
 #me/kmom02/node1
+me/kmom02/terminal1
 
 # kmom03
 me/kmom03/
