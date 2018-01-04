@@ -5,100 +5,110 @@
 
 /**
  * Main function.
- * @async
  * @returns void
  */
-(async function() {
-    // Read from commandline
-    const readline = require('readline');
+(function() {
+    const readline = require("readline");
     const rl = readline.createInterface({
         input: process.stdin,
         output: process.stdout
     });
 
-    // Ask question and handle answer in arrow function callback.
-    rl.question("Guess my number: ", (guess) => {
-        let thinking;
-        let message;
+    const Game = require("./game.js");
+    let game = new Game();
 
-        thinking = Math.round(Math.random() * 100 + 1);
-        message = `I'm thinking of number ${thinking}.\n`
-            + `Youre guess is ${guess}.\n`
-            + `You guessed right? `
-            + (guess === thinking);
-        console.log(message);
+    game.init();
 
-        rl.close();
+    rl.setPrompt("Guess my number: ");
+    rl.prompt();
+
+    rl.on("close", process.exit);
+    rl.on("line", (line) => {
+        line = line.trim();
+        switch (line) {
+            case "quit":
+            case "exit":
+                process.exit();
+                break;
+            case "help":
+            case "menu":
+                showMenu();
+                break;
+            case "init":
+                makeInit(game);
+                break;
+            case "cheat":
+                makeCheat(game);
+                break;
+            default:
+                makeGuess(game, line);
+        }
+        rl.prompt();
     });
 })();
 
 
 
 /**
- * Output resultset as formatted table with details on a teacher.
+ * Show the menu on that can be done.
  *
- * @async
- * @param {connection} db     Database connection.
- * @param {string}     search String to search for.
- *
- * @returns {string} Formatted table to print out.
+ * @returns {void}
  */
-async function searchTeachers(db, search) {
-    let sql;
-    let res;
-    let str;
-    let like = `%${search}%`;
-
-    console.info(`Searching for: ${search}`);
-
-    sql = `
-        SELECT
-            akronym,
-            fornamn,
-            efternamn,
-            avdelning,
-            lon
-        FROM larare
-        WHERE
-            akronym LIKE ?
-            OR fornamn LIKE ?
-            OR efternamn LIKE ?
-            OR avdelning LIKE ?
-            OR lon = ?
-        ORDER BY akronym;
-    `;
-    res = await db.query(sql, [like, like, like, like, search]);
-    str = teacherAsTable(res);
-    return str;
+function showMenu() {
+    console.info(
+        ` You can choose from the following commands.\n`
+        + `  exit, quit, ctrl-d - to exit the program.\n`
+        + `  help, menu - to show this menu.\n`
+        + `  cheat      - show the current number.\n`
+        + `  init       - randomize a new number.\n`
+        + `  anything else is treated as a guess.`
+    );
 }
 
 
 
 /**
- * Output resultset as formatted table with details on a teacher.
+ * Init the game and guess on (another) number.
  *
- * @param {RowDataPacket} res Resultset with details on a teacher.
+ * @param {Game} game The current game being played.
  *
- * @returns {string} Formatted table to print out.
+ * @returns {void}
  */
-function teacherAsTable(res) {
-    let str;
+function makeInit(game) {
+    game.init();
+    console.info(` I am know thinking of another number.`);
+}
 
-    str  = "+-----------+---------------------+-----------+----------+\n";
-    str += "| Akronym   | Namn                | Avdelning |   Lön    |\n";
-    str += "|-----------|---------------------|-----------|----------|\n";
-    for (const row of res) {
-        str += "| ";
-        str += row.akronym.padEnd(10);
-        str += "| ";
-        str += (row.fornamn + " " + row.efternamn).padEnd(20);
-        str += "| ";
-        str += row.avdelning.padEnd(10);
-        str += "| ";
-        str += row.lon.toString().padStart(8);
-        str += " |\n";
+
+
+/**
+ * Check the number current being used as target.
+ *
+ * @param {Game} game The current game being played.
+ *
+ * @returns {void}
+ */
+function makeCheat(game) {
+    console.info(` I am thinking of number ${game.cheat()}`);
+}
+
+
+
+/**
+ * Guess the number and check if its correct.
+ *
+ * @param {Game}   game  The current game being played.
+ * @param {number} guess The number being guessed.
+ *
+ * @returns {void}
+ */
+function makeGuess(game, guess) {
+    guess = Number.parseInt(guess);
+
+    if (game.check(guess)) {
+        console.info(` Congratulations! You guessed the number I thought of.`);
+        return;
     }
-    str += "+-----------+---------------------+-----------+----------+\n";
 
-    return str;
+    console.info(` Wrong! The number is ${game.compare(guess)}.`);
 }
