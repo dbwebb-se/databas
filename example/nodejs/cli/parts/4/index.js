@@ -3,16 +3,6 @@
  */
 "use strict";
 
-const readline = require("readline");
-const rl = readline.createInterface({
-    input: process.stdin,
-    output: process.stdout
-});
-
-const Game = require("./game.js");
-let game = new Game();
-
-
 /**
  * Main function.
  * @returns void
@@ -32,13 +22,23 @@ let game = new Game();
     rl.setPrompt("Guess my number: ");
     rl.prompt();
 
-    rl.on("close", exitProgram);
+    rl.on("close", process.exit);
     rl.on("line", (line) => {
         line = line.trim();
         switch (line) {
             case "quit":
             case "exit":
-                exitProgram();
+                process.exit();
+                break;
+            case "help":
+            case "menu":
+                showMenu();
+                break;
+            case "init":
+                makeInit(game);
+                break;
+            case "cheat":
+                makeCheat(game);
                 break;
             default:
                 makeGuess(game, line);
@@ -50,17 +50,46 @@ let game = new Game();
 
 
 /**
- * Close down program and exit with a status code.
- *
- * @param {number} code Exit with this value, defaults to 0.
+ * Show the menu on that can be done.
  *
  * @returns {void}
  */
-function exitProgram(code) {
-    code = code || 0;
+function showMenu() {
+    console.info(
+        ` You can choose from the following commands.\n`
+        + `  exit, quit, ctrl-d - to exit the program.\n`
+        + `  help, menu - to show this menu.\n`
+        + `  cheat      - show the current number.\n`
+        + `  init       - randomize a new number.\n`
+        + `  anything else is treated as a guess.`
+    );
+}
 
-    console.info("Exiting");
-    process.exit(code);
+
+
+/**
+ * Init the game and guess on (another) number.
+ *
+ * @param {Game} game The current game being played.
+ *
+ * @returns {void}
+ */
+function makeInit(game) {
+    game.init();
+    console.info(` I am know thinking of another number.`);
+}
+
+
+
+/**
+ * Check the number current being used as target.
+ *
+ * @param {Game} game The current game being played.
+ *
+ * @returns {void}
+ */
+function makeCheat(game) {
+    console.info(` I am thinking of number ${game.cheat()}`);
 }
 
 
@@ -74,13 +103,12 @@ function exitProgram(code) {
  * @returns {void}
  */
 function makeGuess(game, guess) {
-    let message;
-    let thinking = game.cheat();
-
     guess = Number.parseInt(guess);
-    message = `I'm thinking of number ${thinking}.\n`
-        + `Youre guess is ${guess}.\n`
-        + `You guessed right? `
-        + game.check(guess);
-    console.info(message);
+
+    if (game.check(guess)) {
+        console.info(` Congratulations! You guessed the number I thought of.`);
+        return;
+    }
+
+    console.info(` Wrong! The number is ${game.compare(guess)}.`);
 }
