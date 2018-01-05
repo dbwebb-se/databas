@@ -15,10 +15,13 @@ me/kmom02/search
 me/kmom02/terminal1
 
 # kmom03
+me/kmom03/cli
 me/kmom03/skolan3
 me/kmom03/terminal2
+me/kmom03/er1
 
 # kmom04
+me/kmom04/er2
 me/kmom04/trans
 me/kmom04/express
 me/kmom04/express-sql
