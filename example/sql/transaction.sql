@@ -3,40 +3,40 @@ use oophp;
 -- https://dbwebb.se/kunskap/transaktioner-i-databas
 -- Example transactions
 -- 
-DROP TABLE IF EXISTS Account;
-CREATE TABLE Account
+DROP TABLE IF EXISTS account;
+CREATE TABLE account
 (
 	`id` CHAR(4) PRIMARY KEY,
     `name` VARCHAR(8),
     `balance` DECIMAL(4, 2)
 );
 
--- DELETE FROM Account;
-INSERT INTO Account
+-- DELETE FROM account;
+INSERT INTO account
 VALUES
 	("1111", "Adam", 10.0),
     ("2222", "Eva", 7.0)
 ;
 
-SELECT * FROM Account;
+SELECT * FROM account;
 
 
 --
 -- Move the money
 --
-UPDATE Account 
+UPDATE account 
 SET
 	balance = balance + 1.5
 WHERE
 	id = "2222";
 
-UPDATE Account 
+UPDATE account 
 SET
 	balance = balance - 1.5
 WHERE
 	id = "1111";
     
-SELECT * FROM Account;
+SELECT * FROM account;
 
 
 --
@@ -44,13 +44,13 @@ SELECT * FROM Account;
 --
 START TRANSACTION;
 
-UPDATE Account 
+UPDATE account 
 SET
 	balance = balance + 1.5
 WHERE
 	id = "2222";
 
-UPDATE Account 
+UPDATE account 
 SET
 	balance = balance - 1.5
 WHERE
@@ -58,4 +58,4 @@ WHERE
     
 COMMIT;
 
-SELECT * FROM Account;
+SELECT * FROM account;
