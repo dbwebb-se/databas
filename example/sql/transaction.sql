@@ -1,4 +1,3 @@
-use oophp;
 --
 -- https://dbwebb.se/kunskap/transaktioner-i-databas
 -- Example transactions
