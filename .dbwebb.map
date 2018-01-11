@@ -30,15 +30,15 @@ me/kmom04/eshop1
 # kmom05
 me/kmom05/prog
 me/kmom05/crud
+me/kmom05/eshop1
 
 # kmom06
+me/kmom06/func
 me/kmom06/index
 
 # kmom10
 me/kmom10/proj
+me/kmom10/exam
 
 # redovisa
 me/redovisa
-
-# app
-me/app
