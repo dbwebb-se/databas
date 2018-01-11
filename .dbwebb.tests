@@ -17,6 +17,23 @@ dbwebb init-me
 cp -ri example/redovisa me
 dbwebb validate redovisa
 
+#
+# SQL-guiden del 1
+#
+touch me/kmom01/skolan1/setup.sql
+touch me/kmom01/skolan1/ddl.sql
+touch me/kmom01/skolan1/dml_insert.sql
+touch me/kmom01/skolan1/dml_delete.sql
+touch me/kmom01/skolan1/ddl_migrate.sql
+touch me/kmom01/skolan1/dml_update.sql
+touch me/kmom01/skolan1/dml_select.sql
+dbwebb validate skolan1
+
+#
+# Other
+#
+dbwebb validate klient
+
 
 
 # --------------------------------------------------------------------------
@@ -24,6 +41,31 @@ dbwebb validate redovisa
 # Kmom02
 #
 
+#
+# SQL-guiden del 2
+#
+cp me/kmom01/skolan1/* me/kmom02/skolan2
+touch me/kmom02/skolan2/dml_agg.sql
+touch me/kmom02/skolan2/dml_func.sql
+touch me/kmom02/skolan2/dml_view.sql
+touch me/kmom02/skolan2/ddl_copy.sql
+touch me/kmom02/skolan2/dml_union.sql
+touch me/kmom02/skolan2/dml_join.sql
+touch me/kmom02/skolan2/test_encoding.sql
+dbwebb validate skolan2
+
+#
+# terminal1
+#
+cp example/nodejs/mysql/config.json me/kmom02/terminal1
+touch me/kmom02/terminal1/larare.js
+touch me/kmom02/terminal1/lonerevision.js
+dbwebb validate terminal1
+
+#
+# Other
+#
+dbwebb validate search
 
 
 
@@ -32,6 +74,36 @@ dbwebb validate redovisa
 # Kmom03
 #
 
+#
+# SQL-guiden del 3
+#
+cp me/kmom02/skolan2/* me/kmom03/skolan3
+touch me/kmom03/skolan3/setup.bash
+touch me/kmom03/skolan3/ddl_more_tables.sql
+touch me/kmom03/skolan3/dml_insert_csv.sql
+touch me/kmom03/skolan3/dml_join2.sql
+touch me/kmom03/skolan3/dml_outer_join.sql
+touch me/kmom03/skolan3/dml_subquery.sql
+touch me/kmom03/skolan3/skolan.sql
+dbwebb validate skolan3
+
+#
+# terminal2
+#
+cp example/nodejs/mysql/config.json me/kmom03/terminal2
+touch me/kmom03/terminal2/index.js
+dbwebb validate terminal2
+
+#
+# er1
+#
+touch me/kmom03/er1/er.pdf
+dbwebb validate er1
+
+#
+# Other
+#
+dbwebb validate cli
 
 
 
@@ -40,12 +112,62 @@ dbwebb validate redovisa
 # Kmom04
 #
 
+#
+# er2
+#
+touch me/kmom04/er2/er.pdf
+touch me/kmom04/er2/setup.sql
+touch me/kmom04/er2/ddl.sql
+dbwebb validate er2
+
+#
+# express-sql
+#
+install -d me/kmom04/express-sql/config/db/
+cp example/express-mysql/config/db/bank.json me/kmom04/express-sql/config/db
+touch me/kmom04/express-sql/cli.js
+dbwebb validate express-sql
+
+#
+# eshop1
+#
+install -d me/kmom04/eshop1/config/db/
+install -d me/kmom04/eshop1/sql/eshop/
+cp example/express-mysql/config/db/bank.json me/kmom04/eshop1/config/db/eshop.json
+touch me/kmom04/eshop1/sql/eshop/ddl.sql
+touch me/kmom04/eshop1/sql/eshop/insert.sql
+touch me/kmom04/eshop1/sql/eshop/product.csv
+touch me/kmom04/eshop1/sql/eshop/category.csv
+touch me/kmom04/eshop1/sql/eshop/customer.csv
+touch me/kmom04/eshop1/sql/eshop/backup.sql
+touch me/kmom04/eshop1/cli.js
+touch me/kmom04/eshop1/index.js
+dbwebb validate eshop1
+
+#
+# Other
+#
+dbwebb validate trans
+dbwebb validate myexpress
+
 
 
 # --------------------------------------------------------------------------
 #
 # Kmom05
 #
+
+#
+# eshop2
+#
+rsync -a me/kmom04/eshop1/ me/kmom05/eshop2/
+dbwebb validate eshop2
+
+#
+# Other
+#
+dbwebb validate prog
+dbwebb validate crud
 
 
 
