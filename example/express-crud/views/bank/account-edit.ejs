@@ -1,0 +1,27 @@
+<%- include("header", {title: title}); %>
+
+<h1>Edit account details</h1>
+
+<p>This is details for account <%= account %>.</p>
+
+<pre><%#= JSON.stringify(res, null, 4) %></pre>
+
+<% res = res[0] %>
+<form class="label-left" method="post" action="/bank/edit">
+    <fieldset>
+        <legend>Edit account</legend>
+
+        <label for="id">Id</label>
+        <input id="id" type="text" name="id" readonly value="<%= res.id %>">
+
+        <label for="name">Name</label>
+        <input id="name" type="text" name="name" value="<%= res.name %>">
+
+        <label for="balance">Balance</label>
+        <input id="balance" type="number" name="balance" value="<%= res.balance %>">
+
+        <input type="submit" name="doit" value="Edit">
+    </fieldset>
+</form>
+
+<%- include("footer"); %>

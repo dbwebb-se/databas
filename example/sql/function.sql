@@ -100,7 +100,7 @@ BEGIN
 	ELSEIF score >= 55 THEN
 		RETURN "3";
 	END IF;
-    RETURN "F";
+    RETURN "U";
 END
 //
 

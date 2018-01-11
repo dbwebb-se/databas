@@ -1,0 +1,24 @@
+<%- include("header", {title: title}); %>
+
+<h1>Account details</h1>
+
+<p>This is details for account <%= account %>.</p>
+
+<pre><%#= JSON.stringify(res, null, 4) %></pre>
+
+<table>
+    <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Balance</th>
+    </tr>
+<% for (const row of res) { %>
+    <tr>
+        <td><%= row.id %></td>
+        <td><%= row.name %></td>
+        <td class="right"><%= row.balance %></td>
+    </tr>
+<% }; %>
+</table>
+
+<%- include("footer"); %>

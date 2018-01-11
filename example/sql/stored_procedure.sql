@@ -2,40 +2,40 @@
 -- https://dbwebb.se/kunskap/lagrade-procedurer-i-databas
 -- Example transactions
 -- 
-DROP TABLE IF EXISTS Account;
-CREATE TABLE Account
+DROP TABLE IF EXISTS account;
+CREATE TABLE account
 (
 	`id` CHAR(4) PRIMARY KEY,
     `name` VARCHAR(8),
     `balance` DECIMAL(4, 2)
 );
 
--- DELETE FROM Account;
-INSERT INTO Account
+-- DELETE FROM account;
+INSERT INTO account
 VALUES
 	("1111", "Adam", 10.0),
     ("2222", "Eva", 7.0)
 ;
 
-SELECT * FROM Account;
+SELECT * FROM account;
 
 
 --
 -- Move the money
 --
-UPDATE Account 
+UPDATE account 
 SET
 	balance = balance + 1.5
 WHERE
 	id = "2222";
 
-UPDATE Account 
+UPDATE account 
 SET
 	balance = balance - 1.5
 WHERE
 	id = "1111";
     
-SELECT * FROM Account;
+SELECT * FROM account;
 
 
 --
@@ -43,13 +43,13 @@ SELECT * FROM Account;
 --
 START TRANSACTION;
 
-UPDATE Account 
+UPDATE account 
 SET
 	balance = balance + 1.5
 WHERE
 	id = "2222";
 
-UPDATE Account 
+UPDATE account 
 SET
 	balance = balance - 1.5
 WHERE
@@ -57,7 +57,7 @@ WHERE
     
 COMMIT;
 
-SELECT * FROM Account;
+SELECT * FROM account;
 
 
 --
@@ -68,18 +68,18 @@ DROP PROCEDURE IF EXISTS moveMoney;
 DELIMITER //
 
 CREATE PROCEDURE moveMoney(
-	fromAccount CHAR(4),
-    toAccount CHAR(4),
+	fromaccount CHAR(4),
+    toaccount CHAR(4),
     amount NUMERIC(4, 2)
 )
 BEGIN
-	SELECT fromAccount, toAccount, amount;
+	SELECT fromaccount, toaccount, amount;
 	-- DECLARE currentAmount NUMERIC(4, 2);
     
     -- START TRANSACTION;
  
 	-- Start by checking the available amount
-	-- SET currentAmount = (SELECT balance FROM Account WHERE id = from);
+	-- SET currentAmount = (SELECT balance FROM account WHERE id = from);
     -- SELECT currentAmount;
     -- COMMIT;
 END
@@ -99,28 +99,28 @@ DROP PROCEDURE moveMoney;
 DELIMITER //
 
 CREATE PROCEDURE moveMoney(
-	fromAccount CHAR(4),
-    toAccount CHAR(4),
+	fromaccount CHAR(4),
+    toaccount CHAR(4),
     amount NUMERIC(4, 2)
 )
 BEGIN
     START TRANSACTION;
 
-    UPDATE Account 
+    UPDATE account 
     SET
     	balance = balance + amount
     WHERE
-    	id = toAccount;
+    	id = toaccount;
 
-    UPDATE Account 
+    UPDATE account 
     SET
     	balance = balance - amount
     WHERE
-    	id = fromAccount;
+    	id = fromaccount;
         
     COMMIT;
 
-    SELECT * FROM Account;
+    SELECT * FROM account;
 END
 //
 
@@ -138,8 +138,8 @@ DROP PROCEDURE IF EXISTS moveMoney;
 DELIMITER //
 
 CREATE PROCEDURE moveMoney(
-	fromAccount CHAR(4),
-    toAccount CHAR(4),
+	fromaccount CHAR(4),
+    toaccount CHAR(4),
     amount NUMERIC(4, 2)
 )
 BEGIN
@@ -147,7 +147,7 @@ BEGIN
     
     START TRANSACTION;
 
-	SET currentBalance = (SELECT balance FROM Account WHERE id = fromAccount);
+	SET currentBalance = (SELECT balance FROM account WHERE id = fromaccount);
     SELECT currentBalance;
 
 	IF currentBalance - amount < 0 THEN
@@ -156,30 +156,30 @@ BEGIN
 
 	ELSE
 
-		UPDATE Account 
+		UPDATE account 
 		SET
 			balance = balance + amount
 		WHERE
-			id = toAccount;
+			id = toaccount;
 
-		UPDATE Account 
+		UPDATE account 
 		SET
 			balance = balance - amount
 		WHERE
-			id = fromAccount;
+			id = fromaccount;
 			
 		COMMIT;
 
     END IF;
 
-    SELECT * FROM Account;
+    SELECT * FROM account;
 END
 //
 
 DELIMITER ;
 
 CALL moveMoney("1111", "2222", 1.5);
-SELECT * FROM Account;
+SELECT * FROM account;
 
 
 
@@ -195,7 +195,7 @@ CREATE PROCEDURE getMoney(
     OUT total NUMERIC(4, 2)
 )
 BEGIN
-	SELECT balance INTO total FROM Account WHERE id = account;
+	SELECT balance INTO total FROM account WHERE id = account;
 END
 //
 
