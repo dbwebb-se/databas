@@ -160,7 +160,7 @@ dbwebb validate myexpress
 #
 # eshop2
 #
-rsync -a me/kmom04/eshop1/ me/kmom05/eshop2/
+cp -r me/kmom04/eshop1/* me/kmom05/eshop2/
 dbwebb validate eshop2
 
 #
