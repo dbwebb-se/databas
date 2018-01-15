@@ -84,6 +84,8 @@ touch me/kmom03/skolan3/dml_insert_csv.sql
 touch me/kmom03/skolan3/dml_join2.sql
 touch me/kmom03/skolan3/dml_outer_join.sql
 touch me/kmom03/skolan3/dml_subquery.sql
+touch me/kmom03/skolan3/dml_export_csv.sql
+touch me/kmom03/skolan3/kurs_export.sql
 touch me/kmom03/skolan3/skolan.sql
 dbwebb validate skolan3
 

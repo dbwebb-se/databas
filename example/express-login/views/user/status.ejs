@@ -1,0 +1,11 @@
+<%- include("../bank/header", {title: title, user: user}); %>
+
+<h1>Status of user and session</h1>
+
+<p>You are logged in as user <strong><%= user %></strong>.</p>
+
+<p>Session contains:</p>
+
+<pre><%= JSON.stringify(session, null, 4) %></pre>
+
+<%- include("../bank/footer"); %>

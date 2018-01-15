@@ -1,0 +1,15 @@
+<%- include("../bank/header", {title: title, user: user}); %>
+
+<h1>Prepare to logout</h1>
+
+<p>You are logged in as user <strong><%= user %></strong>.</p>
+
+<form class="label-left" method="post">
+    <fieldset>
+        <legend>Logout</legend>
+
+        <input type="submit" name="doit" value="Logout">
+    </fieldset>
+</form>
+
+<%- include("../bank/footer"); %>

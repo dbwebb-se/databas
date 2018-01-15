@@ -1,0 +1,21 @@
+<%- include("../bank/header", {title: title, user: user}); %>
+
+<h1>Login to the Bank</h1>
+
+<p>Login to get a session.</p>
+
+<form class="label-left" method="post">
+    <fieldset>
+        <legend>Login</legend>
+
+        <label for="user">User</label>
+        <input id="user" type="text" name="user">
+
+        <label for="password">Password</label>
+        <input id="password" type="password" name="password">
+
+        <input type="submit" name="doit" value="Login">
+    </fieldset>
+</form>
+
+<%- include("../bank/footer"); %>

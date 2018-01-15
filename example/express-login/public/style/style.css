@@ -1,0 +1,73 @@
+body {
+    margin: 8px auto;
+    background: #fff;
+    width: 700px;
+}
+
+header {
+    background-color: #ddd;
+    padding: 1em;
+}
+
+main {
+    min-height: 24em;
+}
+
+footer {
+    background-color: #666;
+    color: #fff;
+    padding: 1em;
+}
+
+table {
+    border: 1px solid #ccc;
+}
+
+th {
+    border-bottom: 1px solid #999;
+}
+
+td {
+    padding: 0.2em;
+}
+
+td.right {
+    text-align: right;
+}
+
+tr:hover {
+    background-color: #eee;
+}
+
+form.label-left {
+    margin-bottom: 24px;
+}
+
+form.label-left label,
+form.label-left input[type=text],
+form.label-left input[type=password],
+form.label-left input[type=number] {
+    height: 20px;
+    margin-bottom: 4px;
+}
+
+form.label-left label {
+    display: inline-block;
+    width: 5em;
+    float: left;
+    padding-top: 6px;
+    padding-right: 1em;
+
+    /* text-align: right; */
+}
+
+form.label-left label::after {
+    content: ":";
+}
+
+form.label-left input[type=text],
+form.label-left input[type=password],
+form.label-left input[type=number] {
+    display: block;
+    width: 20em;
+}
