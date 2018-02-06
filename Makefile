@@ -54,8 +54,8 @@ help:
 #
 
 # Add local bin path for test tools
-PATH := $(PWD)/bin:$(PWD)/vendor/bin:$(PWD)/node_modules/.bin:$(PATH)
-SHELL := env PATH=$(PATH) $(SHELL)
+PATH := "$(PWD)/bin:$(PWD)/vendor/bin:$(PWD)/node_modules/.bin:$(PATH)"
+SHELL := env PATH='$(PATH)' $(SHELL)
 
 # Tools
 DBWEBB   		:= bin/dbwebb
@@ -201,8 +201,8 @@ dbwebb-install: prepare
 	wget --quiet -O $(DBWEBB) https://raw.githubusercontent.com/mosbth/dbwebb-cli/master/dbwebb2
 	chmod 755 $(DBWEBB)
 	$(DBWEBB) config create noinput
-	(cd bin; rm -f dbwebb-validate1; ln -s dbwebb-validate dbwebb-validate1)
-	(cd bin; rm -f dbwebb-inspect1; ln -s dbwebb-inspect dbwebb-inspect1)
+	(cd bin; rm -f dbwebb-validate1; cp dbwebb-validate dbwebb-validate1)
+	(cd bin; rm -f dbwebb-inspect1; cp dbwebb-inspect dbwebb-inspect1)
 
 
 
@@ -295,7 +295,7 @@ dbwebb-inspect:
 .PHONY: npm-install
 npm-install: prepare
 	@$(call HELPTEXT,$@)
-	if [ -f package.json ]; then npm install --only=dev; fi
+	[ ! -f package.json ] || npm install --only=dev
 
 
 
@@ -303,7 +303,7 @@ npm-install: prepare
 .PHONY: npm-update
 npm-update:
 	@$(call HELPTEXT,$@)
-	if [ -f package.json ]; then npm update --only=dev; fi
+	[ ! -f package.json ] || npm update --only=dev
 
 
 
@@ -315,7 +315,7 @@ npm-update:
 .PHONY: composer-install
 composer-install: prepare
 	@$(call HELPTEXT,$@)
-	if [ -f composer.json ]; then composer install; fi
+	[ ! -f composer.json ] || composer install
 
 
 
@@ -323,4 +323,4 @@ composer-install: prepare
 .PHONY: composer-update
 composer-update:
 	@$(call HELPTEXT,$@)
-	if [ -f composer.json ]; composer update; fi
+	[ ! -f composer.json ] || composer update
