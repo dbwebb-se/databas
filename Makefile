@@ -54,7 +54,7 @@ help:
 #
 
 # Add local bin path for test tools
-PATH := "$(PWD)/bin:$(PWD)/vendor/bin:$(PWD)/node_modules/.bin:$(PATH)"
+PATH := $(PWD)/bin:$(PWD)/vendor/bin:$(PWD)/node_modules/.bin:$(PATH)
 SHELL := env PATH='$(PATH)' $(SHELL)
 
 # Tools
