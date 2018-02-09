@@ -40,6 +40,7 @@ databasskolan1()
     fileIsReadable "$path/dml_delete.sql"
     fileIsReadable "$path/ddl_migrate.sql"
     fileIsReadable "$path/dml_update.sql"
+    #fileIsReadable "$path/reset_part1.sql"
     fileIsReadable "$path/dml_select.sql"
 }
 
