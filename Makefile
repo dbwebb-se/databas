@@ -261,7 +261,8 @@ dbwebb-publish: prepare
 .PHONY: dbwebb-publishpure
 dbwebb-publishpure: prepare
 	@$(call HELPTEXT,$@)
-	env PATH='$(PATH)' $(DBWEBB_VALIDATE) --publish --publish-to build/webroot/ --publish-root . --no-validate --no-minification $(options) $(what)
+	install -d build/webroot/$(what)
+	env PATH='$(PATH)' $(DBWEBB_VALIDATE) --publish --publish-to build/webroot/$(what) --publish-root . --no-validate --no-minification $(options) $(what)
 
 
 
@@ -350,15 +351,31 @@ composer-update:
 .PHONY: docker-up
 docker-up:
 	@$(call HELPTEXT,$@)
-	[ ! -f docker-compose.yaml ] || docker-compose -f docker-compose.yaml up
+	[ ! -f docker-compose.yaml ] || docker-compose -f docker-compose.yaml up -d
 
 
 
-# target: docker-run              - Run what="" or empty for bash.
+# target: docker-stop             - Stop running docker container.
+.PHONY: docker-stop
+docker-stop:
+	@$(call HELPTEXT,$@)
+	[ ! -f docker-compose.yaml ] || docker-compose -f docker-compose.yaml stop
+
+
+
+# target: docker-run              - Run what="" one off command.
 .PHONY: docker-run
 docker-run:
 	@$(call HELPTEXT,$@)
 	[ ! -f docker-compose.yaml ] || docker-compose -f docker-compose.yaml run $(COURSE) $(what)
+
+
+
+# target: docker-exec              - Run what="" in running container.
+.PHONY: docker-exec
+docker-exec:
+	@$(call HELPTEXT,$@)
+	[ ! -f docker-compose.yaml ] || docker-compose -f docker-compose.yaml exec $(COURSE) $(what)
 
 
 
@@ -394,8 +411,16 @@ docker-publish:
 
 
 
-# target: docker-publishpure      - Run dbwebb publishpure what="me" in docker.
-.PHONY: docker-publishpure
-docker-publishpure:
+# target: docker-publish-me       - Run dbwebb publishpure what="me" in docker.
+.PHONY: docker-publish-me
+docker-publish-me:
 	@$(call HELPTEXT,$@)
 	[ ! -f docker-compose.yaml ] || docker-compose -f docker-compose.yaml run $(COURSE) make dbwebb-publishpure options="$(options)" what="me"
+
+
+
+# target: docker-publish-example  - Run dbwebb publishpure what="example" in docker.
+.PHONY: docker-publish-example
+docker-publish-example:
+	@$(call HELPTEXT,$@)
+	[ ! -f docker-compose.yaml ] || docker-compose -f docker-compose.yaml run $(COURSE) make dbwebb-publishpure options="$(options)" what="example"
