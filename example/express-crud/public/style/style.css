@@ -68,4 +68,5 @@ form.label-left input[type=text],
 form.label-left input[type=number] {
     display: block;
     width: 20em;
+    height: 25px;
 }
