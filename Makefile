@@ -367,7 +367,7 @@ docker-stop:
 .PHONY: docker-run
 docker-run:
 	@$(call HELPTEXT,$@)
-	[ ! -f docker-compose.yaml ] || docker-compose -f docker-compose.yaml run $(COURSE) $(what)
+	[ ! -f docker-compose.yaml ] || docker-compose -f docker-compose.yaml run course $(what)
 
 
 
@@ -375,7 +375,7 @@ docker-run:
 .PHONY: docker-exec
 docker-exec:
 	@$(call HELPTEXT,$@)
-	[ ! -f docker-compose.yaml ] || docker-compose -f docker-compose.yaml exec $(COURSE) $(what)
+	[ ! -f docker-compose.yaml ] || docker-compose -f docker-compose.yaml exec course $(what)
 
 
 
@@ -383,7 +383,7 @@ docker-exec:
 .PHONY: docker-test
 docker-test:
 	@$(call HELPTEXT,$@)
-	[ ! -f docker-compose.yaml ] || docker-compose -f docker-compose.yaml run $(COURSE) make test
+	[ ! -f docker-compose.yaml ] || docker-compose -f docker-compose.yaml run course make test
 
 
 
@@ -391,7 +391,7 @@ docker-test:
 .PHONY: docker-test-clean
 docker-test-clean:
 	@$(call HELPTEXT,$@)
-	[ ! -f docker-compose.yaml ] || docker-compose -f docker-compose.yaml run $(COURSE) make clean-me test
+	[ ! -f docker-compose.yaml ] || docker-compose -f docker-compose.yaml run course make clean-me test
 
 
 
@@ -399,7 +399,7 @@ docker-test-clean:
 .PHONY: docker-validate
 docker-validate:
 	@$(call HELPTEXT,$@)
-	[ ! -f docker-compose.yaml ] || docker-compose -f docker-compose.yaml run $(COURSE) make validate options="$(options)" what="$(what)"
+	[ ! -f docker-compose.yaml ] || docker-compose -f docker-compose.yaml run course make validate options="$(options)" what="$(what)"
 
 
 
@@ -407,7 +407,7 @@ docker-validate:
 .PHONY: docker-publish
 docker-publish:
 	@$(call HELPTEXT,$@)
-	[ ! -f docker-compose.yaml ] || docker-compose -f docker-compose.yaml run $(COURSE) make publish options="$(options)" what="$(what)"
+	[ ! -f docker-compose.yaml ] || docker-compose -f docker-compose.yaml run course make publish options="$(options)" what="$(what)"
 
 
 
@@ -415,7 +415,7 @@ docker-publish:
 .PHONY: docker-publish-me
 docker-publish-me:
 	@$(call HELPTEXT,$@)
-	[ ! -f docker-compose.yaml ] || docker-compose -f docker-compose.yaml run $(COURSE) make dbwebb-publishpure options="$(options)" what="me"
+	[ ! -f docker-compose.yaml ] || docker-compose -f docker-compose.yaml run course make dbwebb-publishpure options="$(options)" what="me"
 
 
 
@@ -423,4 +423,4 @@ docker-publish-me:
 .PHONY: docker-publish-example
 docker-publish-example:
 	@$(call HELPTEXT,$@)
-	[ ! -f docker-compose.yaml ] || docker-compose -f docker-compose.yaml run $(COURSE) make dbwebb-publishpure options="$(options)" what="example"
+	[ ! -f docker-compose.yaml ] || docker-compose -f docker-compose.yaml run course make dbwebb-publishpure options="$(options)" what="example"

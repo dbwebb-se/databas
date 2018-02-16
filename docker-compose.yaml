@@ -1,12 +1,13 @@
 version: "3"
 services:
-    databas:
-        image: dbwebb/courserepo:databas
+    course:
+        image: dbwebb/courserepo
         ports:
             - "10080:80"
         volumes:
-            - ./:/dbwebb-kurser/databas/
-            - /dbwebb-kurser/databas/bin/
-            - /dbwebb-kurser/databas/build/
-            - /dbwebb-kurser/databas/node_modules/
-            - /dbwebb-kurser/databas/vendor/
+            - ./:/dbwebb-kurs/
+            - /dbwebb-kurs/bin/
+            - /dbwebb-kurs/build/
+            - /dbwebb-kurs/example/utility/
+            - /dbwebb-kurs/node_modules/
+            #- /dbwebb-kurs/vendor/
