@@ -127,11 +127,12 @@ dbwebb validate er2
 #
 install -d me/kmom04/express-sql/config/db/
 cp example/express-mysql/config/db/bank.json me/kmom04/express-sql/config/db
+touch me/kmom04/express-sql/index.js
 touch me/kmom04/express-sql/cli.js
 dbwebb validate express-sql
 
 #
-# eshop1
+# eshop1 (move this away)
 #
 install -d me/kmom04/eshop1/config/db/
 install -d me/kmom04/eshop1/sql/eshop/
@@ -165,11 +166,10 @@ dbwebb validate myexpress
 cp -r me/kmom04/eshop1/* me/kmom05/eshop2/
 dbwebb validate eshop2
 
+
 #
 # Other
 #
-dbwebb validate prog
-dbwebb validate crud
 
 
 
