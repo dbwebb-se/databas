@@ -3,7 +3,7 @@ services:
     course:
         image: dbwebb/courserepo
         ports:
-            - "10080:80"
+            - "10081:80"
         volumes:
             - ./:/dbwebb-kurs/
             - /dbwebb-kurs/bin/
@@ -11,3 +11,12 @@ services:
             - /dbwebb-kurs/example/utility/
             - /dbwebb-kurs/node_modules/
             #- /dbwebb-kurs/vendor/
+    mysql:
+        image: mysql
+        ports:
+            - "13306:3306"
+        restart: always
+        environment:
+            MYSQL_ROOT_PASSWORD: pass
+        #volumes:
+        #    - /mysql_init:/docker-entrypoint-initdb.d

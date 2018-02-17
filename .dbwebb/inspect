@@ -139,7 +139,17 @@ databaskmom03()
 #
 databaskmom04()
 {
-    :
+    inspectExerciseHeader "er2" "kurser/databas/$KMOM#uppgifter" "$KMOM/er2"
+    local path="me/$KMOM/er2"
+    fileIsReadable "$path/er.pdf"
+    fileIsReadable "$path/setup.sql"
+    fileIsReadable "$path/ddl.sql"
+
+    inspectExerciseHeader "express-sql" "kurser/databas/$KMOM#uppgifter" "$KMOM/express-sql"
+    local path="me/$KMOM/express-sql"
+    fileIsReadable "$path/config/db/bank.json"
+    fileIsReadable "$path/index.js"
+    fileIsReadable "$path/cli.js"
 }
 
 
