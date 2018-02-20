@@ -31,7 +31,7 @@ CREATE PROCEDURE loginUser(
 )
 BEGIN
     SELECT
-		akronym
+		akronym AS acronym
     FROM user
     WHERE
 		akronym = aUsername

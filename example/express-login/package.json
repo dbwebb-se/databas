@@ -1,7 +1,8 @@
 {
-  "name": "myexpress",
+  "name": "express-login",
   "version": "1.0.0",
-  "description": "",
+  "private": true,
+  "description": "Show off how login, sessions and flash messages works.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
