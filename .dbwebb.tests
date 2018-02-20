@@ -129,6 +129,7 @@ install -d me/kmom04/express-sql/config/db/
 cp example/express-mysql/config/db/bank.json me/kmom04/express-sql/config/db
 touch me/kmom04/express-sql/index.js
 touch me/kmom04/express-sql/cli.js
+touch me/kmom04/express-sql/package.json
 dbwebb validate express-sql
 
 #

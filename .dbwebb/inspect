@@ -150,6 +150,7 @@ databaskmom04()
     fileIsReadable "$path/config/db/bank.json"
     fileIsReadable "$path/index.js"
     fileIsReadable "$path/cli.js"
+    fileIsReadable "$path/package.json"
 }
 
 
