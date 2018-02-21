@@ -1,6 +1,6 @@
 /bin/
 /build/
-/package-lock.json
+package-lock.json
 /me/
 node_modules
 vendor
