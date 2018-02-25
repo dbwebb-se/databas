@@ -160,7 +160,15 @@ databaskmom04()
 #
 databaskmom05()
 {
-    :
+    inspectExerciseHeader "eshop2" "kurser/databas/$KMOM#uppgifter" "$KMOM/eshop2"
+    local path="me/$KMOM/eshop2"
+    fileIsReadable "$path/config/db/eshop.json"
+    fileIsReadable "$path/sql/eshop/setup.sql"
+    fileIsReadable "$path/sql/eshop/ddl.sql"
+    fileIsReadable "$path/sql/eshop/insert.sql"
+    fileIsReadable "$path/index.js"
+    fileIsReadable "$path/cli.js"
+    fileIsReadable "$path/package.json"
 }
 
 
@@ -170,7 +178,18 @@ databaskmom05()
 #
 databaskmom06()
 {
-    :
+    inspectExerciseHeader "skolan6" "kurser/databas/$KMOM#uppgifter" "$KMOM/skolan6"
+    local path="me/$KMOM/skolan6"
+    fileIsReadable "$path/program_ddl.sql"
+    fileIsReadable "$path/program_insert.sql"
+    fileIsReadable "$path/program_dml.sql"
+
+    inspectExerciseHeader "bestall" "kurser/databas/$KMOM#uppgifter" "$KMOM/bestall"
+    local path="me/$KMOM/bestall"
+    fileIsReadable "$path/config/db/skolan.json"
+    fileIsReadable "$path/index.js"
+    fileIsReadable "$path/cli.js"
+    fileIsReadable "$path/package.json"
 }
 
 
