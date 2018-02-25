@@ -129,7 +129,7 @@ install -d me/kmom04/express-sql/config/db/
 cp example/express-mysql/config/db/bank.json me/kmom04/express-sql/config/db
 touch me/kmom04/express-sql/index.js
 touch me/kmom04/express-sql/cli.js
-touch me/kmom04/express-sql/package.json
+cp example/express-mysql/package.json me/kmom04/express-sql
 dbwebb validate express-sql
 
 #
@@ -164,13 +164,25 @@ dbwebb validate myexpress
 #
 # eshop2
 #
-cp -r me/kmom04/eshop1/* me/kmom05/eshop2/
+install -d me/kmom04/eshop1/config/db/
+install -d me/kmom04/eshop1/sql/eshop/
+cp example/express-mysql/config/db/bank.json me/kmom04/eshop1/config/db/eshop.json
+touch me/kmom05/eshop2/sql/eshop/ddl.sql
+touch me/kmom05/eshop2/sql/eshop/insert.sql
+touch me/kmom05/eshop2/sql/eshop/product.csv
+touch me/kmom05/eshop2/sql/eshop/category.csv
+touch me/kmom05/eshop2/sql/eshop/customer.csv
+touch me/kmom05/eshop2/sql/eshop/backup.sql
+touch me/kmom05/eshop2/cli.js
+touch me/kmom05/eshop2/index.js
 dbwebb validate eshop2
 
 
 #
 # Other
 #
+dbwebb validate prog
+dbwebb validate crud
 
 
 
