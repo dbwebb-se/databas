@@ -41,5 +41,4 @@ jobs:
 notify:
   webhooks:
     # A list of hook hashes, containing the url field
-    # dbwebb-se/ramverk2
     - url: https://webhooks.gitter.im/e/09055d237a57c37785cd
