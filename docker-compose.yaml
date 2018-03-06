@@ -23,6 +23,15 @@ services:
         #volumes:
         #    - /mysql_init:/docker-entrypoint-initdb.d
 
+    course-databas:
+        image: dbwebb/courserepo:databas
+        volumes:
+            - ".:/home/dbwebb/repo"
+            - "/home/dbwebb/repo/bin/"
+            - "/home/dbwebb/repo/node_modules/"
+        ports: [ "10042:80" ]
+    course-dev:
+        image: dbwebb/courserepo:databas
     course:
         image: dbwebb/courserepo
         volumes: [ ".:/home/dbwebb/repo" ]

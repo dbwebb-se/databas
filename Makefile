@@ -83,7 +83,7 @@ PHPMD   := bin/phpmd
 prepare:
 	@$(call HELPTEXT,$@)
 	[ -d build ]   || install -d build/webroot
-	[ -d bin/pip ] || install -d bin/pip
+	@#[ -d bin/pip ] || install -d bin/pip
 
 
 
@@ -416,7 +416,7 @@ docker-test:
 .PHONY: docker-test-clean
 docker-test-clean:
 	@$(call HELPTEXT,$@)
-	[ ! -f docker-compose.yaml ] || docker-compose -f docker-compose.yaml run course make clean-me test
+	[ ! -f docker-compose.yaml ] || docker-compose -f docker-compose.yaml run $(container) make clean-me test
 
 
 
@@ -424,7 +424,7 @@ docker-test-clean:
 .PHONY: docker-validate
 docker-validate:
 	@$(call HELPTEXT,$@)
-	[ ! -f docker-compose.yaml ] || docker-compose -f docker-compose.yaml run course make validate options="$(options)" what="$(what)"
+	[ ! -f docker-compose.yaml ] || docker-compose -f docker-compose.yaml run $(container) make validate options="$(options)" what="$(what)"
 
 
 
@@ -432,7 +432,7 @@ docker-validate:
 .PHONY: docker-publish
 docker-publish:
 	@$(call HELPTEXT,$@)
-	[ ! -f docker-compose.yaml ] || docker-compose -f docker-compose.yaml run course make publish options="$(options)" what="$(what)"
+	[ ! -f docker-compose.yaml ] || docker-compose -f docker-compose.yaml run $(container) make publish options="$(options)" what="$(what)"
 
 
 
@@ -440,7 +440,7 @@ docker-publish:
 .PHONY: docker-publish-me
 docker-publish-me:
 	@$(call HELPTEXT,$@)
-	[ ! -f docker-compose.yaml ] || docker-compose -f docker-compose.yaml run course make dbwebb-publishpure options="$(options)" what="me"
+	[ ! -f docker-compose.yaml ] || docker-compose -f docker-compose.yaml run $(container) make dbwebb-publishpure options="$(options)" what="me"
 
 
 
@@ -448,7 +448,7 @@ docker-publish-me:
 .PHONY: docker-publish-example
 docker-publish-example:
 	@$(call HELPTEXT,$@)
-	[ ! -f docker-compose.yaml ] || docker-compose -f docker-compose.yaml run course make dbwebb-publishpure options="$(options)" what="example"
+	[ ! -f docker-compose.yaml ] || docker-compose -f docker-compose.yaml run $(container) make dbwebb-publishpure options="$(options)" what="example"
 
 
 
