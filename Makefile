@@ -83,7 +83,7 @@ PHPMD   := bin/phpmd
 prepare:
 	@$(call HELPTEXT,$@)
 	[ -d build ]   || install -d build/webroot
-	@#[ -d bin/pip ] || install -d bin/pip
+	[ -d bin/pip ] || install -d bin/pip
 
 
 
