@@ -42,7 +42,7 @@ before_script:
 
 script:
     # Run tests
-    - make test
+    - make check test
 
 
 
