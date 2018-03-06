@@ -4,6 +4,7 @@ package-lock.json
 /me/
 node_modules
 vendor
+/.venv/
 
 # Mac
 .DS_Store
