@@ -1,10 +1,11 @@
 /bin/
 /build/
-package-lock.json
 /me/
-node_modules
-vendor
+vendor/
+composer.lock
 /.venv/
+node_modules
+package-lock.json
 
 # Mac
 .DS_Store
