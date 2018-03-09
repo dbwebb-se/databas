@@ -148,7 +148,7 @@ clean-me:
 clean-all: clean
 	@$(call HELPTEXT,$@)
 	rm -rf bin
-	rm -rf node_modules
+	rm -rf node_modules package-lock.json
 	rm -rf vendor composer.lock
 
 
