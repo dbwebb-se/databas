@@ -26,6 +26,7 @@ touch me/kmom01/skolan1/dml_insert.sql
 touch me/kmom01/skolan1/dml_delete.sql
 touch me/kmom01/skolan1/ddl_migrate.sql
 touch me/kmom01/skolan1/dml_update.sql
+touch me/kmom01/skolan1/dml_update_lonerevision.sql
 touch me/kmom01/skolan1/dml_select.sql
 dbwebb validate skolan1
 
