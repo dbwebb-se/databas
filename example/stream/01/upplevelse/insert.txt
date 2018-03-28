@@ -1,0 +1,12 @@
+Säsong 1: En stark resa
+
+("SE01", "E01", "London, Storbritannien", STR_TO_DATE("2 april 2012", "%d %M %Y")),
+("SE01", "E02", "Gran Canaria, Spanien", STR_TO_DATE("9 april 2012", "%d %M %Y")),
+("SE01", "E03", "Marrakech, Marocko", STR_TO_DATE("16 april 2012", "%d %M %Y")),
+("SE01", "E04", "Paris, Frankrike", STR_TO_DATE("23 april 2012", "%d %M %Y")),
+("SE01", "E05", "Polen", STR_TO_DATE("30 april 2012", "%d %M %Y")),
+("SE01", "E06", "Tokyo, Japan", STR_TO_DATE("7 may 2012", "%d %M %Y")),
+("SE01", "E07", "Tokyo & Sydafrika", STR_TO_DATE("14 may 2012", "%d %M %Y")),
+("SE01", "E08", "Sydafrika", STR_TO_DATE("21 may 2012", "%d %M %Y"))
+
+STR_TO_DATE(yourdatefield, '%m/%d/%Y')
