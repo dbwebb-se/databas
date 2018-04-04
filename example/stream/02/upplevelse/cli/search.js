@@ -70,7 +70,8 @@ async function searchTeachers(db, search) {
         	OR DATE_FORMAT(e.aired, "%Y %M %d") LIKE ?
         ;
     `;
-    // res = await db.query(sql, [like, like, like, like, search]).catch((err) => { console.log(err); });
+    // res = await db.query(sql, [like, like, like, like, search])
+    //    .catch((err) => { console.log(err); });
     res = await db.query(sql, [like, like, like, like, search]);
 
     str = teacherAsTable(res);
