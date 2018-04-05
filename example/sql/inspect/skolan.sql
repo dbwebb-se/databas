@@ -86,7 +86,7 @@ DROP TABLE IF EXISTS `kurs`;
 CREATE TABLE `kurs` (
   `kod` char(6) COLLATE utf8_swedish_ci NOT NULL,
   `namn` varchar(40) COLLATE utf8_swedish_ci DEFAULT NULL,
-  `poang` int(11) DEFAULT NULL,
+  `poang` float DEFAULT NULL,
   `niva` char(3) COLLATE utf8_swedish_ci DEFAULT NULL,
   PRIMARY KEY (`kod`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_swedish_ci;
@@ -474,4 +474,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-04-05 23:37:03
+-- Dump completed on 2018-04-05 23:47:13
