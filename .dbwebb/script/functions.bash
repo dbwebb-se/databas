@@ -14,6 +14,18 @@ input()
 
 
 #
+# Display information message and wait for user input to continue.
+# @arg1 string the message to display.
+#
+info()
+{
+    echo -e "\n$1"
+    read -r -p ""
+}
+
+
+
+#
 # Goto directory and check its status on .git
 # @arg1 string the path to move to.
 #
