@@ -2,15 +2,19 @@
 
 # Include ./functions.bash
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-source "$DIR/functions.bash"
+source "$DIR/../functions.bash"
+
+
 
 #
 # Check the exam for a student
 #
+MAIL_TEMPLATE="$DIR/mail/verify_exam"
 export DBWEBB_PORT=1337
-database=${2:-exam}
 export STUD
-STUD=$( input "Studentens akronym?" "$1" )
+STUD=${STUD:-$1}
+STUD=$( input "Studentens akronym?" "$STUD" )
+database=${2:-exam}
 
 
 
@@ -19,6 +23,10 @@ STUD=$( input "Studentens akronym?" "$1" )
 #
 function main
 {
+    echo "This is a log of the run for $STUD."
+    date
+    echo "(To proceed, press Enter after each, or press 'q' to quit)"
+
     info "--> Recreate the database '$database' as root"
     mysql -uroot -e "DROP DATABASE IF EXISTS $database; CREATE DATABASE $database; GRANT ALL ON $database.* TO user@localhost IDENTIFIED BY 'pass';"
 
@@ -69,15 +77,19 @@ function main
 #
 function create_mail
 {
-    local target="exam/${STUD}_res.html"
+    local target="exam/${STUD}_run.html"
+    local urlReceipt="http://www.student.bth.se/~mosstud/kod-exempel/lab/?action=exam-receipt&examId=$EXAM_ID&acronym=$STUD"
 
     info "--> Create mail"
-    eval echo "\"$( cat $DIR/mail/verify_exam/header.html )"\" > $target
-    cat log.txt >> $target
-    eval echo "\"$( cat $DIR/mail/verify_exam/footer.html )"\" >> $target
-    md5sum $target >> $target
-    cp $target latest.html
-    cat latest.html
+    eval echo "\"$( cat $MAIL_TEMPLATE/header.html )"\" > "$target"
+    cat exam/feedback.txt | sed 's/$/<br>/g' >> "$target"
+    eval echo "\"$( cat $MAIL_TEMPLATE/header2.html )"\" >> "$target"
+    curl --silent "$urlReceipt" >> "$target"
+    cat exam/runlog.txt >> "$target"
+    eval echo "\"$( cat $MAIL_TEMPLATE/footer.html )"\" >> "$target"
+    md5sum "$target" >> "$target"
+    cp "$target" exam/latest.html
+    cat exam/latest.html
 }
 
 
@@ -85,5 +97,5 @@ function create_mail
 #
 # Run it all
 #
-main |& tee log.txt
+main |& tee exam/{runlog,${STUD}_run}.txt
 create_mail

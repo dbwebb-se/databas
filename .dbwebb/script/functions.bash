@@ -1,7 +1,23 @@
 #!/usr/bin/env bash
 
 #
+# Press enter to continue
+#
+pressEnterToContinue()
+{
+    local void
+
+    if [[ ! $YES ]]; then
+        printf "\nPress enter to continue..."
+        read void
+    fi
+}
+
+
+
+#
 # Read input from user supporting a default value for reponse.
+#
 # @arg1 string the message to display.
 # @arg2 string the default value.
 #
@@ -14,13 +30,52 @@ input()
 
 
 #
-# Display information message and wait for user input to continue.
+# Display information message and wait for user input to continue, exit if
+# user presses 'q'.
+#
 # @arg1 string the message to display.
 #
 info()
 {
     echo -e "\n$1"
     read -r -p ""
+    case "$REPLY" in
+        q)
+            exit 1
+            ;;
+    esac
+}
+
+
+
+#
+# Fail, die and present error message.
+#
+# @arg1 string the message to display.
+# @arg2 string exit status (default -1).
+#
+die()
+{
+    local message="$1"
+    local status="${2:-1}"
+
+    printf "$MSG_FAILED $message\n" >&2
+    exit $status
+}
+
+
+
+#
+# Set correct settings of the remote student files, populary called "potatoe".
+#
+# @arg1 string the acronym.
+#
+potatoe()
+{
+    local acronym
+    
+    acronym=$( input "Akronym att uppdatera rättigheter för?" "$1" )
+    dbwebb run "sudo /usr/local/sbin/setpre-dbwebb-kurser.bash $acronym"
 }
 
 
