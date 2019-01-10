@@ -2,6 +2,14 @@ Revision history
 ===================
 
 
+v2.0.0 (2019-01-10)
+-------------------
+
+* Add docker examples for mysql/mariadb.
+* Prepare for vt19.
+
+
+
 v1.0.0 (2017-12-27)
 -------------------
 
