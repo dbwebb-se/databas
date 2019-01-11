@@ -35,7 +35,7 @@ When you have started the container you can connect either as root:password or a
 ```text
 # Connect as user:pass to database "dbwebb"
 mysql --user=user --password=pass --host=127.0.0.1 --port=13306 dbwebb
-mysql -uuser -ppass -h127.0.0.1 -P13306  dbwebb
+mysql -uuser -ppass -h127.0.0.1 -P13306 dbwebb
 
 # Connect as root:password
 mysql --user=root --password=password --host=127.0.0.1 --port=13306

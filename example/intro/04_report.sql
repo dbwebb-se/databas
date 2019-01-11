@@ -32,5 +32,5 @@ FROM student AS s
         ON s.acronym = sc.acronym
     INNER JOIN course AS c
         ON c.code = sc.code
-ORDER BY "student"
+ORDER BY s.name
 ;
