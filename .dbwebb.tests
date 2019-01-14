@@ -20,15 +20,16 @@ dbwebb validate redovisa
 #
 # SQL-guiden del 1
 #
-touch me/kmom01/skolan1/setup.sql
-touch me/kmom01/skolan1/ddl.sql
-touch me/kmom01/skolan1/dml_insert.sql
-touch me/kmom01/skolan1/dml_delete.sql
-touch me/kmom01/skolan1/ddl_migrate.sql
-touch me/kmom01/skolan1/dml_update.sql
-touch me/kmom01/skolan1/dml_update_lonerevision.sql
-touch me/kmom01/skolan1/dml_select.sql
-dbwebb validate skolan1
+touch me/skolan/setup.sql
+touch me/skolan/ddl.sql
+touch me/skolan/dml_insert.sql
+touch me/skolan/dml_delete.sql
+touch me/skolan/ddl_migrate.sql
+touch me/skolan/dml_update.sql
+touch me/skolan/dml_update_lonerevision.sql
+touch me/skolan/reset_part1.bash
+touch me/skolan/dml_select.sql
+dbwebb validate skolan
 
 #
 # Other
@@ -45,15 +46,14 @@ dbwebb validate klient
 #
 # SQL-guiden del 2
 #
-cp me/kmom01/skolan1/* me/kmom02/skolan2
-touch me/kmom02/skolan2/dml_agg.sql
-touch me/kmom02/skolan2/dml_func.sql
-touch me/kmom02/skolan2/dml_view.sql
-touch me/kmom02/skolan2/ddl_copy.sql
-touch me/kmom02/skolan2/dml_union.sql
-touch me/kmom02/skolan2/dml_join.sql
-touch me/kmom02/skolan2/test_encoding.sql
-dbwebb validate skolan2
+touch me/skolan/dml_agg.sql
+touch me/skolan/dml_func.sql
+touch me/skolan/dml_view.sql
+touch me/skolan/ddl_copy.sql
+touch me/skolan/dml_union.sql
+touch me/skolan/dml_join.sql
+touch me/skolan/test_encoding.sql
+dbwebb validate skolan
 
 #
 # terminal1
@@ -78,17 +78,16 @@ dbwebb validate search
 #
 # SQL-guiden del 3
 #
-cp me/kmom02/skolan2/* me/kmom03/skolan3
-touch me/kmom03/skolan3/setup.bash
-touch me/kmom03/skolan3/ddl_more_tables.sql
-touch me/kmom03/skolan3/dml_insert_csv.sql
-touch me/kmom03/skolan3/dml_join2.sql
-touch me/kmom03/skolan3/dml_outer_join.sql
-touch me/kmom03/skolan3/dml_subquery.sql
-touch me/kmom03/skolan3/dml_export_csv.sql
-touch me/kmom03/skolan3/kurs_export.csv
-touch me/kmom03/skolan3/skolan.sql
-dbwebb validate skolan3
+touch me/skolan/setup.bash
+touch me/skolan/ddl_more_tables.sql
+touch me/skolan/dml_insert_csv.sql
+touch me/skolan/dml_join2.sql
+touch me/skolan/dml_outer_join.sql
+touch me/skolan/dml_subquery.sql
+touch me/skolan/dml_export_csv.sql
+touch me/skolan/kurs_export.csv
+touch me/skolan/skolan.sql
+dbwebb validate skolan
 
 #
 # terminal2
@@ -197,10 +196,10 @@ dbwebb validate crud
 #
 # skolan6
 #
-touch me/kmom06/skolan6/program_ddl.sql
-touch me/kmom06/skolan6/program_insert.sql
-touch me/kmom06/skolan6/program_dml.sql
-dbwebb validate skolan6
+touch me/skolan/program_ddl.sql
+touch me/skolan/program_insert.sql
+touch me/skolan/program_dml.sql
+dbwebb validate skolan
 
 
 

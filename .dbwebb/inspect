@@ -29,11 +29,12 @@ databaslast()
 
 
 #
-# Test databas skolan1 files
+# Test databas kmom01
 #
-databasskolan1()
+databaskmom01()
 {
-    local path="me/$KMOM/$1"
+    inspectExerciseHeader "skolan" "kurser/databas/$KMOM#uppgifter" "skolan"
+    local path="me/skolan"
     fileIsReadable "$path/setup.sql"
     fileIsReadable "$path/ddl.sql"
     fileIsReadable "$path/dml_insert.sql"
@@ -41,56 +42,8 @@ databasskolan1()
     fileIsReadable "$path/ddl_migrate.sql"
     fileIsReadable "$path/dml_update.sql"
     fileIsReadable "$path/dml_update_lonerevision.sql"
-    #fileIsReadable "$path/reset_part1.sql"
+    fileIsReadable "$path/reset_part1.bash"
     fileIsReadable "$path/dml_select.sql"
-}
-
-
-
-#
-# Test databas skolan2 files
-#
-databasskolan2()
-{
-    local path="me/$KMOM/$1"
-    fileIsReadable "$path/dml_agg.sql"
-    fileIsReadable "$path/dml_func.sql"
-    fileIsReadable "$path/dml_view.sql"
-    fileIsReadable "$path/ddl_copy.sql"
-    fileIsReadable "$path/dml_union.sql"
-    fileIsReadable "$path/dml_join.sql"
-    fileIsReadable "$path/test_encoding.sql"
-}
-
-
-
-#
-# Test databas skolan3 files
-#
-databasskolan3()
-{
-    local path="me/$KMOM/$1"
-    fileIsReadable "$path/setup.bash"
-    fileIsReadable "$path/ddl_more_tables.sql"
-    fileIsReadable "$path/dml_insert_csv.sql"
-    fileIsReadable "$path/dml_join2.sql"
-    fileIsReadable "$path/dml_outer_join.sql"
-    fileIsReadable "$path/dml_subquery.sql"
-    fileIsReadable "$path/dml_export_csv.sql"
-    fileIsReadable "$path/kurs_export.csv"
-    fileIsReadable "$path/skolan.sql"
-}
-
-
-
-
-#
-# Test databas kmom01
-#
-databaskmom01()
-{
-    inspectExerciseHeader "skolan1" "kurser/databas/$KMOM#uppgifter" "$KMOM/skolan1"
-    databasskolan1 "skolan1"
 }
 
 
@@ -100,9 +53,15 @@ databaskmom01()
 #
 databaskmom02()
 {
-    inspectExerciseHeader "skolan2" "kurser/databas/$KMOM#uppgifter" "$KMOM/skolan2"
-    databasskolan1 "skolan2"
-    databasskolan2 "skolan2"
+    inspectExerciseHeader "skolan" "kurser/databas/$KMOM#uppgifter" "skolan"
+    local path="me/skolan"
+    fileIsReadable "$path/dml_agg.sql"
+    fileIsReadable "$path/dml_func.sql"
+    fileIsReadable "$path/dml_view.sql"
+    fileIsReadable "$path/ddl_copy.sql"
+    fileIsReadable "$path/dml_union.sql"
+    fileIsReadable "$path/dml_join.sql"
+    fileIsReadable "$path/test_encoding.sql"
 
     inspectExerciseHeader "terminal1" "kurser/databas/$KMOM#uppgifter" "$KMOM/terminal1"
     local path="me/$KMOM/terminal1"
@@ -118,10 +77,17 @@ databaskmom02()
 #
 databaskmom03()
 {
-    inspectExerciseHeader "skolan3" "kurser/databas/$KMOM#uppgifter" "$KMOM/skolan3"
-    databasskolan1 "skolan3"
-    databasskolan2 "skolan3"
-    databasskolan3 "skolan3"
+    inspectExerciseHeader "skolan" "kurser/databas/$KMOM#uppgifter" "skolan"
+    local path="me/skolan"
+    fileIsReadable "$path/setup.bash"
+    fileIsReadable "$path/ddl_more_tables.sql"
+    fileIsReadable "$path/dml_insert_csv.sql"
+    fileIsReadable "$path/dml_join2.sql"
+    fileIsReadable "$path/dml_outer_join.sql"
+    fileIsReadable "$path/dml_subquery.sql"
+    fileIsReadable "$path/dml_export_csv.sql"
+    fileIsReadable "$path/kurs_export.csv"
+    fileIsReadable "$path/skolan.sql"
 
     inspectExerciseHeader "terminal2" "kurser/databas/$KMOM#uppgifter" "$KMOM/terminal2"
     local path="me/$KMOM/terminal2"
@@ -179,8 +145,8 @@ databaskmom05()
 #
 databaskmom06()
 {
-    inspectExerciseHeader "skolan6" "kurser/databas/$KMOM#uppgifter" "$KMOM/skolan6"
-    local path="me/$KMOM/skolan6"
+    inspectExerciseHeader "skolan" "kurser/databas/$KMOM#uppgifter" "skolan"
+    local path="me/skolan"
     fileIsReadable "$path/program_ddl.sql"
     fileIsReadable "$path/program_insert.sql"
     fileIsReadable "$path/program_dml.sql"
