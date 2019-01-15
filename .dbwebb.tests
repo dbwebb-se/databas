@@ -52,7 +52,6 @@ touch me/skolan/dml_view.sql
 touch me/skolan/ddl_copy.sql
 touch me/skolan/dml_union.sql
 touch me/skolan/dml_join.sql
-touch me/skolan/test_encoding.sql
 dbwebb validate skolan
 
 #
@@ -78,6 +77,7 @@ dbwebb validate search
 #
 # SQL-guiden del 3
 #
+touch me/skolan/test_encoding.sql
 touch me/skolan/setup.bash
 touch me/skolan/ddl_more_tables.sql
 touch me/skolan/dml_insert_csv.sql

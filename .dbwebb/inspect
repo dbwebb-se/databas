@@ -44,6 +44,10 @@ databaskmom01()
     fileIsReadable "$path/dml_update_lonerevision.sql"
     fileIsReadable "$path/reset_part1.bash"
     fileIsReadable "$path/dml_select.sql"
+
+    # Dubbelkolla att databasen kan återställas på rätt sätt
+    # Dubbelkolla att alla filer kan köras
+    # Dubbellkolla att lönesumman är rätt (före/efter?)
 }
 
 
@@ -61,7 +65,11 @@ databaskmom02()
     fileIsReadable "$path/ddl_copy.sql"
     fileIsReadable "$path/dml_union.sql"
     fileIsReadable "$path/dml_join.sql"
-    fileIsReadable "$path/test_encoding.sql"
+
+    # Dubbelkolla att databasen kan återställas på rätt sätt
+    # Dubbelkolla att alla filer kan köras
+    # Dubbellkolla vyn för ålder
+    # Dubbelkolla rapport efter lönerevisionen
 
     inspectExerciseHeader "terminal1" "kurser/databas/$KMOM#uppgifter" "$KMOM/terminal1"
     local path="me/$KMOM/terminal1"
@@ -79,6 +87,7 @@ databaskmom03()
 {
     inspectExerciseHeader "skolan" "kurser/databas/$KMOM#uppgifter" "skolan"
     local path="me/skolan"
+    fileIsReadable "$path/test_encoding.sql"
     fileIsReadable "$path/setup.bash"
     fileIsReadable "$path/ddl_more_tables.sql"
     fileIsReadable "$path/dml_insert_csv.sql"
