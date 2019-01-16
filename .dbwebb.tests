@@ -52,6 +52,7 @@ touch me/skolan/dml_view.sql
 touch me/skolan/ddl_copy.sql
 touch me/skolan/dml_union.sql
 touch me/skolan/dml_join.sql
+touch me/skolan/reset_part2.bash
 dbwebb validate skolan
 
 #

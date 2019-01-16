@@ -65,10 +65,13 @@ databaskmom02()
     fileIsReadable "$path/ddl_copy.sql"
     fileIsReadable "$path/dml_union.sql"
     fileIsReadable "$path/dml_join.sql"
+    fileIsReadable "$path/reset_part2.bash"
 
     # Dubbelkolla att databasen kan återställas på rätt sätt
     # Dubbelkolla att alla filer kan köras
     # Dubbellkolla vyn för ålder
+    # Dubbelkolla backuptabellens lönsesumma
+    # Dubbelkolla att vyn för lönerevisionsrapporten finns
     # Dubbelkolla rapport efter lönerevisionen
 
     inspectExerciseHeader "terminal1" "kurser/databas/$KMOM#uppgifter" "$KMOM/terminal1"
