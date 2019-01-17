@@ -33,5 +33,5 @@ function stringRange(a, b, sep = ", ") {
     return res;
 }
 
-console.log(stringRange(1, 10));
-console.log(stringRange(1, 10, "-"));
+// console.log(stringRange(1, 10));
+// console.log(stringRange(1, 10, "-"));

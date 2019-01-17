@@ -14,5 +14,5 @@ console.info(res);
 res = utils.stringRange(1, 10, "-");
 console.info(res);
 
-console.log("What does the imported 'utils' consists of?");
+console.log("\nWhat does the imported 'utils' consists of?");
 console.log(utils);
