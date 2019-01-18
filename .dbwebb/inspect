@@ -81,6 +81,9 @@ databaskmom02()
     fileIsReadable "$path/config.json"
     fileIsReadable "$path/larare.js"
     fileIsReadable "$path/lonerevision.js"
+
+    local path="me"
+    fileIsReadable "$path/package.json"
 }
 
 

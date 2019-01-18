@@ -64,6 +64,11 @@ touch me/kmom02/terminal1/lonerevision.js
 dbwebb validate terminal1
 
 #
+# Setup for npm
+#
+cp example/package.json me
+
+#
 # Other
 #
 dbwebb validate search
