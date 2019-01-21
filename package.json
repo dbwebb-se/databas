@@ -15,10 +15,5 @@
     "jsonlint": "^1.6.2",
     "stylelint": "^8.2.0",
     "uglify-es": "^3.1.6"
-  },
-  "dependencies": {
-    "mysql": "^2.16.0",
-    "promise-mysql": "^3.3.1",
-    "wavi": "^2.1.3"
   }
 }
