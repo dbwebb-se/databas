@@ -6,13 +6,6 @@
 const mysql  = require("promise-mysql");
 const config = require("./config.json");
 
-// Read from commandline
-const readline = require("readline");
-const rl = readline.createInterface({
-    input: process.stdin,
-    output: process.stdout
-});
-
 
 
 /**
@@ -24,15 +17,13 @@ const rl = readline.createInterface({
 (async function() {
     const db = await mysql.createConnection(config);
     let str;
+    let search;
 
-    // Ask question and handle answer in async arrow function callback.
-    rl.question("What to search for? ", async (search) => {
-        str = await searchTeachers(db, search);
-        console.info(str);
+    search = "al";
+    str = await searchTeachers(db, search);
+    console.info(str);
 
-        rl.close();
-        db.end();
-    });
+    db.end();
 })();
 
 

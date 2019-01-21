@@ -13,6 +13,16 @@ const rl = readline.createInterface({
     output: process.stdout
 });
 
+// Promisify rl.question to question
+const util = require("util");
+
+rl.question[util.promisify.custom] = (arg) => {
+    return new Promise((resolve) => {
+        rl.question(arg, resolve);
+    });
+};
+const question = util.promisify(rl.question);
+
 
 
 /**
@@ -24,15 +34,14 @@ const rl = readline.createInterface({
 (async function() {
     const db = await mysql.createConnection(config);
     let str;
+    let search;
 
-    // Ask question and handle answer in async arrow function callback.
-    rl.question("What to search for? ", async (search) => {
-        str = await searchTeachers(db, search);
-        console.info(str);
+    search = await question("What to search for? ");
+    str = await searchTeachers(db, search);
+    console.info(str);
 
-        rl.close();
-        db.end();
-    });
+    rl.close();
+    db.end();
 })();
 
 

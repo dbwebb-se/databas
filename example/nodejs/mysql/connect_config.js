@@ -5,15 +5,18 @@
  */
 "use strict";
 
+const mysql  = require("promise-mysql");
+const config = require("./config.json");
+
+
+
 /**
  * Main function.
  * @async
  * @returns void
  */
 (async function() {
-    const mysql  = require("promise-mysql");
-    const config = require("./config.json");
-    const db     = await mysql.createConnection(config);
+    const db = await mysql.createConnection(config);
     let sql;
     let res;
 

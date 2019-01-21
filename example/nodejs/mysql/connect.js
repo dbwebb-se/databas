@@ -5,21 +5,24 @@
  */
 "use strict";
 
+const mysql = require("promise-mysql");
+
+
+
 /**
  * Main function.
  * @async
  * @returns void
  */
 (async function() {
-    const mysql = require("promise-mysql");
-    const db    = await mysql.createConnection({
+    let sql;
+    let res;
+    const db = await mysql.createConnection({
         "host":     "localhost",
         "user":     "user",
         "password": "pass",
         "database": "skolan"
     });
-    let sql;
-    let res;
 
     sql = "SELECT 1+1 AS Sum";
     res = await db.query(sql);
