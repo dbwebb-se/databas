@@ -5,7 +5,7 @@ DROP USER IF EXISTS 'user'@'%';
 
 CREATE USER 'user'@'%'
 IDENTIFIED
-WITH mysql_native_password -- Only MySQL > 8.0.4
+-- WITH mysql_native_password -- Only MySQL > 8.0.4
 BY 'pass'
 ;
 

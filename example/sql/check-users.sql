@@ -11,3 +11,5 @@ WHERE
     User IN ('root', 'dbwebb', 'user')
 ORDER BY User
 ;
+
+SHOW VARIABLES LIKE "%version%";
