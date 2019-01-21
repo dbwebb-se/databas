@@ -13,13 +13,12 @@
 /.*.json
 
 /example/
-- build/
-- node_modules/
-/example/**
-
 /me/
+
 - build/
 - node_modules/
+
+/example/**
 /me/**
 
 - */
