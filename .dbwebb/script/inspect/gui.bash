@@ -18,6 +18,7 @@ COURSE="$DBW_COURSE"
 BACKTITLE="dbwebb/$COURSE"
 TITLE="Work with kmoms"
 REDOVISA_HTTP_PREFIX="http://www.student.bth.se"
+BROWSER=${DBWEBB_BROWSER:-firefox}
 
 
 
@@ -156,7 +157,7 @@ main()
                 acronym=$( gui-read-acronym $acronym )
                 kmom=$( gui-read-kmom $kmom )
                 [[ acronym && kmom ]] \
-                    && firefox "$REDOVISA_HTTP_PREFIX/~$acronym/dbwebb-kurser/$COURSE/me/redovisa" \
+                    && $BROWSER "$REDOVISA_HTTP_PREFIX/~$acronym/dbwebb-kurser/$COURSE/me/redovisa" \
                     && dbwebb --force --yes download me $acronym \
                     && make docker-run container="course-$COURSE" what="make inspect what=$kmom options='--yes'" | tee inspect.output \
                     && eval echo "\"$( cat "$DIR/text/$kmom.txt" )"\" | tee -a inspect.output
