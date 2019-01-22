@@ -36,8 +36,8 @@ databaskmom01()
     inspectExerciseHeader "skolan" "kurser/databas/$KMOM#uppgifter" "skolan"
     local path="me/skolan"
     fileIsReadable "$path/setup.sql"
-    -- Add below from vt20, it was added jan 2019.
-    -- fileIsReadable "$path/create-user-dbwebb.sql"
+    # Add below from vt20, it was added jan 2019.
+    # fileIsReadable "$path/create-user-dbwebb.sql"
     fileIsReadable "$path/ddl.sql"
     fileIsReadable "$path/dml_insert.sql"
     fileIsReadable "$path/dml_delete.sql"
@@ -46,6 +46,7 @@ databaskmom01()
     fileIsReadable "$path/dml_update_lonerevision.sql"
     fileIsReadable "$path/reset_part1.bash"
     fileIsReadable "$path/dml_select.sql"
+    validateKmom "$path"
 
     # Dubbelkolla att databasen kan återställas på rätt sätt
     # Dubbelkolla att alla filer kan köras

@@ -6,6 +6,7 @@ composer.lock
 /.venv/
 node_modules
 package-lock.json
+inspect.output
 
 # Mac
 .DS_Store
