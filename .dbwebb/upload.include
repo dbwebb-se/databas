@@ -15,8 +15,8 @@
 /example/
 /me/
 
-- build/
-- node_modules/
+- **/build/
+- **/node_modules/
 
 /example/**
 /me/**
