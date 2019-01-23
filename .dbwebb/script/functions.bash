@@ -73,10 +73,10 @@ die()
 potatoe()
 {
     local acronym
-    
+
     acronym=$( input "Akronym att uppdatera rättigheter för?" "$1" )
-    #dbwebb run "sudo /usr/local/sbin/setpre-dbwebb-kurser.bash $acronym $COURSE"
-    dbwebb run "sudo /usr/local/sbin/setpre-dbwebb-kurser.bash $acronym"
+    dbwebb run "sudo /usr/local/sbin/setpre-dbwebb-kurser.bash $acronym $COURSE"
+    #dbwebb run "sudo /usr/local/sbin/setpre-dbwebb-kurser.bash $acronym"
 }
 
 
