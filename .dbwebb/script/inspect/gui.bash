@@ -18,7 +18,28 @@ COURSE="$DBW_COURSE"
 BACKTITLE="dbwebb/$COURSE"
 TITLE="Work with kmoms"
 REDOVISA_HTTP_PREFIX="http://www.student.bth.se"
-BROWSER=${DBWEBB_BROWSER:-firefox}
+
+# OS specific default settings
+BROWSER="firefox"
+TO_CLIPBOARD="" # should be xcopy ish
+OS_TERMINAL=""
+
+if [[ "$OSTYPE" == "linux-gnu" ]]; then   # Linux, use defaults
+    OS_TERMINAL="linux"
+elif [[ "$OSTYPE" == "darwin"* ]]; then   # Mac OSX
+    OS_TERMINAL="macOS"
+    TO_CLIPBOARD="iconv -t macroman | pbcopy"
+    BROWSER="open /Applications/Firefox.app"
+elif [[ "$OSTYPE" == "cygwin" ]]; then    # Cygwin
+    OS_TERMINAL="linux"
+    BROWSER="'/cygdrive/c/Program Files (X86)/Google/Chrome/chrome.exe'"
+elif [[ "$OSTYPE" == "msys" ]]; then
+    :
+    # Lightweight shell and GNU utilities compiled for Windows (part of MinGW)
+fi
+
+BROWSER=${DBWEBB_BROWSER:-$BROWSER}
+TO_CLIPBOARD=${DBWEBB_TO_CLIPBOARD:-$TO_CLIPBOARD}
 
 
 
@@ -48,6 +69,47 @@ The output from inspect is written to a file:
 
 Basic feedback text is created from files in txt/kmom??.txt, you can add your own teacher signature like this:
  export DBWEBB_TEACHER_SIGNATURE="//Mikael (mos@bth.se)"
+
+Specify which browser to use.
+ export DBWEBB_BROWSER="firefox"
+
+These are default settings for using the browser.
+ windows (cygwin): export DBWEBB_BROWSER="...."
+ macOs:            export DBWEBB_BROWSER="open /Applications/Firefox.app"
+ linux:            export DBWEBB_BROWSER="firefox"
+
+There is a sample file "config.bash" which you can copy and modify with your own settings.
+
+EOD
+    
+    dialog \
+        --backtitle "$BACKTITLE" \
+        --title "$TITLE" \
+        --msgbox "$message" \
+        20 80 \
+        3>&1 1>&2 2>&3 3>&-
+}
+
+
+
+#
+#
+#
+gui-show-configuration()
+{
+    local message
+
+    read -r -d "" message << EOD
+These are your current settings.
+
+ BROWSER="$BROWSER"
+ TO_CLIPBOARD="$TO_CLIPBOARD"
+ OS_TERMINAL="$OS_TERMINAL"
+
+All these are set with default values and you can override them by setting the following environment variabels.
+
+ DBWEBB_TEACHER_SIGNATURE="$DBWEBB_TEACHER_SIGNATURE"
+ DBWEBB_BROWSER="$DBWEBB_BROWSER"
 
 EOD
     
@@ -135,6 +197,7 @@ main()
     local acronym=
 
     gui-firstpage
+    gui-show-configuration
     while true; do
         output=$( gui-main-menu )
         case $output in
@@ -157,10 +220,12 @@ main()
                 acronym=$( gui-read-acronym $acronym )
                 kmom=$( gui-read-kmom $kmom )
                 [[ acronym && kmom ]] \
-                    && "$BROWSER" "$REDOVISA_HTTP_PREFIX/~$acronym/dbwebb-kurser/$COURSE/me/redovisa" \
+                    && $BROWSER "$REDOVISA_HTTP_PREFIX/~$acronym/dbwebb-kurser/$COURSE/me/redovisa" \
                     && dbwebb --force --yes download me $acronym \
                     && make docker-run container="course-$COURSE" what="make inspect what=$kmom options='--yes'" | tee inspect.output \
-                    && eval echo "\"$( cat "$DIR/text/$kmom.txt" )"\" | tee -a inspect.output
+                    && output=$( eval echo "\"$( cat "$DIR/text/$kmom.txt" )"\" ) \
+                    && printf "$output" | tee -a inspect.output \
+                    && printf "$output" | eval $TO_CLIPBOARD
                 pressEnterToContinue
                 ;;
             u)
