@@ -29,11 +29,10 @@ databaslast()
 
 
 #
-# Test databas kmom01
+# Guide skolan, part I
 #
-databaskmom01()
+skolan1()
 {
-    inspectExerciseHeader "skolan" "kurser/databas/$KMOM#uppgifter" "skolan"
     local path="me/skolan"
     fileIsReadable "$path/setup.sql"
     # Add below from vt20, it was added jan 2019.
@@ -46,7 +45,6 @@ databaskmom01()
     fileIsReadable "$path/dml_update_lonerevision.sql"
     fileIsReadable "$path/reset_part1.bash"
     fileIsReadable "$path/dml_select.sql"
-    validateKmom "$path"
 
     # Dubbelkolla att databasen kan återställas på rätt sätt
     # Dubbelkolla att alla filer kan köras
@@ -56,11 +54,10 @@ databaskmom01()
 
 
 #
-# Test databas kmom02
+# Guide skolan, part II
 #
-databaskmom02()
+skolan2()
 {
-    inspectExerciseHeader "skolan" "kurser/databas/$KMOM#uppgifter" "skolan"
     local path="me/skolan"
     fileIsReadable "$path/dml_agg.sql"
     fileIsReadable "$path/dml_func.sql"
@@ -76,6 +73,31 @@ databaskmom02()
     # Dubbelkolla backuptabellens lönsesumma
     # Dubbelkolla att vyn för lönerevisionsrapporten finns
     # Dubbelkolla rapport efter lönerevisionen
+}
+
+
+
+#
+# Test databas kmom01
+#
+databaskmom01()
+{
+    inspectExerciseHeader "skolan" "kurser/databas/$KMOM#uppgifter" "skolan"
+    skolan1
+    validateKmom "skolan"
+}
+
+
+
+#
+# Test databas kmom02
+#
+databaskmom02()
+{
+    inspectExerciseHeader "skolan" "kurser/databas/$KMOM#uppgifter" "skolan"
+    skolan1
+    skolan2
+    validateKmom "skolan"
 
     inspectExerciseHeader "terminal1" "kurser/databas/$KMOM#uppgifter" "$KMOM/terminal1"
     local path="me/$KMOM/terminal1"

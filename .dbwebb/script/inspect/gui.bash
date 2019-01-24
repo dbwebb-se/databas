@@ -135,8 +135,11 @@ gui-main-menu()
         20 80 \
         20 \
         "o" "Inspect kmom (download, docker)" \
-        "d" "Inspect kmom (download)" \
-        "i" "Inspect kmom" \
+        "c" "Inspect kmom (docker)" \
+        "d" "Inspect kmom (download, local)" \
+        "i" "Inspect kmom (local)" \
+        "m" "Download student me/" \
+        "w" "Open student me/redovisa in browser" \
         "p" "Potatoe student" \
         "u" "Docker up -d mysql" \
         "s" "Docker stop" \
@@ -204,28 +207,43 @@ main()
             i)
                 acronym=$( gui-read-acronym $acronym )
                 kmom=$( gui-read-kmom $kmom )
-                [[ acronym && kmom ]] \
-                    && dbwebb --yes inspect $COURSE $kmom $acronym | tee inspect.output
+                dbwebb --yes inspect $COURSE $kmom $acronym | tee inspect.output
                 pressEnterToContinue
                 ;;
             d)
                 acronym=$( gui-read-acronym $acronym )
                 kmom=$( gui-read-kmom $kmom )
-                [[ acronym && kmom ]] \
-                    && dbwebb --force --yes download me $acronym \
-                    && make inspect options="--yes" what="$kmom" | tee inspect.output
+                dbwebb --force --yes download me $acronym
+                make inspect options="--yes" what="$kmom" | tee inspect.output
+                pressEnterToContinue
+                ;;
+            c)
+                kmom=$( gui-read-kmom $kmom )
+                make docker-run container="course-$COURSE" what="make inspect what=$kmom options='--yes'" | tee inspect.output
+                output=$( eval echo "\"$( cat "$DIR/text/$kmom.txt" )"\" )
+                printf "$output" | tee -a inspect.output
+                printf "$output" | eval $TO_CLIPBOARD
                 pressEnterToContinue
                 ;;
             o)
                 acronym=$( gui-read-acronym $acronym )
                 kmom=$( gui-read-kmom $kmom )
-                [[ acronym && kmom ]] \
-                    && $BROWSER "$REDOVISA_HTTP_PREFIX/~$acronym/dbwebb-kurser/$COURSE/me/redovisa" \
-                    && dbwebb --force --yes download me $acronym \
-                    && make docker-run container="course-$COURSE" what="make inspect what=$kmom options='--yes'" | tee inspect.output \
-                    && output=$( eval echo "\"$( cat "$DIR/text/$kmom.txt" )"\" ) \
-                    && printf "$output" | tee -a inspect.output \
-                    && printf "$output" | eval $TO_CLIPBOARD
+                $BROWSER "$REDOVISA_HTTP_PREFIX/~$acronym/dbwebb-kurser/$COURSE/me/redovisa"
+                dbwebb --force --yes download me $acronym
+                make docker-run container="course-$COURSE" what="make inspect what=$kmom options='--yes'" | tee inspect.output
+                output=$( eval echo "\"$( cat "$DIR/text/$kmom.txt" )"\" )
+                printf "$output" | tee -a inspect.output
+                printf "$output" | eval $TO_CLIPBOARD
+                pressEnterToContinue
+                ;;
+            m)
+                acronym=$( gui-read-acronym $acronym )
+                dbwebb --force --yes download me $acronym
+                pressEnterToContinue
+                ;;
+            w)
+                acronym=$( gui-read-acronym $acronym )
+                $BROWSER "$REDOVISA_HTTP_PREFIX/~$acronym/dbwebb-kurser/$COURSE/me/redovisa"
                 pressEnterToContinue
                 ;;
             u)
