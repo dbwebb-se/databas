@@ -400,8 +400,11 @@ main()
 
                 $BROWSER "$REDOVISA_HTTP_PREFIX/~$acronym/dbwebb-kurser/$COURSE/me/redovisa"
                 if ! dbwebb --force --yes download me $acronym; then
-                    pressEnterToContinue;
-                    continue
+                    potatoe $acronym
+                    if ! dbwebb --force --yes download me $acronym; then
+                        pressEnterToContinue;
+                        continue
+                    fi
                 fi
                 make docker-run container="course-$COURSE" what="make inspect what=$kmom options='--yes'" | tee inspect.output
                 output=$( eval echo "\"$( cat "$DIR/text/$kmom.txt" )"\" )
