@@ -59,8 +59,9 @@ dbwebb validate skolan
 # terminal1
 #
 cp example/nodejs/mysql/config.json me/kmom02/terminal1
-touch me/kmom02/terminal1/larare.js
-touch me/kmom02/terminal1/lonerevision.js
+touch me/kmom02/terminal1/teacher.js
+touch me/kmom02/terminal1/search.js
+touch me/kmom02/terminal1/between.js
 dbwebb validate terminal1
 
 #
@@ -84,7 +85,6 @@ dbwebb validate search
 # SQL-guiden del 3
 #
 touch me/skolan/test_encoding.sql
-touch me/skolan/setup.bash
 touch me/skolan/ddl_more_tables.sql
 touch me/skolan/dml_insert_csv.sql
 touch me/skolan/dml_join2.sql
