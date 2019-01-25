@@ -6,4 +6,4 @@ Jag kollade igenom din redovisningstext så att allt såg bra ut.
 
 Allt är väl, så här långt. Kör på.
 
-${DBWEBB_TEACHER_SIGNATURE:-// XXX}
+$TEACHER_SIGNATURE

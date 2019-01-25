@@ -2,7 +2,13 @@
 
 # Include ./functions.bash
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+# shellcheck source=.
 source "$DIR/../functions.bash"
+
+# Source the config file if it exists
+DBWEBB_GUI_CONFIG_FILE="$HOME/.dbwebb/gui_config.bash"
+# shellcheck source=$HOME/.dbwebb.gui_config.bash
+[[ -f $DBWEBB_GUI_CONFIG_FILE ]] && source "$DBWEBB_GUI_CONFIG_FILE"
 
 
 
@@ -13,6 +19,7 @@ hash dialog 2>/dev/null \
 
 
 # Settings
+# shellcheck source=./../../../.dbwebb.course
 source "$DIR/../../../.dbwebb.course"
 COURSE="$DBW_COURSE"
 BACKTITLE="dbwebb/$COURSE"
@@ -21,7 +28,7 @@ REDOVISA_HTTP_PREFIX="http://www.student.bth.se"
 
 # OS specific default settings
 BROWSER="firefox"
-TO_CLIPBOARD="" # should be xcopy ish
+TO_CLIPBOARD="xclip -selection c"
 OS_TERMINAL=""
 
 if [[ "$OSTYPE" == "linux-gnu" ]]; then   # Linux, use defaults
@@ -38,8 +45,14 @@ elif [[ "$OSTYPE" == "msys" ]]; then
     # Lightweight shell and GNU utilities compiled for Windows (part of MinGW)
 fi
 
+# Use defaults or overwrite from configuration/environment settings
 BROWSER=${DBWEBB_BROWSER:-$BROWSER}
 TO_CLIPBOARD=${DBWEBB_TO_CLIPBOARD:-$TO_CLIPBOARD}
+TEACHER_SIGNATURE=${DBWEBB_TEACHER_SIGNATURE:-"// XXX"}
+
+
+# Useful defaults which are used within the application
+dockerContainer="mysql"
 
 
 
@@ -51,35 +64,35 @@ gui-firstpage()
     local message
 
     read -r -d "" message << EOD
+README
+================================================
+
 This is a graphical gui for working with inspect.
 You can inspect a students kmom, you can do potatoe and you can download (overwrites me/) and inspect locally - with or without using docker.
 
-You need to start and stop docker before using inspect within a docker container.
-
 Make sure you have a initiated and updated course repo with development utilities installed.
  dbwebb update
- dbwebb init-me
- make install
+ dbwebb init-me # Will be overwritten on download
+ make install # For local inspects
 
-From the root of the cours repo, start the container for MySQL:
- docker-compose up -d mysql
+You need to start and stop docker before using inspect within a docker container.
 
-The output from inspect is written to a file:
+From the root of the cours repo, start the container, if needed. You can also use the docker menu.
+ docker-compose up -d [$dockerContainer]
+ docker-compose start [$dockerContainer]
+ docker-compose stop
+ docker-compose run [$dockerContainer] bash
+
+The output from inspect is written to a file, keep it open in your editor (and use package language-ansi-styles to get colors):
  inspect.output
 
-Basic feedback text is created from files in txt/kmom??.txt, you can add your own teacher signature like this:
+Review the admin menu for customizing and creating a configuration file where you can store customized settings.
+ $DBWEBB_GUI_CONFIG_FILE
+
+Basic feedback text is created from files in txt/kmom??.txt, you can add your own teacher signature like this (or through the configuration file):
  export DBWEBB_TEACHER_SIGNATURE="//Mikael (mos@bth.se)"
 
-Specify which browser to use.
- export DBWEBB_BROWSER="firefox"
-
-These are default settings for using the browser.
- windows (cygwin): export DBWEBB_BROWSER="...."
- macOs:            export DBWEBB_BROWSER="open /Applications/Firefox.app"
- linux:            export DBWEBB_BROWSER="firefox"
-
-There is a sample file "config.bash" which you can copy and modify with your own settings.
-
+/Mikael
 EOD
     
     dialog \
@@ -100,17 +113,33 @@ gui-show-configuration()
     local message
 
     read -r -d "" message << EOD
-These are your current settings.
+SETTINGS
+================================================
+
+These are your current settings that are currently used.
 
  BROWSER="$BROWSER"
- TO_CLIPBOARD="$TO_CLIPBOARD"
  OS_TERMINAL="$OS_TERMINAL"
+ TEACHER_SIGNATURE="$TEACHER_SIGNATURE"
+ TO_CLIPBOARD="$TO_CLIPBOARD"
 
-All these are set with default values and you can override them by setting the following environment variabels.
+All these are set with default values (within the script) and you can override them by setting the following environment variabels, preferably using the configuration file.
 
- DBWEBB_TEACHER_SIGNATURE="$DBWEBB_TEACHER_SIGNATURE"
  DBWEBB_BROWSER="$DBWEBB_BROWSER"
+ DBWEBB_TEACHER_SIGNATURE="$DBWEBB_TEACHER_SIGNATURE"
+ DBWEBB_TO_CLIPBOARD="$DBWEBB_TO_CLIPBOARD"
 
+These are default settings for opening the browser.
+ windows (cygwin): export BROWSER="...."
+ macOs:            export BROWSER="open /Applications/Firefox.app"
+ linux:            export BROWSER="firefox"
+
+These are the default settings for using the clipboard when the feedback text is available through ctrl-v/cmd-v.
+ windows (cygwin): export TO_CLIPBOARD="...."
+ macOs:            export TO_CLIPBOARD="iconv -t macroman | pbcopy"
+ linux:            export TO_CLIPBOARD="xclip -selection c"
+
+/Mikael
 EOD
     
     dialog \
@@ -134,20 +163,61 @@ gui-main-menu()
         --menu "Main menu" \
         20 80 \
         20 \
-        "o" "Inspect kmom (download, docker)" \
-        "c" "Inspect kmom (docker)" \
-        "d" "Inspect kmom (download, local)" \
-        "i" "Inspect kmom (local)" \
-        "m" "Download student me/" \
+        "1" "Inspect kmom (download, docker)" \
+        "2" "Inspect kmom (docker)" \
+        "3" "Inspect kmom (download, local)" \
+        "4" "Inspect kmom (local)" \
+        "" "---" \
+        "d" "Download student me/" \
         "w" "Open student me/redovisa in browser" \
         "p" "Potatoe student" \
-        "u" "Docker up -d mysql" \
-        "s" "Docker stop" \
+        "" "---" \
+        "o" "Docker menu" \
+        "a" "Admin menu" \
         "r" "Readme" \
         "q" "Quit" \
         3>&1 1>&2 2>&3 3>&-
 }
 
+
+
+#
+#
+#
+gui-admin-menu()
+{
+    dialog \
+        --backtitle "$BACKTITLE" \
+        --title "$TITLE" \
+        --menu "Main » Admin menu" \
+        20 80 \
+        20 \
+        "c" "Create a default configuration file ~/.dbwebb/gui_config.bash" \
+        "s" "Show configuration settings" \
+        "b" "Back" \
+        3>&1 1>&2 2>&3 3>&-
+}
+
+
+
+#
+#
+#
+gui-docker-menu()
+{
+    dialog \
+        --backtitle "$BACKTITLE" \
+        --title "$TITLE" \
+        --menu "Main » Docker menu" \
+        20 80 \
+        20 \
+        "u" "Docker up -d [$dockerContainer]" \
+        "r" "Docker run [$dockerContainer] bash" \
+        "s" "Docker start [$dockerContainer]" \
+        "t" "Docker stop" \
+        "b" "Back" \
+        3>&1 1>&2 2>&3 3>&-
+}
 
 
 
@@ -192,6 +262,86 @@ gui-read-acronym()
 
 
 #
+#
+#
+gui-read-docker-container()
+{
+    dialog \
+        --backtitle "$BACKTITLE" \
+        --title "$TITLE" \
+        --inputbox "Select docker container" \
+        20 80 \
+        "$1" \
+        3>&1 1>&2 2>&3 3>&-
+}
+
+
+
+#
+#
+#
+main-admin-menu()
+{
+    local output
+
+    while true; do
+        output=$( gui-admin-menu )
+        case $output in
+            c)
+                createConfigFile
+                pressEnterToContinue
+                ;;
+            s)
+                gui-show-configuration
+                ;;
+            b|"")
+                return
+                ;;
+        esac
+    done
+}
+
+
+
+#
+#
+#
+main-docker-menu()
+{
+    local output
+
+    while true; do
+        output=$( gui-docker-menu )
+        case $output in
+            u)
+                dockerContainer=$( gui-read-docker-container "$dockerContainer" )
+                make docker-up container="$dockerContainer"
+                pressEnterToContinue
+                ;;
+            r)
+                dockerContainer=$( gui-read-docker-container "$dockerContainer" )
+                make docker-run container="$dockerContainer" what="bash"
+                pressEnterToContinue
+                ;;
+            s)
+                dockerContainer=$( gui-read-docker-container "$dockerContainer" )
+                make docker-start container="$dockerContainer"
+                pressEnterToContinue
+                ;;
+            t)
+                make docker-stop
+                pressEnterToContinue
+                ;;
+            b|"")
+                return
+                ;;
+        esac
+    done
+}
+
+
+
+#
 # Main function
 #
 main()
@@ -204,54 +354,73 @@ main()
     while true; do
         output=$( gui-main-menu )
         case $output in
-            i)
+            a)
+                main-admin-menu
+                ;;
+            o)
+                main-docker-menu
+                ;;
+            4)
                 acronym=$( gui-read-acronym $acronym )
+                [[ -z $acronym ]] && continue
+
                 kmom=$( gui-read-kmom $kmom )
+                [[ -z $kmom ]] && continue
+
                 dbwebb --yes inspect $COURSE $kmom $acronym | tee inspect.output
                 pressEnterToContinue
                 ;;
-            d)
+            3)
                 acronym=$( gui-read-acronym $acronym )
+                [[ -z $acronym ]] && continue
+
                 kmom=$( gui-read-kmom $kmom )
+                [[ -z $kmom ]] && continue
+
                 dbwebb --force --yes download me $acronym
                 make inspect options="--yes" what="$kmom" | tee inspect.output
                 pressEnterToContinue
                 ;;
-            c)
+            2)
                 kmom=$( gui-read-kmom $kmom )
+                [[ -z $kmom ]] && continue
+
                 make docker-run container="course-$COURSE" what="make inspect what=$kmom options='--yes'" | tee inspect.output
                 output=$( eval echo "\"$( cat "$DIR/text/$kmom.txt" )"\" )
-                printf "$output" | tee -a inspect.output
-                printf "$output" | eval $TO_CLIPBOARD
+                printf "%s" "$output" | tee -a inspect.output
+                printf "%s" "$output" | eval $TO_CLIPBOARD
                 pressEnterToContinue
                 ;;
-            o)
+            1)
                 acronym=$( gui-read-acronym $acronym )
+                [[ -z $acronym ]] && continue
+
                 kmom=$( gui-read-kmom $kmom )
+                [[ -z $kmom ]] && continue
+
                 $BROWSER "$REDOVISA_HTTP_PREFIX/~$acronym/dbwebb-kurser/$COURSE/me/redovisa"
-                dbwebb --force --yes download me $acronym
+                if ! dbwebb --force --yes download me $acronym; then
+                    pressEnterToContinue;
+                    continue
+                fi
                 make docker-run container="course-$COURSE" what="make inspect what=$kmom options='--yes'" | tee inspect.output
                 output=$( eval echo "\"$( cat "$DIR/text/$kmom.txt" )"\" )
-                printf "$output" | tee -a inspect.output
-                printf "$output" | eval $TO_CLIPBOARD
+                printf "%s" "$output" | tee -a inspect.output
+                printf "%s" "$output" | eval $TO_CLIPBOARD
                 pressEnterToContinue
                 ;;
-            m)
+            d)
                 acronym=$( gui-read-acronym $acronym )
+                [[ -z $acronym ]] && continue
+
                 dbwebb --force --yes download me $acronym
                 pressEnterToContinue
                 ;;
             w)
                 acronym=$( gui-read-acronym $acronym )
+                [[ -z $acronym ]] && continue
+
                 $BROWSER "$REDOVISA_HTTP_PREFIX/~$acronym/dbwebb-kurser/$COURSE/me/redovisa"
-                pressEnterToContinue
-                ;;
-            u)
-                make docker-up container="mysql"
-                pressEnterToContinue
-                ;;
-            s)
-                make docker-stop
                 pressEnterToContinue
                 ;;
             p)

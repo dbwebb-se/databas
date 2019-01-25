@@ -1,0 +1,11 @@
+Då ska vi se vad kmom02 resulterade i...
+
+Jag kollade snabbt igenom din inlämning och utskrifterna från "dbwebb inspect" så att alla saker ligger på rätt plats och att filerna validerar.
+
+Jag kollade igenom din redovisningstext så att allt såg bra ut.
+
+Jag installerade din miljö för Node.js från me/package.json och testkörde dina program i me/terminal1. Jag vill se att de kan koppla sig mot databasen och att de får ut rätt resultat.
+
+Så här långt ser det bra ut. Det är bara att köra vidare och jobba på.
+
+$TEACHER_SIGNATURE
