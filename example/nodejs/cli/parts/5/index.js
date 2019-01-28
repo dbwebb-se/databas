@@ -40,6 +40,7 @@ const game = new Game();
         "Lets run a game of 'Guess my number'!\n"
         + "I am guessing of a number between 1 and 100.\n"
         + "Can you find out what number I'm guessing?\n"
+        + "Select 'menu' for more info or 'exit' to quit.\n"
     );
 
     rl.setPrompt("Guess my number: ");
@@ -56,17 +57,24 @@ const game = new Game();
  * @returns {void}
  */
 function handleInput(line) {
-    let guess;
-
     line = line.trim();
     switch (line) {
         case "quit":
         case "exit":
-            exitProgram();
+            process.exit();
+            break;
+        case "help":
+        case "menu":
+            showMenu();
+            break;
+        case "init":
+            makeInit();
+            break;
+        case "cheat":
+            makeCheat();
             break;
         default:
-            guess = Number.parseInt(line);
-            makeGuess(guess);
+            makeGuess(line);
     }
 
     rl.prompt();
@@ -75,25 +83,62 @@ function handleInput(line) {
 
 
 /**
+ * Show the menu on that can be done.
+ *
+ * @returns {void}
+ */
+function showMenu() {
+    console.info(
+        ` You can choose from the following commands.\n`
+        + `  exit, quit, ctrl-d - to exit the program.\n`
+        + `  help, menu - to show this menu.\n`
+        + `  cheat      - show the current number.\n`
+        + `  init       - randomize a new number.\n`
+        + `  anything else is treated as a guess.`
+    );
+}
+
+
+
+/**
+ * Init the game and guess on (another) number.
+ *
+ * @returns {void}
+ */
+function makeInit() {
+    game.init();
+    console.info(` I am know thinking of another number.`);
+}
+
+
+
+/**
+ * Check the number current being used as target.
+ *
+ * @returns {void}
+ */
+function makeCheat() {
+    console.info(` I am thinking of number ${game.cheat()}`);
+}
+
+
+
+/**
  * Guess the number and check if its correct.
  *
- * @param {integer} guess The number being guessed.
+ * @param {number} guess The number being guessed.
  *
- * @returns {boolean} true if correct guess, otherwise false.
+ * @returns {void}
  */
 function makeGuess(guess) {
-    let match;
-    let message;
-    let thinking = game.cheat();
+    guess = Number.parseInt(guess);
 
-    match = game.check(guess);
-    message = `I'm thinking of number (cheating... ${thinking}).\n`
-        + `Youre guess is ${guess}.\n`
-        + `You guessed right? `
-        + match;
-    console.info(message);
+    if (game.check(guess)) {
+        console.info(` Congratulations! You guessed the number I thought of.`);
+        return;
+    }
 
-    return match;
+    console.info(` Wrong! The number is ${game.compare(guess)}.`);
 }
 
 

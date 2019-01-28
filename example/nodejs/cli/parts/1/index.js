@@ -3,31 +3,45 @@
  */
 "use strict";
 
+// Read from commandline
+const readline = require("readline");
+const rl = readline.createInterface({
+    input: process.stdin,
+    output: process.stdout
+});
+
+// Promisify rl.question to question
+const util = require("util");
+
+rl.question[util.promisify.custom] = (arg) => {
+    return new Promise((resolve) => {
+        rl.question(arg, resolve);
+    });
+};
+const question = util.promisify(rl.question);
+
+
+
 /**
  * Main function.
+ *
+ * @async
  * @returns void
  */
-(function() {
-    // Read from commandline
-    const readline = require("readline");
-    const rl = readline.createInterface({
-        input: process.stdin,
-        output: process.stdout
-    });
+(async function() {
+    let thinking;
+    let message;
+    let guess;
 
-    // Ask question and handle answer in arrow function callback.
-    rl.question("Guess my number: ", (guess) => {
-        let thinking;
-        let message;
+    thinking = Math.round(Math.random() * 100 + 1);
 
-        thinking = Math.round(Math.random() * 100 + 1);
-        guess = Number.parseInt(guess);
-        message = `I'm thinking of number ${thinking}.\n`
-            + `Youre guess is ${guess}.\n`
-            + `You guessed right? `
-            + (thinking === guess);
-        console.info(message);
+    guess = await question("Guess my number: ");
+    guess = Number.parseInt(guess);
+    message = `I'm thinking of number ${thinking}.\n`
+        + `Youre guess is ${guess}.\n`
+        + `You guessed right? `
+        + (thinking === guess);
+    console.info(message);
 
-        rl.close();
-    });
+    rl.close();
 })();
