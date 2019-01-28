@@ -147,6 +147,9 @@ databaskmom03()
     fileIsReadable "$path/config.json"
     fileIsReadable "$path/index.js"
 
+    local path="me"
+    fileIsReadable "$path/package.json"
+
     inspectExerciseHeader "er1" "kurser/databas/$KMOM#uppgifter" "$KMOM/er1"
     local path="me/$KMOM/er1"
     fileIsReadable "$path/er.pdf"
