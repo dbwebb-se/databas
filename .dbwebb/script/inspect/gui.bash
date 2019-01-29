@@ -75,7 +75,7 @@ Make sure you have a initiated and updated course repo with development utilitie
  dbwebb init-me # Will be overwritten on download
  make install # For local inspects
 
-You need to start and stop docker before using inspect within a docker container.
+You need to start and stop docker before using docker within a docker container.
 
 From the root of the cours repo, start the container, if needed. You can also use the docker menu.
  docker-compose up -d [$dockerContainer]
@@ -172,8 +172,9 @@ gui-main-menu()
         "w" "Open student me/redovisa in browser" \
         "p" "Potatoe student" \
         "" "---" \
-        "o" "Docker menu" \
         "a" "Admin menu" \
+        "t" "Database menu" \
+        "o" "Docker menu" \
         "r" "Readme" \
         "q" "Quit" \
         3>&1 1>&2 2>&3 3>&-
@@ -194,6 +195,25 @@ gui-admin-menu()
         20 \
         "c" "Create a default configuration file ~/.dbwebb/gui_config.bash" \
         "s" "Show configuration settings" \
+        "b" "Back" \
+        3>&1 1>&2 2>&3 3>&-
+}
+
+
+
+#
+#
+#
+gui-database-menu()
+{
+    dialog \
+        --backtitle "$BACKTITLE" \
+        --title "$TITLE" \
+        --menu "Main » Database menu" \
+        20 80 \
+        20 \
+        "u" "Create users dbwebb:password and user:pass into docker mysql" \
+        "l" "Load kmom database dump into docker mysql" \
         "b" "Back" \
         3>&1 1>&2 2>&3 3>&-
 }
@@ -306,6 +326,44 @@ main-admin-menu()
 #
 #
 #
+main-database-menu()
+{
+    local output
+
+    while true; do
+        output=$( gui-database-menu )
+        case $output in
+            u)
+                echo "example/sql/create-user-dbwebb.sql" 
+                cat example/sql/create-user-dbwebb.sql | make docker-run container="mysql-client" what="mysql -hmysql -uroot -ppassword"
+                echo "example/sql/create-user-user.sql"
+                cat example/sql/create-user-user.sql | make docker-run container="mysql-client" what="mysql -hmysql -udbwebb -ppassword"
+                echo "example/sql/check-users.sql"
+                cat example/sql/check-users.sql | make docker-run container="mysql-client" what="mysql -hmysql -uuser -ppass --table"
+                pressEnterToContinue
+                ;;
+            l)
+                kmom=$( gui-read-kmom $kmom )
+                [[ -z $kmom ]] && continue
+
+                for file in $DIR/kmom.d/$kmom/dump_*.sql; do
+                    echo "$file"
+                    cat "$file" | make docker-run container="mysql-client" what="mysql -hmysql -udbwebb -ppassword"
+                done
+                pressEnterToContinue
+                ;;
+            b|"")
+                return
+                ;;
+        esac
+    done
+}
+
+
+
+#
+#
+#
 main-docker-menu()
 {
     local output
@@ -357,6 +415,9 @@ main()
             a)
                 main-admin-menu
                 ;;
+            t)
+                main-database-menu
+                ;;
             o)
                 main-docker-menu
                 ;;
@@ -382,13 +443,26 @@ main()
                 pressEnterToContinue
                 ;;
             2)
+                acronym=$( gui-read-acronym $acronym )
+                [[ -z $acronym ]] && continue
+
                 kmom=$( gui-read-kmom $kmom )
                 [[ -z $kmom ]] && continue
 
+                # Open me in browser
+                $BROWSER "$REDOVISA_HTTP_PREFIX/~$acronym/dbwebb-kurser/$COURSE/me/redovisa"
+
+                # Do inspect
                 make docker-run container="course-$COURSE" what="make inspect what=$kmom options='--yes'" | tee inspect.output
+
+                # Echo feedbacktext and add to clipboard
                 output=$( eval echo "\"$( cat "$DIR/text/$kmom.txt" )"\" )
                 printf "%s" "$output" | tee -a inspect.output
                 printf "%s" "$output" | eval $TO_CLIPBOARD
+
+                # Run extra testscripts
+                make docker-run container="course-cli" what="bash .dbwebb/script/inspect/kmom.d/run.bash $kmom" | tee -a inspect.output
+
                 pressEnterToContinue
                 ;;
             1)
@@ -398,7 +472,10 @@ main()
                 kmom=$( gui-read-kmom $kmom )
                 [[ -z $kmom ]] && continue
 
+                # Open me in browser
                 $BROWSER "$REDOVISA_HTTP_PREFIX/~$acronym/dbwebb-kurser/$COURSE/me/redovisa"
+
+                # Download, or potatoe and the download again
                 if ! dbwebb --force --yes download me $acronym; then
                     potatoe $acronym
                     if ! dbwebb --force --yes download me $acronym; then
@@ -406,10 +483,18 @@ main()
                         continue
                     fi
                 fi
+
+                # Do inspect
                 make docker-run container="course-$COURSE" what="make inspect what=$kmom options='--yes'" | tee inspect.output
+
+                # Echo feedbacktext and add to clipboard
                 output=$( eval echo "\"$( cat "$DIR/text/$kmom.txt" )"\" )
                 printf "%s" "$output" | tee -a inspect.output
                 printf "%s" "$output" | eval $TO_CLIPBOARD
+
+                # Run extra testscripts
+                make docker-run container="course-cli" what="bash .dbwebb/script/inspect/kmom.d/run.bash $kmom" | tee -a inspect.output
+
                 pressEnterToContinue
                 ;;
             d)

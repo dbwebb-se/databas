@@ -60,6 +60,10 @@ services:
         image: dbwebb/courserepo
         volumes: [ ".:/home/dbwebb/repo" ]
         ports: [ "10042:80" ]
+    course-cli:
+        image: dbwebb/courserepo:course-cli
+        volumes: [ ".:/home/dbwebb/repo" ]
+        ports: [ "10042:80" ]
     base-all:
         image: dbwebb/courserepo:base-all
         volumes: [ ".:/home/dbwebb/repo" ]

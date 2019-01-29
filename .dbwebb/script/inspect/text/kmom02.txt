@@ -1,11 +1,13 @@
 Då ska vi se vad kmom02 resulterade i...
 
-Jag kollade snabbt igenom din inlämning och utskrifterna från "dbwebb inspect" så att alla saker ligger på rätt plats och att filerna validerar.
+Som vanligt kollar jag igenom din inlämning med "dbwebb inspect" så att allt ligger på plats och validerar. I detta kmom introducerade vi JavaScript-validering.
 
-Jag kollade igenom din redovisningstext så att allt såg bra ut.
+Jag läste igenom din redovisningstext så att allt såg bra ut. I detta kmom var jag extra intresserad av hur du uppfattade introduktionen av JavaScript, Node.js.
 
-Jag installerade din miljö för Node.js från me/package.json och testkörde dina program i me/terminal1. Jag vill se att de kan koppla sig mot databasen och att de får ut rätt resultat.
+Jag installerade din miljö för Node.js från "me/package.json" och testkörde dina program i "me/terminal1". Jag vill se att de kan koppla sig mot databasen i guiden och att de får ut rätt resultat. Jag vill även se att du strukturerat koden i minst en extern modul.
 
-Så här långt ser det bra ut. Det är bara att köra vidare och jobba på.
+Allt jag kollade på såg bra ut. Kör på.
 
 $TEACHER_SIGNATURE
+
+PS. Glöm inte att du kan få svar på alla frågor och funderingar om du ställer dem i forumet.
