@@ -85,6 +85,8 @@ dbwebb validate search
 # SQL-guiden del 3
 #
 touch me/skolan/test_encoding.sql
+touch me/skolan/ddl_all.sql
+touch me/skolan/insert.sql
 touch me/skolan/ddl_more_tables.sql
 touch me/skolan/dml_insert_csv.sql
 touch me/skolan/dml_join2.sql
@@ -93,6 +95,7 @@ touch me/skolan/dml_subquery.sql
 touch me/skolan/dml_export_csv.sql
 touch me/skolan/kurs_export.csv
 touch me/skolan/skolan.sql
+touch me/skolan/reset_part3.bash
 dbwebb validate skolan
 
 #
