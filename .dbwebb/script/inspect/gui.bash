@@ -472,10 +472,11 @@ main()
 
                 # Echo feedbacktext and add to clipboard
                 output=$( eval echo "\"$( cat "$DIR/text/$kmom.txt" )"\" )
-                printf "%s" "$output" | tee -a inspect.output
-                printf "%s" "$output" | eval $TO_CLIPBOARD
+                printf "%s" "$output\n" | tee -a inspect.output
+                printf "%s" "$output\n" | eval $TO_CLIPBOARD
 
                 # Run extra testscripts
+                echo 'make docker-run container="course-cli" what="bash .dbwebb/script/inspect/kmom.d/run.bash $kmom"' | tee -a inspect.output
                 make docker-run container="course-cli" what="bash .dbwebb/script/inspect/kmom.d/run.bash $kmom" | tee -a inspect.output
 
                 pressEnterToContinue
