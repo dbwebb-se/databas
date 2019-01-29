@@ -99,7 +99,7 @@ EOD
         --backtitle "$BACKTITLE" \
         --title "$TITLE" \
         --msgbox "$message" \
-        20 80 \
+        24 80 \
         3>&1 1>&2 2>&3 3>&-
 }
 
@@ -146,7 +146,7 @@ EOD
         --backtitle "$BACKTITLE" \
         --title "$TITLE" \
         --msgbox "$message" \
-        20 80 \
+        24 80 \
         3>&1 1>&2 2>&3 3>&-
 }
 
@@ -161,7 +161,7 @@ gui-main-menu()
         --backtitle "$BACKTITLE" \
         --title "$TITLE" \
         --menu "Main menu" \
-        20 80 \
+        24 80 \
         20 \
         "1" "Inspect kmom (download, docker)" \
         "2" "Inspect kmom (docker)" \
@@ -191,7 +191,7 @@ gui-admin-menu()
         --backtitle "$BACKTITLE" \
         --title "$TITLE" \
         --menu "Main » Admin menu" \
-        20 80 \
+        24 80 \
         20 \
         "c" "Create a default configuration file ~/.dbwebb/gui_config.bash" \
         "s" "Show configuration settings" \
@@ -210,10 +210,13 @@ gui-database-menu()
         --backtitle "$BACKTITLE" \
         --title "$TITLE" \
         --menu "Main » Database menu" \
-        20 80 \
+        24 80 \
         20 \
         "u" "Create users dbwebb:password and user:pass into docker mysql" \
-        "l" "Load kmom database dump into docker mysql" \
+        "l" "Load standard kmom database dump into docker mysql" \
+        "1" "Load student skolan/reset_part1.bash into docker mysql" \
+        "2" "Load student skolan/reset_part2.bash into docker mysql" \
+        "3" "Load student skolan/reset_part3.bash into docker mysql" \
         "b" "Back" \
         3>&1 1>&2 2>&3 3>&-
 }
@@ -229,7 +232,7 @@ gui-docker-menu()
         --backtitle "$BACKTITLE" \
         --title "$TITLE" \
         --menu "Main » Docker menu" \
-        20 80 \
+        24 80 \
         20 \
         "u" "Docker up -d [$dockerContainer]" \
         "r" "Docker run [$dockerContainer] bash" \
@@ -251,7 +254,7 @@ gui-read-kmom()
         --title "$TITLE" \
         --default-item "$kmom" \
         --menu "Select kmom" \
-        20 80 \
+        24 80 \
         20 \
         "kmom01" "kmom01" \
         "kmom02" "kmom02" \
@@ -274,7 +277,7 @@ gui-read-acronym()
         --backtitle "$BACKTITLE" \
         --title "$TITLE" \
         --inputbox "Select student acronym" \
-        20 80 \
+        24 80 \
         "$1" \
         3>&1 1>&2 2>&3 3>&-
 }
@@ -290,7 +293,7 @@ gui-read-docker-container()
         --backtitle "$BACKTITLE" \
         --title "$TITLE" \
         --inputbox "Select docker container" \
-        20 80 \
+        24 80 \
         "$1" \
         3>&1 1>&2 2>&3 3>&-
 }
@@ -350,6 +353,18 @@ main-database-menu()
                     echo "$file"
                     cat "$file" | make docker-run container="mysql-client" what="mysql -hmysql -udbwebb -ppassword"
                 done
+                pressEnterToContinue
+                ;;
+            1)
+                make docker-run container="mysql-client" what="bash me/skolan/reset_part1.bash"
+                pressEnterToContinue
+                ;;
+            2)
+                make docker-run container="mysql-client" what="bash me/skolan/reset_part2.bash"
+                pressEnterToContinue
+                ;;
+            3)
+                make docker-run container="mysql-client" what="bash me/skolan/reset_part3.bash"
                 pressEnterToContinue
                 ;;
             b|"")
