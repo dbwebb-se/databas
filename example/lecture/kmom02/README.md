@@ -204,3 +204,9 @@ JavaScript
 Skriv program med main, som läser in värde från tangentbordet och skriver ut.
 
 Koppla till databas.
+
+```
+npm init
+```
+
+Prata om modul.
