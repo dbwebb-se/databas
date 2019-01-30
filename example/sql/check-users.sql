@@ -5,6 +5,7 @@ SELECT
     User,
     Host,
     Grant_priv,
+    Super_priv,
     plugin
 FROM mysql.user
 WHERE
@@ -12,4 +13,6 @@ WHERE
 ORDER BY User
 ;
 
-SHOW VARIABLES LIKE "%version%";
+SHOW VARIABLES LIKE '%version%';
+
+SHOW VARIABLES LIKE 'local_infile';
