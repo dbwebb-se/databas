@@ -18,7 +18,26 @@ export DBWEBB_TEACHER_SIGNATURE="// Mikael (mos@bth.se)"
 #
 
 # How to open a web browser
+
+# windows (cygwin)
+#export DBWEBB_BROWSER="/cygdrive/c/Program Files (x86)/Google/Chrome/Application/chrome.exe"
+#export DBWEBB_BROWSER="/cygdrive/c/Program Files (x86)/Firefox Developer Edition/firefox.exe"
+
+# macOs
+#export DBWEBB_BROWSER="open /Applications/Firefox.app"
+
+# linux
 #export DBWEBB_BROWSER="firefox"
 
+
+
 # How to add data to clipboard, pasteble by ctrl-v
-#export DBWEBB_TO_CLIPBOARD=xclip"
+
+# windows (cygwin)
+#export DBWEBB_TO_CLIPBOARD="cat - > /dev/clipboard"
+
+# macOs
+#export DBWEBB_TO_CLIPBOARD="iconv -t macroman | pbcopy"
+
+# linux
+#export DBWEBB_TO_CLIPBOARD="xclip -selection c"

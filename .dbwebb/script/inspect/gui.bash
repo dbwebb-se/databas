@@ -45,8 +45,7 @@ elif [[ "$OSTYPE" == "darwin"* ]]; then   # Mac OSX
 elif [[ "$OSTYPE" == "cygwin" ]]; then    # Cygwin
     OS_TERMINAL="cygwin"
     TO_CLIPBOARD="cat - > /dev/clipboard"
-    BROWSER="/cygdrive/c/Program\ Files\ \(x86\)/Google/Chrome/Application/chrome.exe"
-    #BROWSER="/cygdrive/c/Program\ Files\ \(x86\)/Firefox\ Developer\ Edition/firefox.exe"
+    BROWSER="/cygdrive/c/Program Files (x86)/Google/Chrome/Application/chrome.exe"
 elif [[ "$OSTYPE" == "msys" ]]; then
     :
     # Lightweight shell and GNU utilities compiled for Windows (part of MinGW)
@@ -136,7 +135,7 @@ All these are set with default values (within the script) and you can override t
  DBWEBB_TO_CLIPBOARD="$DBWEBB_TO_CLIPBOARD"
 
 These are default settings for opening the browser.
- windows (cygwin): export BROWSER="/cygdrive/c/Program\ Files\ \(x86\)/Google/Chrome/Application/chrome.exe"
+ windows (cygwin): export BROWSER="/cygdrive/c/Program Files (x86)/Google/Chrome/Application/chrome.exe"
  macOs:            export BROWSER="open /Applications/Firefox.app"
  linux:            export BROWSER="firefox"
 
@@ -461,7 +460,7 @@ openRedovisaInBrowser()
 {
     local acronym="$1"
 
-    $BROWSER "$REDOVISA_HTTP_PREFIX/~$acronym/dbwebb-kurser/$COURSE/me/redovisa"
+    "$BROWSER" "$REDOVISA_HTTP_PREFIX/~$acronym/dbwebb-kurser/$COURSE/me/redovisa"
 }
 
 
