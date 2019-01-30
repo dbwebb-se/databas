@@ -89,8 +89,8 @@ skolan3()
     fileIsReadable "$path/dml_join2.sql"
     fileIsReadable "$path/dml_outer_join.sql"
     fileIsReadable "$path/dml_subquery.sql"
-    fileIsReadable "$path/dml_export_csv.sql"
-    fileIsReadable "$path/kurs_export.csv"
+    fileIsReadable "$path/dml_export.sql"
+    fileIsReadable "$path/report.xls"
     fileIsReadable "$path/skolan.sql"
 
     fileIsReadable "$path/ddl_all.sql"

@@ -92,11 +92,13 @@ touch me/skolan/dml_insert_csv.sql
 touch me/skolan/dml_join2.sql
 touch me/skolan/dml_outer_join.sql
 touch me/skolan/dml_subquery.sql
-touch me/skolan/dml_export_csv.sql
-touch me/skolan/kurs_export.csv
+touch me/skolan/dml_export.sql
+touch me/skolan/report.xls
 touch me/skolan/skolan.sql
 touch me/skolan/reset_part3.bash
 dbwebb validate skolan
+
+
 
 #
 # terminal2
