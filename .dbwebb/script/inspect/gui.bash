@@ -443,7 +443,17 @@ main()
                 kmom=$( gui-read-kmom $kmom )
                 [[ -z $kmom ]] && continue
 
-                dbwebb --yes inspect $COURSE $kmom $acronym | tee inspect.output
+                # Open me in browser
+                $BROWSER "$REDOVISA_HTTP_PREFIX/~$acronym/dbwebb-kurser/$COURSE/me/redovisa"
+
+                # Do inspect
+                make inspect options="--yes" what="$kmom" | tee inspect.output
+
+                # Echo feedbacktext and add to clipboard
+                output=$( eval echo "\"$( cat "$DIR/text/$kmom.txt" )"\" )
+                printf "%s" "$output\n" | tee -a inspect.output
+                printf "%s" "$output\n" | eval $TO_CLIPBOARD
+
                 pressEnterToContinue
                 ;;
             3)
@@ -453,8 +463,26 @@ main()
                 kmom=$( gui-read-kmom $kmom )
                 [[ -z $kmom ]] && continue
 
-                dbwebb --force --yes download me $acronym
+                # Open me in browser
+                $BROWSER "$REDOVISA_HTTP_PREFIX/~$acronym/dbwebb-kurser/$COURSE/me/redovisa"
+
+                # Download, or potatoe and the download again
+                if ! dbwebb --force --yes download me $acronym; then
+                    potatoe $acronym
+                    if ! dbwebb --force --yes download me $acronym; then
+                        pressEnterToContinue;
+                        continue
+                    fi
+                fi
+
+                # Do inspect
                 make inspect options="--yes" what="$kmom" | tee inspect.output
+
+                # Echo feedbacktext and add to clipboard
+                output=$( eval echo "\"$( cat "$DIR/text/$kmom.txt" )"\" )
+                printf "%s" "$output\n" | tee -a inspect.output
+                printf "%s" "$output\n" | eval $TO_CLIPBOARD
+
                 pressEnterToContinue
                 ;;
             2)
