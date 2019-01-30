@@ -16,12 +16,17 @@ DBWEBB_GUI_CONFIG_FILE="$HOME/.dbwebb/gui_config.bash"
 hash dialog 2>/dev/null \
     || die "You need to install 'dialog'."
 
+# Preconditions
+hash tree 2>/dev/null \
+    || die "You need to install 'tree'."
+
 
 
 # Settings
 # shellcheck source=./../../../.dbwebb.course
 source "$DIR/../../../.dbwebb.course"
 COURSE="$DBW_COURSE"
+LOGFILE="inspect.output"
 BACKTITLE="dbwebb/$COURSE"
 TITLE="Work with kmoms"
 REDOVISA_HTTP_PREFIX="http://www.student.bth.se"
@@ -38,8 +43,10 @@ elif [[ "$OSTYPE" == "darwin"* ]]; then   # Mac OSX
     TO_CLIPBOARD="iconv -t macroman | pbcopy"
     BROWSER="open /Applications/Firefox.app"
 elif [[ "$OSTYPE" == "cygwin" ]]; then    # Cygwin
-    OS_TERMINAL="linux"
-    BROWSER="'/cygdrive/c/Program Files (X86)/Google/Chrome/chrome.exe'"
+    OS_TERMINAL="cygwin"
+    TO_CLIPBOARD="cat - > /dev/clipboard"
+    BROWSER="/cygdrive/c/Program\ Files\ \(x86\)/Google/Chrome/Application/chrome.exe"
+    #BROWSER="/cygdrive/c/Program\ Files\ \(x86\)/Firefox\ Developer\ Edition/firefox.exe"
 elif [[ "$OSTYPE" == "msys" ]]; then
     :
     # Lightweight shell and GNU utilities compiled for Windows (part of MinGW)
@@ -89,8 +96,7 @@ The output from inspect is written to a file, keep it open in your editor (and u
 Review the admin menu for customizing and creating a configuration file where you can store customized settings.
  $DBWEBB_GUI_CONFIG_FILE
 
-Basic feedback text is created from files in txt/kmom??.txt, you can add your own teacher signature like this (or through the configuration file):
- export DBWEBB_TEACHER_SIGNATURE="//Mikael (mos@bth.se)"
+Basic feedback text is created from files in txt/kmom??.txt, add your own teacher signature through the configuration file (see Admin Menu).
 
 /Mikael
 EOD
@@ -130,12 +136,12 @@ All these are set with default values (within the script) and you can override t
  DBWEBB_TO_CLIPBOARD="$DBWEBB_TO_CLIPBOARD"
 
 These are default settings for opening the browser.
- windows (cygwin): export BROWSER="...."
+ windows (cygwin): export BROWSER="/cygdrive/c/Program\ Files\ \(x86\)/Google/Chrome/Application/chrome.exe"
  macOs:            export BROWSER="open /Applications/Firefox.app"
  linux:            export BROWSER="firefox"
 
 These are the default settings for using the clipboard when the feedback text is available through ctrl-v/cmd-v.
- windows (cygwin): export TO_CLIPBOARD="...."
+ windows (cygwin): export TO_CLIPBOARD="cat - > /dev/clipboard"
  macOs:            export TO_CLIPBOARD="iconv -t macroman | pbcopy"
  linux:            export TO_CLIPBOARD="xclip -selection c"
 
@@ -415,6 +421,90 @@ main-docker-menu()
 
 
 #
+# Echo feedback text  to log and add to clipboard
+#
+feedback()
+{
+    local kmom="$1"
+    local output
+
+    output=$( eval echo "\"$( cat "$DIR/text/$kmom.txt" )"\" )
+    printf "\n%s\n\n" "$output" | tee -a "$LOGFILE"
+    printf "%s" "$output" | eval $TO_CLIPBOARD
+}
+
+
+
+#
+# Download student files and do potatoe if needed
+#
+downloadPotato()
+{
+    local acronym="$1"
+
+    if ! dbwebb --force --yes download me $acronym; then
+        potatoe $acronym
+        if ! dbwebb --force --yes download me $acronym; then
+            echo 1
+        fi
+    fi
+
+    echo 0
+}
+
+
+
+#
+# Open redovisa in browser.
+#
+openRedovisaInBrowser()
+{
+    local acronym="$1"
+
+    $BROWSER "$REDOVISA_HTTP_PREFIX/~$acronym/dbwebb-kurser/$COURSE/me/redovisa"
+}
+
+
+
+#
+# Make a local inspect.
+#
+makeInspectLocal()
+{
+    local kmom="$1"
+
+    make inspect options="--yes" what="$kmom" | tee "$LOGFILE"
+}
+
+
+
+#
+# Make a inspect using docker.
+#
+makeInspectDocker()
+{
+    local kmom="$1"
+
+    make docker-run container="course-$COURSE" what="make inspect what=$kmom options='--yes'" | tee "$LOGFILE"
+}
+
+
+
+#
+# Run extra testscripts using docker.
+#
+makeDockerRunExtras()
+{
+    local kmom="$1"
+
+    # Run extra testscripts
+    echo 'make docker-run container="course-cli" what="bash .dbwebb/script/inspect/kmom.d/run.bash $kmom"' | tee -a "$LOGFILE"
+    make docker-run container="course-cli" what="bash .dbwebb/script/inspect/kmom.d/run.bash $kmom" | tee -a "$LOGFILE"
+}
+
+
+
+#
 # Main function
 #
 main()
@@ -443,17 +533,9 @@ main()
                 kmom=$( gui-read-kmom $kmom )
                 [[ -z $kmom ]] && continue
 
-                # Open me in browser
-                $BROWSER "$REDOVISA_HTTP_PREFIX/~$acronym/dbwebb-kurser/$COURSE/me/redovisa"
-
-                # Do inspect
-                make inspect options="--yes" what="$kmom" | tee inspect.output
-
-                # Echo feedbacktext and add to clipboard
-                output=$( eval echo "\"$( cat "$DIR/text/$kmom.txt" )"\" )
-                printf "%s" "$output\n" | tee -a inspect.output
-                printf "%s" "$output\n" | eval $TO_CLIPBOARD
-
+                openRedovisaInBrowser "$acronym"
+                makeInspectLocal "$kmom"
+                feedback "$kmom"
                 pressEnterToContinue
                 ;;
             3)
@@ -463,26 +545,13 @@ main()
                 kmom=$( gui-read-kmom $kmom )
                 [[ -z $kmom ]] && continue
 
-                # Open me in browser
-                $BROWSER "$REDOVISA_HTTP_PREFIX/~$acronym/dbwebb-kurser/$COURSE/me/redovisa"
-
-                # Download, or potatoe and the download again
-                if ! dbwebb --force --yes download me $acronym; then
-                    potatoe $acronym
-                    if ! dbwebb --force --yes download me $acronym; then
-                        pressEnterToContinue;
-                        continue
-                    fi
+                openRedovisaInBrowser "$acronym"
+                if ! downloadPotato "$acronym"; then
+                    pressEnterToContinue;
+                    continue
                 fi
-
-                # Do inspect
-                make inspect options="--yes" what="$kmom" | tee inspect.output
-
-                # Echo feedbacktext and add to clipboard
-                output=$( eval echo "\"$( cat "$DIR/text/$kmom.txt" )"\" )
-                printf "%s" "$output\n" | tee -a inspect.output
-                printf "%s" "$output\n" | eval $TO_CLIPBOARD
-
+                makeInspectLocal "$kmom"
+                feedback "$kmom"
                 pressEnterToContinue
                 ;;
             2)
@@ -492,21 +561,10 @@ main()
                 kmom=$( gui-read-kmom $kmom )
                 [[ -z $kmom ]] && continue
 
-                # Open me in browser
-                $BROWSER "$REDOVISA_HTTP_PREFIX/~$acronym/dbwebb-kurser/$COURSE/me/redovisa"
-
-                # Do inspect
-                make docker-run container="course-$COURSE" what="make inspect what=$kmom options='--yes'" | tee inspect.output
-
-                # Echo feedbacktext and add to clipboard
-                output=$( eval echo "\"$( cat "$DIR/text/$kmom.txt" )"\" )
-                printf "%s" "$output\n" | tee -a inspect.output
-                printf "%s" "$output\n" | eval $TO_CLIPBOARD
-
-                # Run extra testscripts
-                echo 'make docker-run container="course-cli" what="bash .dbwebb/script/inspect/kmom.d/run.bash $kmom"' | tee -a inspect.output
-                make docker-run container="course-cli" what="bash .dbwebb/script/inspect/kmom.d/run.bash $kmom" | tee -a inspect.output
-
+                openRedovisaInBrowser "$acronym"
+                makeInspectDocker "$kmom"
+                feedback "$kmom"
+                makeDockerRunExtras "$kmom"
                 pressEnterToContinue
                 ;;
             1)
@@ -516,43 +574,28 @@ main()
                 kmom=$( gui-read-kmom $kmom )
                 [[ -z $kmom ]] && continue
 
-                # Open me in browser
-                $BROWSER "$REDOVISA_HTTP_PREFIX/~$acronym/dbwebb-kurser/$COURSE/me/redovisa"
-
-                # Download, or potatoe and the download again
-                if ! dbwebb --force --yes download me $acronym; then
-                    potatoe $acronym
-                    if ! dbwebb --force --yes download me $acronym; then
-                        pressEnterToContinue;
-                        continue
-                    fi
+                openRedovisaInBrowser "$acronym"
+                if ! downloadPotato "$acronym"; then
+                    pressEnterToContinue;
+                    continue
                 fi
-
-                # Do inspect
-                make docker-run container="course-$COURSE" what="make inspect what=$kmom options='--yes'" | tee inspect.output
-
-                # Echo feedbacktext and add to clipboard
-                output=$( eval echo "\"$( cat "$DIR/text/$kmom.txt" )"\" )
-                printf "%s" "$output" | tee -a inspect.output
-                printf "%s" "$output" | eval $TO_CLIPBOARD
-
-                # Run extra testscripts
-                make docker-run container="course-cli" what="bash .dbwebb/script/inspect/kmom.d/run.bash $kmom" | tee -a inspect.output
-
+                makeInspectDocker "$kmom"
+                feedback "$kmom"
+                makeDockerRunExtras "$kmom"
                 pressEnterToContinue
                 ;;
             d)
                 acronym=$( gui-read-acronym $acronym )
                 [[ -z $acronym ]] && continue
 
-                dbwebb --force --yes download me $acronym
+                dbwebb --force --yes download me "$acronym"
                 pressEnterToContinue
                 ;;
             w)
                 acronym=$( gui-read-acronym $acronym )
                 [[ -z $acronym ]] && continue
 
-                $BROWSER "$REDOVISA_HTTP_PREFIX/~$acronym/dbwebb-kurser/$COURSE/me/redovisa"
+                openRedovisaInBrowser "$acronym"
                 pressEnterToContinue
                 ;;
             p)
@@ -562,11 +605,6 @@ main()
             r)
                 gui-firstpage
                 ;;
-            # r)
-            #     acronym=$( gui-read-acronym $acronym )
-            #     $DIR/run_and_verify_exam.bash $acronym && acronym=
-            #     pressEnterToContinue
-            #     ;;
             q)
                 exit 0
                 ;;
