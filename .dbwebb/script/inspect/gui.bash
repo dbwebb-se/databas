@@ -460,7 +460,7 @@ openRedovisaInBrowser()
 {
     local acronym="$1"
 
-    "$BROWSER" "$REDOVISA_HTTP_PREFIX/~$acronym/dbwebb-kurser/$COURSE/me/redovisa"
+    eval "$BROWSER" "$REDOVISA_HTTP_PREFIX/~$acronym/dbwebb-kurser/$COURSE/me/redovisa"
 }
 
 
