@@ -21,7 +21,7 @@ class Dice {
      * @returns {integer} The value of the rolled dice min=1 and max=faces.
      */
     roll(faces=6) {
-        this.dice = Math.round(Math.random() * faces + 1);
+        this.dice = Math.floor(Math.random() * faces + 1);
         return this.dice;
     }
 
