@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+VERSION="v1.0.0 (2019-02-03)"
+
 # Include ./functions.bash
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 # shellcheck source=.
@@ -422,6 +424,19 @@ main-docker-menu()
 #
 # Echo feedback text  to log and add to clipboard
 #
+initLogfile()
+{
+    local acronym="$1"
+    local what="$2"
+
+    printf "Inspect GUI %s\n%s\n%s\n%s\n" "$VERSION" "$what" "$( date )" "$acronym" > "$LOGFILE"
+}
+
+
+
+#
+# Echo feedback text  to log and add to clipboard
+#
 feedback()
 {
     local kmom="$1"
@@ -460,6 +475,8 @@ openRedovisaInBrowser()
 {
     local acronym="$1"
 
+    printf "$REDOVISA_HTTP_PREFIX/~$acronym/dbwebb-kurser/$COURSE/me/redovisa\n" >> "$LOGFILE"
+
     eval "$BROWSER" "$REDOVISA_HTTP_PREFIX/~$acronym/dbwebb-kurser/$COURSE/me/redovisa"
 }
 
@@ -472,7 +489,7 @@ makeInspectLocal()
 {
     local kmom="$1"
 
-    make inspect options="--yes" what="$kmom" | tee "$LOGFILE"
+    make inspect options="--yes" what="$kmom" | tee -a "$LOGFILE"
 }
 
 
@@ -484,7 +501,7 @@ makeInspectDocker()
 {
     local kmom="$1"
 
-    make docker-run container="course-$COURSE" what="make inspect what=$kmom options='--yes'" | tee "$LOGFILE"
+    make docker-run container="course-$COURSE" what="make inspect what=$kmom options='--yes'" | tee -a "$LOGFILE"
 }
 
 
@@ -532,6 +549,7 @@ main()
                 kmom=$( gui-read-kmom $kmom )
                 [[ -z $kmom ]] && continue
 
+                initLogfile "$acronym" "local"
                 openRedovisaInBrowser "$acronym"
                 makeInspectLocal "$kmom"
                 feedback "$kmom"
@@ -544,6 +562,7 @@ main()
                 kmom=$( gui-read-kmom $kmom )
                 [[ -z $kmom ]] && continue
 
+                initLogfile "$acronym" "download, local"
                 openRedovisaInBrowser "$acronym"
                 if ! downloadPotato "$acronym"; then
                     pressEnterToContinue;
@@ -560,6 +579,7 @@ main()
                 kmom=$( gui-read-kmom $kmom )
                 [[ -z $kmom ]] && continue
 
+                initLogfile "$acronym" "docker"
                 openRedovisaInBrowser "$acronym"
                 makeInspectDocker "$kmom"
                 feedback "$kmom"
@@ -573,6 +593,7 @@ main()
                 kmom=$( gui-read-kmom $kmom )
                 [[ -z $kmom ]] && continue
 
+                initLogfile "$acronym" "download, docker"
                 openRedovisaInBrowser "$acronym"
                 if ! downloadPotato "$acronym"; then
                     pressEnterToContinue;
