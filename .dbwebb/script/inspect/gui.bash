@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-VERSION="v1.0.0 (2019-02-03)"
+VERSION="v1.0.1 (2019-02-03)"
 
 # Include ./functions.bash
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
@@ -72,7 +72,7 @@ gui-firstpage()
     local message
 
     read -r -d "" message << EOD
-README
+README ($VERSION)
 ================================================
 
 This is a graphical gui for working with inspect.
