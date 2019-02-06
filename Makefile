@@ -59,7 +59,7 @@ help:
 # Specifics for this project.
 #
 # Default values for arguments
-container ?= course
+container ?= course-cli
 
 # Add local bin path for test tools
 PATH := $(PWD)/bin:$(PWD)/vendor/bin:$(PWD)/node_modules/.bin:$(PATH)
@@ -381,7 +381,11 @@ docker-stop:
 .PHONY: docker-run
 docker-run:
 	@$(call HELPTEXT,$@)
+ifeq ($(what),)
+	[ ! -f docker-compose.yaml ] || docker-compose -f docker-compose.yaml run $(container) bash
+else
 	[ ! -f docker-compose.yaml ] || docker-compose -f docker-compose.yaml run $(container) $(what)
+endif
 
 
 
