@@ -1,13 +1,13 @@
--- MySQL dump 10.13  Distrib 8.0.13, for Linux (x86_64)
+-- MySQL dump 10.16  Distrib 10.1.26-MariaDB, for debian-linux-gnu (x86_64)
 --
--- Host: mysql    Database: skolan
+-- Host: 127.0.0.1    Database: skolan
 -- ------------------------------------------------------
--- Server version	8.0.13
+-- Server version	8.0.14
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
- SET NAMES utf8mb4 ;
+/*!40101 SET NAMES utf8mb4 */;
 /*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
 /*!40103 SET TIME_ZONE='+00:00' */;
 /*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
@@ -19,6 +19,8 @@
 -- Current Database: `skolan`
 --
 
+/*!40000 DROP DATABASE IF EXISTS `skolan`*/;
+
 CREATE DATABASE /*!32312 IF NOT EXISTS*/ `skolan` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */;
 
 USE `skolan`;
@@ -29,7 +31,7 @@ USE `skolan`;
 
 DROP TABLE IF EXISTS `larare`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `larare` (
   `akronym` char(3) NOT NULL,
   `avdelning` char(4) DEFAULT NULL,
@@ -62,4 +64,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-01-29 16:11:57
+-- Dump completed on 2019-02-06 17:22:01
