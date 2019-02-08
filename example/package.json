@@ -9,6 +9,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "ejs": "^2.6.1",
+    "myexpress": "file:express",
     "mysql": "^2.16.0",
     "promise-mysql": "^3.3.1"
   }
