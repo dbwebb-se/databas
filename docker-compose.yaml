@@ -60,10 +60,15 @@ services:
         image: dbwebb/courserepo
         volumes: [ ".:/home/dbwebb/repo" ]
         ports: [ "10042:80" ]
+
+        # perhaps use course specific container
     course-cli:
         image: dbwebb/courserepo:course-cli
-        volumes: [ ".:/home/dbwebb/repo" ]
+        volumes:
+            - .:/home/dbwebb/repo
+            - ./example/sql/inspect/my.cnf:/home/dbwebb/.my.cnf
         ports: [ "10042:80" ]
+
     base-all:
         image: dbwebb/courserepo:base-all
         volumes: [ ".:/home/dbwebb/repo" ]
