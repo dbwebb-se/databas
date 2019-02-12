@@ -9,7 +9,7 @@
 DROP TABLE IF EXISTS account;
 CREATE TABLE account
 (
-	`id` CHAR(4) PRIMARY KEY,
+    `id` CHAR(4) PRIMARY KEY,
     `name` VARCHAR(8),
     `balance` DECIMAL(4, 2)
 );
@@ -17,7 +17,7 @@ CREATE TABLE account
 -- DELETE FROM account;
 INSERT INTO account
 VALUES
-	("1111", "Adam", 10.0),
+    ("1111", "Adam", 10.0),
     ("2222", "Eva", 7.0)
 ;
 
@@ -27,92 +27,92 @@ SELECT * FROM account;
 --
 -- Create procedure for select * from account
 --
-DROP PROCEDURE IF EXISTS showBalance;
-DELIMITER //
-CREATE PROCEDURE showBalance()
+DROP PROCEDURE IF EXISTS show_balance;
+DELIMITER ;;
+CREATE PROCEDURE show_balance()
 BEGIN
     SELECT * FROM account;
 END
-//
+;;
 DELIMITER ;
 
-CALL showBalance();
+CALL show_balance();
 
 --
 -- Create procedure for insert into account
 --
-DROP PROCEDURE IF EXISTS createAccount;
-DELIMITER //
-CREATE PROCEDURE createAccount(
-	aId CHAR(4),
-    aName VARCHAR(8),
-    aBalance DECIMAL(4, 2)
+DROP PROCEDURE IF EXISTS create_account;
+DELIMITER ;;
+CREATE PROCEDURE create_account(
+    a_id CHAR(4),
+    a_name VARCHAR(8),
+    a_balance DECIMAL(4, 2)
 )
 BEGIN
-    INSERT INTO account VALUES (aId, aName, aBalance);
+    INSERT INTO account VALUES (a_id, a_name, a_balance);
 END
-//
+;;
 DELIMITER ;
 
--- CALL createAccount("1337", "Mega", 37.0);
+-- CALL create_account("1337", "Mega", 37.0);
 -- SHOW WARNINGS;
 
 --
 -- Create procedure for show account details
 --
-DROP PROCEDURE IF EXISTS showAccount;
-DELIMITER //
-CREATE PROCEDURE showAccount(
-	aId CHAR(4)
+DROP PROCEDURE IF EXISTS show_account;
+DELIMITER ;;
+CREATE PROCEDURE show_account(
+    a_id CHAR(4)
 )
 BEGIN
-    SELECT * FROM account WHERE id = aId;
+    SELECT * FROM account WHERE id = a_id;
 END
-//
+;;
 DELIMITER ;
 
-CALL showAccount("1111");
+CALL show_account("1111");
 
 
 --
 -- Create procedure for edit account details
 --
-DROP PROCEDURE IF EXISTS editAccount;
-DELIMITER //
-CREATE PROCEDURE editAccount(
-	aId CHAR(4),
-    aName VARCHAR(8),
-    aBalance DECIMAL(4, 2)
+DROP PROCEDURE IF EXISTS edit_account;
+DELIMITER ;;
+CREATE PROCEDURE edit_account(
+    a_id CHAR(4),
+    a_name VARCHAR(8),
+    a_balance DECIMAL(4, 2)
 )
 BEGIN
     UPDATE account SET
-		`name` = aName,
-        `balance` = aBalance
-	WHERE
-		`id` = aId;
+        `name` = a_name,
+        `balance` = a_balance
+    WHERE
+        `id` = a_id;
 END
-//
+;;
 DELIMITER ;
 
--- CALL editAccount("1111", "Mega", 37.0);
+-- CALL edit_account("1111", "Mega", 37.0);
 -- SHOW WARNINGS;
 
 
 --
 -- Create procedure for delete account
 --
-DROP PROCEDURE IF EXISTS deleteAccount;
-DELIMITER //
-CREATE PROCEDURE deleteAccount(
-	aId CHAR(4)
+DROP PROCEDURE IF EXISTS delete_account;
+DELIMITER ;;
+CREATE PROCEDURE delete_account(
+    a_id CHAR(4)
 )
 BEGIN
     DELETE FROM account
-	WHERE
-		`id` = aId;
+    WHERE
+        `id` = a_id;
 END
-//
+;;
 DELIMITER ;
 
--- CALL deleteAccount("1111");
+-- CALL delete_account("1111");
 -- SHOW WARNINGS;

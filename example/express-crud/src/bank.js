@@ -41,7 +41,7 @@ let db;
  * @returns {RowDataPacket} Resultset from the query.
  */
 async function showAccount(id) {
-    let sql = `CALL showAccount(?);`;
+    let sql = `CALL show_account(?);`;
     let res;
 
     res = await db.query(sql, [id]);
@@ -65,7 +65,7 @@ async function showAccount(id) {
  * @returns {void}
  */
 async function createAccount(id, name, balance) {
-    let sql = `CALL createAccount(?, ?, ?);`;
+    let sql = `CALL create_account(?, ?, ?);`;
     let res;
 
     res = await db.query(sql, [id, name, balance]);
@@ -84,7 +84,7 @@ async function createAccount(id, name, balance) {
  * @returns {void}
  */
 async function deleteAccount(id) {
-    let sql = `CALL deleteAccount(?);`;
+    let sql = `CALL delete_account(?);`;
     let res;
 
     res = await db.query(sql, [id]);
@@ -105,7 +105,7 @@ async function deleteAccount(id) {
  * @returns {void}
  */
 async function editAccount(id, name, balance) {
-    let sql = `CALL editAccount(?, ?, ?);`;
+    let sql = `CALL edit_account(?, ?, ?);`;
     let res;
 
     res = await db.query(sql, [id, name, balance]);
@@ -122,7 +122,7 @@ async function editAccount(id, name, balance) {
  * @returns {RowDataPacket} Resultset from the query.
  */
 async function showBalance() {
-    let sql = `CALL showBalance();`;
+    let sql = `CALL show_balance();`;
     let res;
 
     res = await db.query(sql);
