@@ -13,8 +13,8 @@ CREATE TABLE account
 -- DELETE FROM account;
 INSERT INTO account
 VALUES
-    ("1111", "Adam", 10.0),
-    ("2222", "Eva", 7.0)
+    ('1111', 'Adam', 10.0),
+    ('2222', 'Eva', 7.0)
 ;
 
 SELECT * FROM account;
@@ -27,13 +27,13 @@ UPDATE account
 SET
     balance = balance + 1.5
 WHERE
-    id = "2222";
+    id = '2222';
 
 UPDATE account 
 SET
     balance = balance - 1.5
 WHERE
-    id = "1111";
+    id = '1111';
     
 SELECT * FROM account;
 
@@ -47,13 +47,13 @@ UPDATE account
 SET
     balance = balance + 1.5
 WHERE
-    id = "2222";
+    id = '2222';
 
 UPDATE account 
 SET
     balance = balance - 1.5
 WHERE
-    id = "1111";
+    id = '1111';
     
 COMMIT;
 
@@ -87,7 +87,7 @@ END
 
 DELIMITER ;
 
-CALL move_money("1111", "2222", 1.5);
+CALL move_money('1111', '2222', 1.5);
 
 
 
@@ -126,7 +126,7 @@ END
 
 DELIMITER ;
 
-CALL move_money("1111", "2222", 1.5);
+CALL move_money('1111', '2222', 1.5);
 
 
 
@@ -152,7 +152,7 @@ BEGIN
 
     IF current_balance - amount < 0 THEN
         ROLLBACK;
-        SELECT "Amount on the account is not enough to make transaction.";
+        SELECT 'Amount on the account is not enough to make transaction.' AS message;
     ELSE
         UPDATE account 
             SET
@@ -175,7 +175,7 @@ END
 
 DELIMITER ;
 
-CALL move_money("1111", "2222", 1.5);
+CALL move_money('1111', '2222', 1.5);
 SELECT * FROM account;
 
 
@@ -222,7 +222,7 @@ END
 
 DELIMITER ;
 
-CALL get_money("1111", @sum);
+CALL get_money('1111', @sum);
 SELECT @sum;
 
 

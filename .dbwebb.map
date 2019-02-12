@@ -25,12 +25,12 @@ me/kmom04/er2
 me/kmom04/trans
 me/kmom04/myexpress
 me/kmom04/express-sql
-#me/kmom04/eshop1
 
 # kmom05
 me/kmom05/prog
 me/kmom05/crud
 me/kmom05/eshop2
+#me/kmom04/eshop1
 
 # kmom06
 me/kmom06/func
