@@ -224,6 +224,7 @@ gui-database-menu()
         "1" "Load student skolan/reset_part1.bash into docker mysql" \
         "2" "Load student skolan/reset_part2.bash into docker mysql" \
         "3" "Load student skolan/reset_part3.bash into docker mysql" \
+        "4" "Load student skolan/skolan.sql into docker mysql" \
         "b" "Back" \
         3>&1 1>&2 2>&3 3>&-
 }
@@ -339,6 +340,7 @@ main-admin-menu()
 main-database-menu()
 {
     local output
+    local path
 
     while true; do
         output=$( gui-database-menu )
@@ -363,15 +365,42 @@ main-database-menu()
                 pressEnterToContinue
                 ;;
             1)
+                echo "example/sql/inspect/setup_skolan.sql" 
+                cat example/sql/inspect/setup_skolan.sql \
+                    | make docker-run container="mysql-client" what="mysql -hmysql -udbwebb -ppassword"
+
                 make docker-run container="mysql-client" what="bash me/skolan/reset_part1.bash"
                 pressEnterToContinue
                 ;;
             2)
+                echo "example/sql/inspect/setup_skolan.sql" 
+                cat example/sql/inspect/setup_skolan.sql \
+                    | make docker-run container="mysql-client" what="mysql -hmysql -udbwebb -ppassword"
+
                 make docker-run container="mysql-client" what="bash me/skolan/reset_part2.bash"
                 pressEnterToContinue
                 ;;
             3)
+                echo "example/sql/inspect/setup_skolan.sql" 
+                cat example/sql/inspect/setup_skolan.sql \
+                    | make docker-run container="mysql-client" what="mysql -hmysql -udbwebb -ppassword"
+
                 make docker-run container="mysql-client" what="bash me/skolan/reset_part3.bash"
+                pressEnterToContinue
+                ;;
+            4)
+                path="me/skolan/skolan.sql"
+                if [[ -f "$path" ]]; then
+                    echo "example/sql/inspect/setup_skolan.sql" 
+                    cat example/sql/inspect/setup_skolan.sql \
+                        | make docker-run container="mysql-client" what="mysql -hmysql -udbwebb -ppassword"
+
+                    echo "$path"
+                    cat "$path" \
+                        | make docker-run container="mysql-client" what="mysql -hmysql -udbwebb -ppassword skolan"
+                else
+                    echo "The file '$path' does not exists."
+                fi
                 pressEnterToContinue
                 ;;
             b|"")
@@ -513,9 +542,27 @@ makeDockerRunExtras()
 {
     local kmom="$1"
 
-    # Run extra testscripts
-    echo 'make docker-run container="course-cli" what="bash .dbwebb/script/inspect/kmom.d/run.bash $kmom"' | tee -a "$LOGFILE"
-    make docker-run container="course-cli" what="bash .dbwebb/script/inspect/kmom.d/run.bash $kmom" | tee -a "$LOGFILE"
+    echo 'make docker-run container="course-cli" what="bash .dbwebb/script/inspect/kmom.d/run.bash $kmom"' |& tee -a "$LOGFILE"
+    make docker-run container="course-cli" what="bash .dbwebb/script/inspect/kmom.d/run.bash $kmom" |& tee -a "$LOGFILE"
+}
+
+
+
+#
+# Run extra testscripts that are executed before inspect.
+#
+runPreExtras()
+{
+    local kmom="$1"
+    local path=".dbwebb/script/inspect/kmom.d/$kmom/pre.bash"
+
+    if [[ -f "$path" ]]; then
+        # shellcheck source=.dbwebb/script/inspect/kmom.d/$kmom/pre.bash
+        source "$path" |& tee -a "$LOGFILE"
+    else
+        printf "No pre.bash to execute.\n" |& tee -a "$LOGFILE"
+        ls .dbwebb/script/inspect/kmom.d/$kmom/ |& tee -a "$LOGFILE"
+    fi
 }
 
 
@@ -551,6 +598,7 @@ main()
 
                 initLogfile "$acronym" "local"
                 openRedovisaInBrowser "$acronym"
+                runPreExtras "$kmom"
                 makeInspectLocal "$kmom"
                 feedback "$kmom"
                 pressEnterToContinue
@@ -568,6 +616,7 @@ main()
                     pressEnterToContinue;
                     continue
                 fi
+                runPreExtras "$kmom"
                 makeInspectLocal "$kmom"
                 feedback "$kmom"
                 pressEnterToContinue
@@ -581,6 +630,7 @@ main()
 
                 initLogfile "$acronym" "docker"
                 openRedovisaInBrowser "$acronym"
+                runPreExtras "$kmom"
                 makeInspectDocker "$kmom"
                 feedback "$kmom"
                 makeDockerRunExtras "$kmom"
@@ -599,6 +649,7 @@ main()
                     pressEnterToContinue;
                     continue
                 fi
+                runPreExtras "$kmom"
                 makeInspectDocker "$kmom"
                 feedback "$kmom"
                 makeDockerRunExtras "$kmom"

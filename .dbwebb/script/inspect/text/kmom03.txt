@@ -1,0 +1,13 @@
+Då skall vi se kmom03...
+
+Jag dubbelkollar utskriften från din "dbwebb inspect". Jag vill se att allt validerar.
+
+Jag läser igenom redovisningstexten för att få en uppfattning om hur du upplever kmomet.
+
+Jag vill se att ditt terminal2 fungerar enligt uppgiftens beskrivning, så jag provkör det mot din egen databas som du har i me/skolan/skolan.sql.
+
+Jag kollar över ditt er.pdf så att det följer metoden för databasmodellering enligt fasen för konceptuell modellering och att dokumentet ser hyffsat välordnat ut.
+
+Det jag kollade på såg bra ut, kör vidare.
+
+$TEACHER_SIGNATURE

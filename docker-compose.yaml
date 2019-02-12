@@ -29,6 +29,7 @@ services:
     mariadb-client:
         container_name: mariadb-client
         image: mariadb:latest
+        volumes: [ "./example/sql/inspect/my.cnf:/home/dbwebb/.my.cnf" ]
 
     mysql:
         container_name: mysql
@@ -46,6 +47,7 @@ services:
     mysql-client:
         container_name: mysql-client
         image: mysql:latest
+        volumes: [ "./example/sql/inspect/my.cnf:/home/dbwebb/.my.cnf" ]
 
     course-databas:
         image: dbwebb/courserepo:databas

@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # Move to directory
-cd me/kmom02/terminal1 || exit
+cd me/kmom03/terminal2 || exit
 ls -l
 
 # Check config.json
