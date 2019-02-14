@@ -59,7 +59,7 @@ help:
 # Specifics for this project.
 #
 # Default values for arguments
-container ?= course-cli
+container ?= cli
 
 # Add local bin path for test tools
 PATH := $(PWD)/bin:$(PWD)/vendor/bin:$(PWD)/node_modules/.bin:$(PATH)

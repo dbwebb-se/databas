@@ -10,7 +10,7 @@ BY 'password'
 GRANT ALL PRIVILEGES
 ON *.*
 TO 'dbwebb'@'%'
-WITH GRANT OPTION;
+WITH GRANT OPTION
 ;
 
 ALTER USER 'user'@'%'
@@ -22,5 +22,4 @@ BY 'pass'
 GRANT ALL PRIVILEGES
 ON *.*
 TO 'user'@'%'
-WITH GRANT OPTION;
 ;

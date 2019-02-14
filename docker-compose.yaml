@@ -1,5 +1,14 @@
 version: "3"
 services:
+    # Prepare to clean up this file
+    cli:
+        image: dbwebb/courserepo:cli
+        volumes:
+            - ".:/home/dbwebb/repo"
+            - "./example/sql/inspect/my.cnf:/home/dbwebb/.my.cnf"
+
+
+    ## Should be cleaned up
     course1:
         image: dbwebb/courserepo
         ports:

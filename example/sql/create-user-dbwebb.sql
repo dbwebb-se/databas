@@ -13,5 +13,5 @@ BY 'password'
 GRANT ALL PRIVILEGES
 ON *.*
 TO 'dbwebb'@'%'
-WITH GRANT OPTION;
+WITH GRANT OPTION
 ;

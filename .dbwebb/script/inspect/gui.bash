@@ -335,6 +335,38 @@ main-admin-menu()
 
 
 #
+# Drop and create the databases
+#
+# Arg 1: The file[.sql] to load
+# Arg 2: Optional username
+# Arg 3: Optional password
+# Arg 4: Optional database
+#
+runSqlScript()
+{
+    local sql="$1"
+    local user=${2:-root}
+    local password=${3:-}
+    local host="-hmysql"
+    local database=${4:-}
+
+    if [[ ! -z $password ]]; then
+        password="-p$password"
+    fi
+
+    if [[ ! -f "$sql" ]]; then
+        printf "%s: The SQL file '%s' does not exists.\n" "${FUNCNAME[0]}" "$sql"
+        exit 1
+    fi
+
+    printf "%s\n" "$sql"
+    cat "$sql" \
+        | make docker-run what="mysql --table $host -u$user $password $database"
+}
+
+
+
+#
 #
 #
 main-database-menu()
@@ -346,12 +378,9 @@ main-database-menu()
         output=$( gui-database-menu )
         case $output in
             u)
-                echo "example/sql/create-user-dbwebb.sql" 
-                cat example/sql/create-user-dbwebb.sql | make docker-run container="mysql-client" what="mysql -hmysql -uroot -ppassword"
-                echo "example/sql/create-user-user.sql"
-                cat example/sql/create-user-user.sql | make docker-run container="mysql-client" what="mysql -hmysql -udbwebb -ppassword"
-                echo "example/sql/check-users.sql"
-                cat example/sql/check-users.sql | make docker-run container="mysql-client" what="mysql -hmysql -uuser -ppass --table"
+                runSqlScript "example/sql/create-user-dbwebb.sql"
+                runSqlScript "example/sql/create-user-user.sql" "dbwebb"
+                runSqlScript "example/sql/check-users.sql" "dbwebb"
                 pressEnterToContinue
                 ;;
             l)
@@ -359,47 +388,32 @@ main-database-menu()
                 [[ -z $kmom ]] && continue
 
                 for file in $DIR/kmom.d/$kmom/dump_*.sql; do
-                    echo "$file"
-                    cat "$file" | make docker-run container="mysql-client" what="mysql -hmysql -udbwebb -ppassword"
+                    runSqlScript "$file" "dbwebb"
                 done
                 pressEnterToContinue
                 ;;
             1)
-                echo "example/sql/inspect/setup_skolan.sql" 
-                cat example/sql/inspect/setup_skolan.sql \
-                    | make docker-run container="mysql-client" what="mysql -hmysql -udbwebb -ppassword"
-
-                make docker-run container="mysql-client" what="bash me/skolan/reset_part1.bash"
+                runSqlScript "example/sql/inspect/setup_skolan.sql" "dbwebb"
+                make docker-run what="bash me/skolan/reset_part1.bash"
                 pressEnterToContinue
                 ;;
             2)
-                echo "example/sql/inspect/setup_skolan.sql" 
-                cat example/sql/inspect/setup_skolan.sql \
-                    | make docker-run container="mysql-client" what="mysql -hmysql -udbwebb -ppassword"
-
-                make docker-run container="mysql-client" what="bash me/skolan/reset_part2.bash"
+                runSqlScript "example/sql/inspect/setup_skolan.sql" "dbwebb"
+                make docker-run what="bash me/skolan/reset_part2.bash"
                 pressEnterToContinue
                 ;;
             3)
-                echo "example/sql/inspect/setup_skolan.sql" 
-                cat example/sql/inspect/setup_skolan.sql \
-                    | make docker-run container="mysql-client" what="mysql -hmysql -udbwebb -ppassword"
-
-                make docker-run container="mysql-client" what="bash me/skolan/reset_part3.bash"
+                runSqlScript "example/sql/inspect/setup_skolan.sql" "dbwebb"
+                make docker-run what="bash me/skolan/reset_part3.bash"
                 pressEnterToContinue
                 ;;
             4)
                 path="me/skolan/skolan.sql"
                 if [[ -f "$path" ]]; then
-                    echo "example/sql/inspect/setup_skolan.sql" 
-                    cat example/sql/inspect/setup_skolan.sql \
-                        | make docker-run container="mysql-client" what="mysql -hmysql -udbwebb -ppassword"
-
-                    echo "$path"
-                    cat "$path" \
-                        | make docker-run container="mysql-client" what="mysql -hmysql -udbwebb -ppassword skolan"
+                    runSqlScript "example/sql/inspect/setup_skolan.sql" "dbwebb"
+                    runSqlScript "$path" "dbwebb" "" "skolan"
                 else
-                    echo "The file '$path' does not exists."
+                    printf "The file '%s' does not exists.\n" "$path"
                 fi
                 pressEnterToContinue
                 ;;
