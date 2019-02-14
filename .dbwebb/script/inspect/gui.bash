@@ -556,8 +556,8 @@ makeDockerRunExtras()
 {
     local kmom="$1"
 
-    echo 'make docker-run container="course-cli" what="bash .dbwebb/script/inspect/kmom.d/run.bash $kmom"' |& tee -a "$LOGFILE"
-    make docker-run container="course-cli" what="bash .dbwebb/script/inspect/kmom.d/run.bash $kmom" |& tee -a "$LOGFILE"
+    echo 'make docker-run container="course-cli" what="bash .dbwebb/script/inspect/kmom.d/run.bash $kmom"' | tee -a "$LOGFILE"
+    make docker-run container="course-cli" what="bash .dbwebb/script/inspect/kmom.d/run.bash $kmom" | tee -a "$LOGFILE"
 }
 
 
@@ -572,10 +572,10 @@ runPreExtras()
 
     if [[ -f "$path" ]]; then
         # shellcheck source=.dbwebb/script/inspect/kmom.d/$kmom/pre.bash
-        source "$path" |& tee -a "$LOGFILE"
+        source "$path" | tee -a "$LOGFILE"
     else
-        printf "No pre.bash to execute.\n" |& tee -a "$LOGFILE"
-        ls .dbwebb/script/inspect/kmom.d/$kmom/ |& tee -a "$LOGFILE"
+        printf "No pre.bash to execute.\n" | tee -a "$LOGFILE"
+        ls .dbwebb/script/inspect/kmom.d/$kmom/ | tee -a "$LOGFILE"
     fi
 }
 
