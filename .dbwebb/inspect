@@ -187,12 +187,13 @@ databaskmom04()
 #
 databaskmom05()
 {
-    inspectExerciseHeader "eshop2" "kurser/databas/$KMOM#uppgifter" "$KMOM/eshop2"
-    local path="me/$KMOM/eshop2"
+    inspectExerciseHeader "eshop1" "kurser/databas/$KMOM#uppgifter" "$KMOM/eshop1"
+    local path="me/$KMOM/eshop1"
     fileIsReadable "$path/config/db/eshop.json"
     fileIsReadable "$path/sql/eshop/setup.sql"
     fileIsReadable "$path/sql/eshop/ddl.sql"
     fileIsReadable "$path/sql/eshop/insert.sql"
+    fileIsReadable "$path/sql/eshop/backup.sql"
     fileIsReadable "$path/index.js"
     fileIsReadable "$path/cli.js"
     fileIsReadable "$path/package.json"
@@ -205,15 +206,13 @@ databaskmom05()
 #
 databaskmom06()
 {
-    inspectExerciseHeader "skolan" "kurser/databas/$KMOM#uppgifter" "skolan"
-    local path="me/skolan"
-    fileIsReadable "$path/program_ddl.sql"
-    fileIsReadable "$path/program_insert.sql"
-    fileIsReadable "$path/program_dml.sql"
-
-    inspectExerciseHeader "bestall" "kurser/databas/$KMOM#uppgifter" "$KMOM/bestall"
-    local path="me/$KMOM/bestall"
-    fileIsReadable "$path/config/db/skolan.json"
+    inspectExerciseHeader "eshop2" "kurser/databas/$KMOM#uppgifter" "$KMOM/eshop2"
+    local path="me/$KMOM/eshop2"
+    fileIsReadable "$path/config/db/eshop.json"
+    fileIsReadable "$path/sql/eshop/setup.sql"
+    fileIsReadable "$path/sql/eshop/ddl.sql"
+    fileIsReadable "$path/sql/eshop/insert.sql"
+    fileIsReadable "$path/sql/eshop/backup.sql"
     fileIsReadable "$path/index.js"
     fileIsReadable "$path/cli.js"
     fileIsReadable "$path/package.json"

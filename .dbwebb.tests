@@ -11,6 +11,8 @@ dbwebb init-me
 # Kmom01
 #
 
+
+
 #
 # redovisa
 #
@@ -42,6 +44,8 @@ dbwebb validate klient
 #
 # Kmom02
 #
+
+
 
 #
 # SQL-guiden del 2
@@ -80,6 +84,8 @@ dbwebb validate search
 #
 # Kmom03
 #
+
+
 
 #
 # SQL-guiden del 3
@@ -125,6 +131,8 @@ dbwebb validate cli
 # Kmom04
 #
 
+
+
 #
 # er2
 #
@@ -143,21 +151,7 @@ touch me/kmom04/express-sql/cli.js
 cp example/express-mysql/package.json me/kmom04/express-sql
 dbwebb validate express-sql
 
-#
-# eshop1 (move this away)
-#
-install -d me/kmom04/eshop1/config/db/
-install -d me/kmom04/eshop1/sql/eshop/
-cp example/express-mysql/config/db/bank.json me/kmom04/eshop1/config/db/eshop.json
-touch me/kmom04/eshop1/sql/eshop/ddl.sql
-touch me/kmom04/eshop1/sql/eshop/insert.sql
-touch me/kmom04/eshop1/sql/eshop/product.csv
-touch me/kmom04/eshop1/sql/eshop/category.csv
-touch me/kmom04/eshop1/sql/eshop/customer.csv
-touch me/kmom04/eshop1/sql/eshop/backup.sql
-touch me/kmom04/eshop1/cli.js
-touch me/kmom04/eshop1/index.js
-dbwebb validate eshop1
+
 
 #
 # Other
@@ -172,22 +166,22 @@ dbwebb validate myexpress
 # Kmom05
 #
 
-#
-# eshop2
-#
-install -d me/kmom05/eshop2/config/db/
-cp example/express-crud/config/db/bank.json me/kmom05/eshop2/config/db/eshop.json
 
-install -d me/kmom05/eshop2/sql/eshop/
-touch me/kmom05/eshop2/sql/eshop/setup.sql
-touch me/kmom05/eshop2/sql/eshop/ddl.sql
-touch me/kmom05/eshop2/sql/eshop/insert.sql
-touch me/kmom05/eshop2/sql/eshop/backup.sql
 
-touch me/kmom05/eshop2/cli.js
-touch me/kmom05/eshop2/index.js
-cp example/express-crud/package.json me/kmom05/eshop2
-dbwebb validate eshop2
+#
+# eshop1
+#
+install -d me/kmom05/eshop1/config/db/
+install -d me/kmom05/eshop1/sql/eshop/
+cp example/express-mysql/config/db/bank.json me/kmom05/eshop1/config/db/eshop.json
+touch me/kmom05/eshop1/sql/eshop/setup.sql
+touch me/kmom05/eshop1/sql/eshop/ddl.sql
+touch me/kmom05/eshop1/sql/eshop/insert.sql
+touch me/kmom05/eshop1/sql/eshop/backup.sql
+touch me/kmom05/eshop1/cli.js
+touch me/kmom05/eshop1/index.js
+cp example/express-crud/package.json me/kmom05/eshop1
+dbwebb validate eshop1
 
 
 
@@ -204,26 +198,22 @@ dbwebb validate crud
 # Kmom06
 #
 
-#
-# skolan6
-#
-touch me/skolan/program_ddl.sql
-touch me/skolan/program_insert.sql
-touch me/skolan/program_dml.sql
-dbwebb validate skolan
-
 
 
 #
-# bestall
+# eshop2
 #
-install -d me/kmom06/bestall/config/db/
-cp example/express-crud/config/db/bank.json me/kmom06/bestall/config/db/skolan.json
-
-touch me/kmom06/bestall/cli.js
-touch me/kmom06/bestall/index.js
-cp example/express-crud/package.json me/kmom06/bestall
-dbwebb validate bestall
+install -d me/kmom06/eshop2/config/db/
+install -d me/kmom06/eshop2/sql/eshop/
+cp example/express-mysql/config/db/bank.json me/kmom06/eshop2/config/db/eshop.json
+touch me/kmom06/eshop2/sql/eshop/setup.sql
+touch me/kmom06/eshop2/sql/eshop/ddl.sql
+touch me/kmom06/eshop2/sql/eshop/insert.sql
+touch me/kmom06/eshop2/sql/eshop/backup.sql
+touch me/kmom06/eshop2/cli.js
+touch me/kmom06/eshop2/index.js
+cp example/express-crud/package.json me/kmom06/eshop2
+dbwebb validate eshop2
 
 
 
@@ -246,6 +236,35 @@ dbwebb validate index
 # doc/er.pdf
 # sql/ddl.pdf
 # sql/insert.pdf
+
+
+
+# --------------------------------------------------------------------------
+#
+# Not used
+#
+
+#
+# skolan6
+#
+#touch me/skolan/program_ddl.sql
+#touch me/skolan/program_insert.sql
+#touch me/skolan/program_dml.sql
+#dbwebb validate skolan
+
+
+
+#
+# bestall
+#
+#install -d me/kmom06/bestall/config/db/
+#cp example/express-crud/config/db/bank.json #me/kmom06/bestall/config/db/skolan.json
+
+#touch me/kmom06/bestall/cli.js
+#touch me/kmom06/bestall/index.js
+#cp example/express-crud/package.json me/kmom06/bestall
+#dbwebb validate bestall
+
 
 
 # --------------------------------------------------------------------------
