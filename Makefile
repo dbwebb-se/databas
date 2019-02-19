@@ -382,9 +382,9 @@ docker-stop:
 docker-run:
 	@$(call HELPTEXT,$@)
 ifeq ($(what),)
-	[ ! -f docker-compose.yaml ] || docker-compose -f docker-compose.yaml run $(container) bash
+	[ ! -f docker-compose.yaml ] || docker-compose -f docker-compose.yaml run --service-ports $(container) bash
 else
-	[ ! -f docker-compose.yaml ] || docker-compose -f docker-compose.yaml run $(container) $(what)
+	[ ! -f docker-compose.yaml ] || docker-compose -f docker-compose.yaml run --service-ports $(container) $(what)
 endif
 
 
