@@ -18,3 +18,4 @@ pid=$( lsof -n -i4TCP:1337 | grep LISTEN | awk '{ print $2 }' )
 
 DBWEBB_PORT=1337 node index.js &
 sleep 2
+read -p "Press enter to continue..."

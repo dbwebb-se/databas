@@ -1,0 +1,3 @@
+PS. Jag såg att du hade två olika kodstycken/funktioner för att flytta pengarna. Fundera på om du inte kunde slagit samman dem till ett kodstycke, och använt parametrar för konto1, konto2 och belopp.
+
+PS. Det kan finnas saker i din ER som blir svåra att implementera i databasen. Men du kan alltid lösa det i kommande kmom genom att strukturera om dina tabeller. Så vi behöver inte lösa det nu.

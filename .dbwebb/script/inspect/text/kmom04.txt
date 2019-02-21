@@ -4,10 +4,10 @@ Som vanligt kollar jag utskriften från din "dbwebb inspect". Jag vill se att al
 
 Redovisningstexten läses igenom för att se hur du upplevde kursmomentet och för att se att texten "håller måttet".
 
-Jag vill se att din flytt av pengar fungerar både i webbklienten och i temrinalklienten och att du använder en transaktion. Jag provkör programmet mot min egna variant av dbwebb-databasen.
+Jag vill se att din flytt av pengar fungerar, i båda riktningarna via webbklienten och terminalklienten samt att du använder en transaktion. Jag provkör programmet mot min egna variant av dbwebb-databasen.
 
-Jag kollar över ditt er.pdf så att det följer metoden för databasmodellering enligt stegen i faserna för logiskt och fysisk modellering och att dokumentet ser allmänt trivsamt ut.
+Jag kollar över ditt er.pdf så att det följer metoden för databasmodellering enligt stegen i faserna för logiskt och fysisk modellering och att dokumentet ser allmänt trivsamt ut. I nästa kmom får du implementera databasen "på riktigt".
 
-Bra jobbat så här långt, hoppas du känner att du lär dig saker.
+Bra jobbat så här långt.
 
 $TEACHER_SIGNATURE

@@ -7,6 +7,8 @@ composer.lock
 node_modules
 package-lock.json
 inspect.output
+log-gui-main.ansi
+log-gui-inspect.ansi
 
 # Mac
 .DS_Store
