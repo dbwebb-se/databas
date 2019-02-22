@@ -6,6 +6,7 @@ SELECT
     Host,
     Grant_priv,
     Super_priv,
+    Trigger_priv,
     plugin
 FROM mysql.user
 WHERE

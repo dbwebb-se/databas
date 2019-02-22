@@ -105,7 +105,7 @@ END
 
 DELIMITER ;
 
-CALL move_money('1111', '2222', 99.5);
+-- CALL move_money('1111', '2222', 99.5);
 SELECT * FROM account;
 SELECT * FROM account_log;
 
@@ -202,3 +202,9 @@ SHOW TRIGGERS;
 DROP TRIGGER IF EXISTS trigger_test1;
 
 SHOW CREATE TRIGGER log_balance_update;
+
+-- REVOKE TRIGGER ON *.* FROM 'user'@'%';
+-- GRANT TRIGGER
+-- ON *.*
+-- TO 'user'@'%'
+-- ;
