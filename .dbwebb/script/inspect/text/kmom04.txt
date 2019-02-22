@@ -8,6 +8,6 @@ Jag vill se att din flytt av pengar fungerar, i båda riktningarna via webbklien
 
 Jag kollar över ditt er.pdf så att det följer metoden för databasmodellering enligt stegen i faserna för logiskt och fysisk modellering och att dokumentet ser allmänt trivsamt ut. I nästa kmom får du implementera databasen "på riktigt".
 
-Bra jobbat så här långt.
+Kämpa på, gott jobbat så här långt.
 
 $TEACHER_SIGNATURE

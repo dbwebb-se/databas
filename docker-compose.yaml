@@ -1,31 +1,24 @@
 version: "3"
+
+volumes:
+    mysql_data: {}
+    mariadb_data: {}
+
 services:
-    # Prepare to clean up this file
-    cli:
+    # Primary services to use with this course
+    cli: &cli
         image: dbwebb/courserepo:cli
-        ports:
-            - "1337:1337"
-        #network_mode: host
         volumes:
             - ".:/home/dbwebb/repo"
             - "./example/sql/inspect/my.cnf:/home/dbwebb/.my.cnf"
 
-
-    ## Should be cleaned up
-    course1:
-        image: dbwebb/courserepo
+    server:
+        <<: *cli
         ports:
-            - "10081:80"
-        volumes:
-            - ./:/dbwebb-kurs/
-            - /dbwebb-kurs/bin/
-            - /dbwebb-kurs/build/
-            - /dbwebb-kurs/example/utility/
-            - /dbwebb-kurs/node_modules/
-            #- /dbwebb-kurs/vendor/
-        depends_on:
-            - mysql
+            - "1337:1337"
 
+
+    # Add support for mysql, mysql-client, mariadb, mariadb-client
     mariadb:
         container_name: mariadb
         image: mariadb/server:latest
@@ -61,6 +54,9 @@ services:
         image: mysql:latest
         volumes: [ "./example/sql/inspect/my.cnf:/home/dbwebb/.my.cnf" ]
 
+
+
+    # General services from default docker-compose.yaml
     course-databas:
         image: dbwebb/courserepo:databas
         volumes:
@@ -112,7 +108,3 @@ services:
     buster:
         image: dbwebb/courserepo:buster
         volumes: [ ".:/home/dbwebb/repo" ]
-
-volumes:
-    mysql_data: {}
-    mariadb_data: {}

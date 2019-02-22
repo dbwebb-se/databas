@@ -1,3 +1,7 @@
 PS. Jag såg att du hade två olika kodstycken/funktioner för att flytta pengarna. Fundera på om du inte kunde slagit samman dem till ett kodstycke, och använt parametrar för konto1, konto2 och belopp.
 
-PS. Det kan finnas saker i din ER som blir svåra att implementera i databasen. Men du kan alltid lösa det i kommande kmom genom att strukturera om dina tabeller. Så vi behöver inte lösa det nu.
+PS. Det kan finnas saker i din ER som blir svåra att implementera i databasen. Men du kan alltid lösa det i kommande kmom genom att strukturera om dina tabeller. Så vi behöver inte lösa det nu. Det jag såg handlade om kopplingstabeller för att lösa N:M-förhållanden mellan tex Order och Produkt, här är vanligt att använda Orderrad som begrepp.
+
+KOMMENTAR. Din flytt av pengar gick bara i en riktning. Enligt uppgiften skulle pengaflytten gå i båda riktningarna, en riktning per klient.
+
+FIX. Du har valideringsfel. Glöm inte att alltid göra en "dbwebb update" och " dbwebb inspect" för att kontrollera din inlämning. 

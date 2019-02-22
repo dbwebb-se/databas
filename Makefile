@@ -382,6 +382,18 @@ docker-stop:
 docker-run:
 	@$(call HELPTEXT,$@)
 ifeq ($(what),)
+	[ ! -f docker-compose.yaml ] || docker-compose -f docker-compose.yaml run  $(container) bash
+else
+	[ ! -f docker-compose.yaml ] || docker-compose -f docker-compose.yaml run  $(container) $(what)
+endif
+
+
+
+# target: docker-run-server       - Run --service-ports container="" with what="" one off command.
+.PHONY: docker-run-server
+docker-run-server:
+	@$(call HELPTEXT,$@)
+ifeq ($(what),)
 	[ ! -f docker-compose.yaml ] || docker-compose -f docker-compose.yaml run --service-ports $(container) bash
 else
 	[ ! -f docker-compose.yaml ] || docker-compose -f docker-compose.yaml run --service-ports $(container) $(what)

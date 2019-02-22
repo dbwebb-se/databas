@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-VERSION="v1.0.1 (2019-02-03)"
+VERSION="v1.1.0 (2019-02-22)"
 
 # Include ./functions.bash
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
@@ -289,7 +289,7 @@ gui-read-acronym()
     dialog \
         --backtitle "$BACKTITLE" \
         --title "$TITLE" \
-        --inputbox "Select student acronym" \
+        --inputbox "Select student acronym (ctrl-u to clear)" \
         24 80 \
         "$1" \
         3>&1 1>&2 2>&3 3>&-
@@ -500,7 +500,7 @@ initLogfile()
 
 
 #
-# Echo feedback text  to log and add to clipboard
+# Echo feedback text to log and add to clipboard
 #
 feedback()
 {
@@ -512,6 +512,11 @@ feedback()
     output=$( eval echo "\"$( cat "$DIR/text/$kmom.txt" )"\" )
     printf "\n%s\n\n" "$output" | tee -a "$LOGFILE"
     printf "%s" "$output" | eval $TO_CLIPBOARD
+
+    if [[ -f "$DIR/text/${kmom}_extra.txt" ]]; then
+        output=$( eval echo "\"$( cat "$DIR/text/${kmom}_extra.txt" )"\" )
+        printf "\n\033[32;01m---> Vanliga feedbacksvar\033[0m\n\n%s\n\n" "$output" | tee -a "$LOGFILE"
+    fi
 }
 
 
@@ -523,11 +528,12 @@ downloadPotato()
 {
     local acronym="$1"
 
-    header "Download (and potato)" | tee -a "$LOGFILE"
+    header "Download (and potato)" "Doing a silent download, potatoe if needed." | tee -a "$LOGFILE"
 
-    if ! dbwebb --force --yes download me $acronym; then
+    if ! dbwebb --force --yes download me $acronym > /dev/null; then
+        printf "\n\033[32;01m---> Doing a Potato\033[0m\n" | tee -a "$LOGFILE"
         potatoe $acronym
-        if ! dbwebb --force --yes download me $acronym; then
+        if ! dbwebb --force --yes --silent download me $acronym > /dev/null; then
             echo 1
         fi
     fi
@@ -592,8 +598,8 @@ makeDockerRunExtras()
 
     header "Docker Run Extra" | tee -a "$LOGFILE"
 
-    echo 'make docker-run what="bash .dbwebb/script/inspect/kmom.d/run.bash $kmom"' | tee -a "$LOGFILE"
-    make docker-run what="bash .dbwebb/script/inspect/kmom.d/run.bash $kmom" 2>&1 | tee -a "$LOGFILE"
+    echo 'make docker-run-server container="server" what="bash .dbwebb/script/inspect/kmom.d/run.bash $kmom"' | tee -a "$LOGFILE"
+    make docker-run-server container="server" what="bash .dbwebb/script/inspect/kmom.d/run.bash $kmom" 2>&1 | tee -a "$LOGFILE"
 }
 
 
@@ -664,8 +670,8 @@ main()
                 initLogfile "$acronym" "local"
                 openRedovisaInBrowser "$acronym"
                 runPreExtras "$kmom"
-                makeInspectLocal "$kmom"
                 feedback "$kmom"
+                makeInspectLocal "$kmom"
                 runPostExtras "$kmom"
                 pressEnterToContinue
                 ;;
@@ -683,8 +689,8 @@ main()
                     continue
                 fi
                 runPreExtras "$kmom"
-                makeInspectLocal "$kmom"
                 feedback "$kmom"
+                makeInspectLocal "$kmom"
                 runPostExtras "$kmom"
                 pressEnterToContinue
                 ;;
@@ -698,8 +704,8 @@ main()
                 initLogfile "$acronym" "docker"
                 openRedovisaInBrowser "$acronym"
                 runPreExtras "$kmom"
-                makeInspectDocker "$kmom"
                 feedback "$kmom"
+                makeInspectDocker "$kmom"
                 makeDockerRunExtras "$kmom"
                 runPostExtras "$kmom"
                 pressEnterToContinue
@@ -718,8 +724,8 @@ main()
                     continue
                 fi
                 runPreExtras "$kmom"
-                makeInspectDocker "$kmom"
                 feedback "$kmom"
+                makeInspectDocker "$kmom"
                 makeDockerRunExtras "$kmom"
                 runPostExtras "$kmom"
                 pressEnterToContinue
