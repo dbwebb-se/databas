@@ -1,0 +1,11 @@
+Då närmar vi oss slutet av kursen, låt kika på kmom05.
+
+Jag kör en "dbwebb inspect" och kollar att allt validerar.
+
+Jag läser igenom redovisningstexten för att se att texten "håller måttet".
+
+Jag tittar över din eshop så att den uppfyller kraven från uppgiften. Jag testkör den via dina två klienter (webb, terminal) och jag använder din egen databasdump som testdatabas.
+
+Gott. Fortsätt kämpa på.
+
+$TEACHER_SIGNATURE
