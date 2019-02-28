@@ -4,8 +4,8 @@ url="https://docs.google.com/spreadsheets/d/1yz0-C1SFYvNw_mN5CrZd9QrjKUXqKv3OhSl
 
 for target in kund produkt kategori produkt2kategori lager produkt2lager; do
     printf "%s\n" "$target"
-    curl --silent "$url=$target" > $target.csv
+    curl --silent "$url=$target" > "$target.csv"
 done
 
-ls -l *.csv
-file *.csv
+ls -l -- *.csv
+file -- *.csv
