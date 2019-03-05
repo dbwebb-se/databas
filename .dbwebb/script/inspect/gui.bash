@@ -580,11 +580,11 @@ makeInspectDocker()
 {
     local kmom="$1"
 
-    #header "dbwebb inspect" "Do dbwebb inspect in the background and write output to logfile '$LOGFILE_INSPECT'." | tee -a "$LOGFILE"
-    header "dbwebb inspect" | tee -a "$LOGFILE"
+    header "dbwebb inspect" "Do dbwebb inspect in the background and write output to logfile '$LOGFILE_INSPECT'." | tee -a "$LOGFILE"
+    #header "dbwebb inspect" | tee -a "$LOGFILE"
 
-    #(make docker-run what="make inspect what=$kmom options='--yes'" 2>&1  > "$LOGFILE_INSPECT" &)
-    make docker-run what="make inspect what=$kmom options='--yes'" 2>&1  | tee -a "$LOGFILE"
+    (make docker-run what="make inspect what=$kmom options='--yes'" > "$LOGFILE_INSPECT" 2>&1 &)
+    #make docker-run what="make inspect what=$kmom options='--yes'" 2>&1  | tee -a "$LOGFILE"
 }
 
 
