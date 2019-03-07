@@ -533,8 +533,8 @@ downloadPotato()
     if ! dbwebb --force --yes download me $acronym > /dev/null; then
         printf "\n\033[32;01m---> Doing a Potato\033[0m\n" | tee -a "$LOGFILE"
         potatoe $acronym
-        if ! dbwebb --force --yes --silent download me $acronym > /dev/null; then
-            echo 1
+        if ! dbwebb --force --yes --silent download me $acronym; then
+            exit 1
         fi
     fi
 
