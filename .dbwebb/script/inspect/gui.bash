@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-VERSION="v1.1.0 (2019-02-22)"
+VERSION="v1.2.0 (2019-03-11)"
 
 # Include ./functions.bash
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"

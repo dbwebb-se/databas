@@ -4,6 +4,9 @@
 cd me/kmom05/eshop1/config/db || exit
 ls -l
 
+# Quit if file is missing
+[[ ! -f eshop.json ]] && echo "File 'eshop.json' is missing!" && exit 1
+
 # Check eshop.json
 cat eshop.json
 echo
