@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-cd me/kmom05/eshop1 || exit 1
+cd me/kmom06/eshop2 || exit 1
 echo "Doing a silent 'npm --quiet install'"
 npm --quiet install > /dev/null 2>&1
 if (( $? )); then
