@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-VERSION="v1.3.0 (2019-03-11)"
+VERSION="v1.3.1 (2019-03-12)"
 
 # Include ./functions.bash
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
@@ -474,7 +474,6 @@ main-docker-menu()
 #
 header()
 {
-    MSG_OK="\033[0;30;42mOK\033[0m"
     printf "\n\n\033[0;30;42m>>> ======= %-25s =======\033[0m\n\n" "$1"
 
     if [[ $2 ]]; then
@@ -494,7 +493,7 @@ initLogfile()
 
     header "GUI Inspect" | tee "$LOGFILE"
 
-    printf "%s\n%s\n%s\nInspect GUI %s\n" "$( date )" "$acronym" "$what" "$VERSION" | tee -a "$LOGFILE"
+    printf "%s\n%s %s\n%s\nInspect GUI %s\n" "$( date )" "$acronym" "$kmom" "$what" "$VERSION" | tee -a "$LOGFILE"
 }
 
 
@@ -531,14 +530,12 @@ downloadPotato()
     header "Download (and potato)" "Doing a silent download, potatoe if needed." | tee -a "$LOGFILE"
 
     if ! dbwebb --force --yes download me $acronym > /dev/null; then
-        printf "\n\033[32;01m---> Doing a Potato\033[0m\n" | tee -a "$LOGFILE"
+        printf "\n\033[32;01m---> Doing a Potato\033[0m\n\033[0;30;43mACTION NEEDED...\033[0m\n" | tee -a "$LOGFILE"
         potatoe $acronym
         if ! dbwebb --force --yes --silent download me $acronym; then
             exit 1
         fi
     fi
-
-    echo 0
 }
 
 
@@ -669,8 +666,8 @@ main()
 
                 initLogfile "$acronym" "local"
                 openRedovisaInBrowser "$acronym"
-                runPreExtras "$kmom"
                 feedback "$kmom"
+                runPreExtras "$kmom"
                 makeInspectLocal "$kmom"
                 runPostExtras "$kmom"
                 pressEnterToContinue
@@ -684,12 +681,12 @@ main()
 
                 initLogfile "$acronym" "download, local"
                 openRedovisaInBrowser "$acronym"
+                feedback "$kmom"
                 if ! downloadPotato "$acronym"; then
                     pressEnterToContinue;
                     continue
                 fi
                 runPreExtras "$kmom"
-                feedback "$kmom"
                 makeInspectLocal "$kmom"
                 runPostExtras "$kmom"
                 pressEnterToContinue
@@ -703,8 +700,8 @@ main()
 
                 initLogfile "$acronym" "docker"
                 openRedovisaInBrowser "$acronym"
-                runPreExtras "$kmom"
                 feedback "$kmom"
+                runPreExtras "$kmom"
                 makeInspectDocker "$kmom"
                 makeDockerRunExtras "$kmom"
                 runPostExtras "$kmom"
@@ -719,12 +716,12 @@ main()
 
                 initLogfile "$acronym" "download, docker"
                 openRedovisaInBrowser "$acronym"
+                feedback "$kmom"
                 if ! downloadPotato "$acronym"; then
                     pressEnterToContinue;
                     continue
                 fi
                 runPreExtras "$kmom"
-                feedback "$kmom"
                 makeInspectDocker "$kmom"
                 makeDockerRunExtras "$kmom"
                 runPostExtras "$kmom"

@@ -6,7 +6,7 @@ FÖLJANDE SKALL FUNGERA
 ----------------------
 menu                - Visa en meny
 about               - Visa namnet på de i gruppen
-order <search>      - Visa samltliga (eller matchande) ordrar
+order <search>      - Visa samtliga (eller matchande) ordrar
 picklist <order_id> - Skapa en plocklista för en order
 ship <order_id>     - Skeppa/skicka en order
 exit                - Avsluta
