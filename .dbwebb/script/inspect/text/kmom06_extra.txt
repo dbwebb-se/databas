@@ -2,15 +2,12 @@ FIX. Du har valideringsfel som gör att det inte går att rätta din inlämning.
 
 FIX. Din databasdump saknar lagrade procedurer, se https://dbwebb.se/t/8371. Uppdatera din backup.sql så kör vi igen.
 
+KOMMENTAR. Länken eshop/index fungerade inte (enligt uppgiften), men det löste sig. Tänk dock att ibland är det väldigt viktigt att följa uppgiftens spec.
+
+FIX. Du har mixat små och stora bokstäver i din SQL-kod. Vår kodstandard säger bara små bokstäver, se forumet: https://dbwebb.se/t/8379. Uppdatera din kod, var konsistent i användandet av små och stora bokstäver och undvik stora bokstäver.
 
 FIX. Dina databas-funktioner har inte karaktäristik angiven så de går inte att ladda från backup-filen. Se forumet: https://dbwebb.se/t/8419. Uppdatera dina funktioner med karaktäristik och skapa en ny backupfil.
 
 Executing: mysql -udbwebb eshop < me/kmom06/eshop2/sql/eshop/backup.sql
 ERROR 1418 (HY000) at line XXX: This function has none of DETERMINISTIC, NO SQL, or READS SQL DATA in its declaration a
 nd binary logging is enabled (you *might* want to use the less safe log_bin_trust_function_creators variable)
-
-
-
-KOMMENTAR. Länken eshop/index fungerade inte (enligt uppgiften), men det löste sig. Tänk dock att ibland är det väldigt viktigt att följa uppgiftens spec.
-
-FIX. Du har mixat små och stora bokstäver i din SQL-kod. Vår kodstandard säger bara små bokstäver, se forumet: https://dbwebb.se/t/8379. Uppdatera din kod, var konsistent i användandet av små och stora bokstäver och undvik stora bokstäver.
