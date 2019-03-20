@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-VERSION="v1.3.1 (2019-03-12)"
+VERSION="v1.3.2 (2019-03-20)"
 
 # Include ./functions.bash
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
@@ -508,12 +508,14 @@ feedback()
 
     header "Feedback" | tee -a "$LOGFILE"
 
-    output=$( eval echo "\"$( cat "$DIR/text/$kmom.txt" )"\" )
+    #output=$( eval echo "\"$( cat "$DIR/text/$kmom.txt" )"\" )
+    output=$(< "$DIR/text/$kmom.txt" )
     printf "\n%s\n\n" "$output" | tee -a "$LOGFILE"
     printf "%s" "$output" | eval $TO_CLIPBOARD
 
     if [[ -f "$DIR/text/${kmom}_extra.txt" ]]; then
-        output=$( eval echo "\"$( cat "$DIR/text/${kmom}_extra.txt" )"\" )
+        #output=$( eval echo "\"$( cat "$DIR/text/${kmom}_extra.txt" )"\" )
+        output=$(< "$DIR/text/${kmom}_extra.txt" )
         printf "\n\033[32;01m---> Vanliga feedbacksvar\033[0m\n\n%s\n\n" "$output" | tee -a "$LOGFILE"
     fi
 }
@@ -533,7 +535,12 @@ downloadPotato()
         printf "\n\033[32;01m---> Doing a Potato\033[0m\n\033[0;30;43mACTION NEEDED...\033[0m\n" | tee -a "$LOGFILE"
         potatoe $acronym
         if ! dbwebb --force --yes --silent download me $acronym; then
-            exit 1
+            printf "\n\033[0;30;41mFAILED!\033[0m Doing a full potatoe, as a last resort...\n" | tee -a "$LOGFILE"
+            potatoe $acronym "false"
+            if ! dbwebb --force --yes --silent download me $acronym; then
+                printf "\n\033[0;30;41mFAILED!\033[0m Doing a full potatoe, as a last resort...\n" | tee -a "$LOGFILE"
+                exit 1
+            fi
         fi
     fi
 }
