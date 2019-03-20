@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-VERSION="v1.3.2 (2019-03-20)"
+VERSION="v1.3.3 (2019-03-20)"
 
 # Include ./functions.bash
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
@@ -556,7 +556,7 @@ openRedovisaInBrowser()
 
     printf "$REDOVISA_HTTP_PREFIX/~$acronym/dbwebb-kurser/$COURSE/me/redovisa\n" 2>&1 | tee -a "$LOGFILE"
 
-    eval "$BROWSER" "$REDOVISA_HTTP_PREFIX/~$acronym/dbwebb-kurser/$COURSE/me/redovisa"
+    eval "$BROWSER" "$REDOVISA_HTTP_PREFIX/~$acronym/dbwebb-kurser/$COURSE/me/redovisa" &
 }
 
 
