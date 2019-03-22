@@ -9,3 +9,15 @@ mysql -udbwebb < example/sql/inspect/setup_eshop.sql
 
 echo "Executing: mysql -udbwebb eshop < me/kmom05/eshop1/sql/eshop/backup.sql"
 mysql -udbwebb eshop < me/kmom05/eshop1/sql/eshop/backup.sql
+
+echo "Executing: mysql -udbwebb < example/sql/list_proc_func_trig.sql"
+mysql -udbwebb eshop < example/sql/list_proc_func_trig.sql
+
+echo "SHOW TABLES;"
+mysql -udbwebb -t -e "SHOW TABLES;" eshop
+
+echo "SELECT * FROM v_proc;"
+mysql -udbwebb -t -e "SELECT * FROM v_proc;" eshop
+
+echo "SELECT * FROM v_trig;"
+mysql -udbwebb -t -e "SELECT * FROM v_trig;" eshop 
