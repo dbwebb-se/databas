@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-VERSION="v1.3.3 (2019-03-20)"
+VERSION="v1.3.4 (2019-03-22)"
 
 # Include ./functions.bash
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
@@ -508,8 +508,8 @@ feedback()
 
     header "Feedback" | tee -a "$LOGFILE"
 
-    #output=$( eval echo "\"$( cat "$DIR/text/$kmom.txt" )"\" )
-    output=$(< "$DIR/text/$kmom.txt" )
+    output=$( eval echo "\"$( cat "$DIR/text/$kmom.txt" )"\" )
+    #output=$(< "$DIR/text/$kmom.txt" )
     printf "\n%s\n\n" "$output" | tee -a "$LOGFILE"
     printf "%s" "$output" | eval $TO_CLIPBOARD
 
