@@ -1,5 +1,27 @@
 #!/usr/bin/env bash
 
+
+#
+# Find the .dbwebb.course and return the pathname
+#
+getDbwebbCourseFile()
+{
+    local dir="$1"
+
+    while [ "$dir" != "/" ] ; do
+        dir=$( dirname "$dir" )
+        found=$( find "$dir" -maxdepth 1 -name .dbwebb.course )
+        if [[ $found ]]; then
+            echo $found
+            break
+        fi
+    done
+
+    echo ""
+}
+
+
+
 #
 # Press enter to continue
 #

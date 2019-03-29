@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-VERSION="v1.3.4 (2019-03-22)"
+VERSION="v1.4.0 (2019-03-29)"
 
 # Include ./functions.bash
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
@@ -25,9 +25,14 @@ hash tree 2>/dev/null \
 
 
 # Settings
-# shellcheck source=./../../../.dbwebb.course
-source "$DIR/../../../.dbwebb.course"
+dbwebbWCourseFile=$( getDbwebbCourseFile "$DIR" )
+[[ ! -f $dbwebbWCourseFile ]] && die "Failed finding course repo file."
+# shellcheck source=/dev/null
+source "$dbwebbWCourseFile"
 COURSE="$DBW_COURSE"
+COURSE_DIR=$( dirname $dbwebbWCourseFile )
+TENTAMEN_DIR="$COURSE_DIR/tentamen"
+
 LOGFILE="log-gui-main.ansi"
 LOGFILE_INSPECT="log-gui-inspect.ansi"
 BACKTITLE="dbwebb/$COURSE"
@@ -179,6 +184,8 @@ gui-main-menu()
         "2" "Inspect kmom (docker)" \
         "3" "Inspect kmom (download, local)" \
         "4" "Inspect kmom (local)" \
+        "5" "Inspect tentamen (rsync, docker)" \
+        "6" "Inspect tentamen (docker)" \
         "" "---" \
         "d" "Download student me/" \
         "w" "Open student me/redovisa in browser" \
@@ -190,6 +197,40 @@ gui-main-menu()
         "r" "Readme" \
         "q" "Quit" \
         3>&1 1>&2 2>&3 3>&-
+}
+
+
+
+#
+#
+#
+gui-show-receipt()
+{
+    local acronym="$1"
+
+    dialog \
+        --backtitle "$BACKTITLE" \
+        --title "Receipt for $acronym" \
+        --msgbox "$( get-receipt $acronym )" \
+        40 80 \
+        3>&1 1>&2 2>&3 3>&-
+}
+
+
+
+#
+#
+#
+get-receipt()
+{
+    local acronym="$1"
+    local message=
+
+    message=$(< "$TENTAMEN_DIR/$acronym/RECEIPT.md" )
+
+    [[ -z $message ]] && message="No RECEIPT.md found for $acronym"
+
+    echo "$message"
 }
 
 
@@ -276,6 +317,27 @@ gui-read-kmom()
         "kmom05" "kmom05" \
         "kmom06" "kmom06" \
         "kmom10" "kmom10" \
+        3>&1 1>&2 2>&3 3>&-
+}
+
+
+
+#
+#
+#
+gui-read-seal-version()
+{
+    local acronym="$1"
+    local path=
+
+    select=$( cd "$TENTAMEN_DIR" && find "$acronym" -maxdepth 1 -mindepth 1 -type d | head -1 ) 
+    path="$TENTAMEN_DIR/$select"
+
+    dialog \
+        --backtitle "$BACKTITLE" \
+        --title "Select sealed version ($acronym)" \
+        --dselect "$path" \
+        24 80 \
         3>&1 1>&2 2>&3 3>&-
 }
 
@@ -523,6 +585,19 @@ feedback()
 
 
 #
+# 
+#
+printReceipt()
+{
+    local acronym="$1"
+
+    header "Receipt" | tee -a "$LOGFILE"
+    printf "\n%s\n\n" "$( get-receipt $acronym )" | tee -a "$LOGFILE"
+}
+
+
+
+#
 # Download student files and do potatoe if needed
 #
 downloadPotato()
@@ -594,16 +669,33 @@ makeInspectDocker()
 
 
 #
+# Make a validate using docker.
+#
+makeValidateDocker()
+{
+    local target="$1"
+
+    header "dbwebb validate" "Do dbwebb validate in the background and write output to logfile '$LOGFILE_INSPECT'." | tee -a "$LOGFILE"
+    #header "dbwebb inspect" | tee -a "$LOGFILE"
+
+    (cd "$COURSE_DIR" && make docker-run what="make validate what=$target" > "$LOGFILE_INSPECT" 2>&1 &)
+    #(cd "$COURSE_DIR" && make docker-run what="make validate what=$target/" 2>&1  | tee -a "$LOGFILE")
+}
+
+
+
+#
 # Run extra testscripts using docker.
 #
 makeDockerRunExtras()
 {
     local kmom="$1"
+    local path=".dbwebb/script/inspect/kmom.d"
 
     header "Docker Run Extra" | tee -a "$LOGFILE"
 
-    echo 'make docker-run-server container="server" what="bash .dbwebb/script/inspect/kmom.d/run.bash $kmom"' | tee -a "$LOGFILE"
-    make docker-run-server container="server" what="bash .dbwebb/script/inspect/kmom.d/run.bash $kmom" 2>&1 | tee -a "$LOGFILE"
+    echo 'make docker-run-server container="server" what="bash $path/run.bash $kmom"' | tee -a "$LOGFILE"
+    make docker-run-server container="server" what="bash $path/run.bash $kmom" 2>&1 | tee -a "$LOGFILE"
 }
 
 
@@ -732,6 +824,42 @@ main()
                 makeInspectDocker "$kmom"
                 makeDockerRunExtras "$kmom"
                 runPostExtras "$kmom"
+                pressEnterToContinue
+                ;;
+            5)
+                #[[ -z $acronym ]] && acronym="abtl18"
+                acronym=$( gui-read-acronym $acronym )
+                [[ -z $acronym ]] && continue
+
+                gui-show-receipt $acronym
+
+                seal=$( gui-read-seal-version $acronym )
+                [[ -z $seal ]] && continue
+                rsync -a --delete "$seal/" "$COURSE_DIR/me/tentamen/"
+
+                initLogfile "$acronym" "tentamen"
+                openRedovisaInBrowser "$acronym"
+                printReceipt $acronym
+                feedback "tentamen"
+                runPreExtras "tentamen"
+                makeValidateDocker "tentamen"
+                makeDockerRunExtras "tentamen"
+                runPostExtras "tentamen"
+                pressEnterToContinue
+                ;;
+            6)
+                #[[ -z $acronym ]] && acronym="abtl18"
+                acronym=$( gui-read-acronym $acronym )
+                [[ -z $acronym ]] && continue
+
+                initLogfile "$acronym" "tentamen"
+                openRedovisaInBrowser "$acronym"
+                printReceipt $acronym
+                feedback "tentamen"
+                runPreExtras "tentamen"
+                makeValidateDocker "tentamen"
+                makeDockerRunExtras "tentamen"
+                runPostExtras "tentamen"
                 pressEnterToContinue
                 ;;
             d)

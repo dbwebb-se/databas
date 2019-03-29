@@ -1,0 +1,19 @@
+AVDRAG -5p Generellt, det verkar som flera väsentliga delar saknas i din inlämning, det går inte att köra 
+
+AVDRAG -1p Din terminalklient `menu` har spår av en massa gamla saker, det borde inte vara där.
+
+AVDRAG -1p Du har inte `doc/er.pdf`, men jag hittade den på annan plats.
+
+AVDRAG -5p Du har inte `doc/er.pdf` och jag kan inte hitta den någonstans i din katalog.
+
+AVDRAG -0p Dina filer ligger i en underkatalog/på fel plats.
+
+AVDRAG -5p Din backupfil är tom/korrupt/fungerar inte.
+AVDRAG -1p Din backupfil ligger på fel plats.
+AVDRAG -2p Din backupfil saknar någon konstruktion, jag behövde ladda databasen från SQL-filerna.
+
+Din search fungerar varken i webbklient eller i terminalklient.
+
+AVDRAG 1p Din `search ps` fungerade inte, borde gett två träffar.
+
+AVDRAG 3p Din `person` fungerade inte perfekt.
