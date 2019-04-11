@@ -16,7 +16,7 @@ sql="
 DROP DATABASE IF EXISTS $target;
 CREATE DATABASE $target;
 "
-echo "Setup the databbase '$target'"
+echo "Setup the database '$target'"
 echo $sql | mysql -udbwebb
 
 echo "Load user database from sql/$target/backup.sql"
