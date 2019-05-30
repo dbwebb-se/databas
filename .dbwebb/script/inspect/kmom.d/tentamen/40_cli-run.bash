@@ -10,7 +10,7 @@ logg                - VVisa innehåll i joinad tabell
 search <str>        - Sök i loggen
 
 'search ps' visar två rader.
-'search 1' visar en rad.
+'search 5' visar tre rader.
 "
 
 node cli.js

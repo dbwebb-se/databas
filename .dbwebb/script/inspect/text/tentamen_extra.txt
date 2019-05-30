@@ -1,19 +1,57 @@
 AVDRAG -5p Generellt, det verkar som flera väsentliga delar saknas i din inlämning, det går inte att köra 
 
+AVDRAG -1p Du hade valideringsfel vid `dbwebb validate`.
+
 AVDRAG -1p Din terminalklient `menu` har spår av en massa gamla saker, det borde inte vara där.
 
-AVDRAG -1p Du har inte `doc/er.pdf`, men jag hittade den på annan plats.
+AVDRAG -1p Du har inte `doc/er.pdf`, men jag hittade den på annan plats (eller felstavad).
+AVDRAG -4p Du har inte `doc/er.pdf` och jag kan inte hitta den någonstans i din katalog.
+AVDRAG 1p Ditt ER såg mer ut som en konceptuell modell än en logisk modell.
+AVDRAG 1p Ditt ER såg inte helt korrekt ut med relationerna.
+AVDRAG 1p Ditt ER såg inte helt korrekt ut kolumnerna.
 
-AVDRAG -5p Du har inte `doc/er.pdf` och jag kan inte hitta den någonstans i din katalog.
+AVDRAG -1p Dina filer ligger i en underkatalog/på fel plats.
 
-AVDRAG -0p Dina filer ligger i en underkatalog/på fel plats.
-
-AVDRAG -5p Din backupfil är tom/korrupt/fungerar inte.
+AVDRAG -5p Din backupfil är saknas/tom/korrupt/fungerar inte.
 AVDRAG -1p Din backupfil ligger på fel plats.
 AVDRAG -2p Din backupfil saknar någon konstruktion, jag behövde ladda databasen från SQL-filerna.
 
+AVDRAG 1p Jag försökte läsa in din insert.sql men du har använt absoluta sökvägar till filerna (alt ej använt LOCAL INFILE).
+
+AVDRAG 1p Du hade använt en annan användare när du skapade dina procedurera/funktioner/triggers (ej user, dbwebb eller root).
+
 Din search fungerar varken i webbklient eller i terminalklient.
 
-AVDRAG 1p Din `search ps` fungerade inte, borde gett två träffar.
+AVDRAG 2p Kommandot `logg` i terminalklienten skrevs inte ut i en tabell.
+AVDRAG 2p Kommandot `search` i terminalklienten skrevs inte ut i en tabell.
 
-AVDRAG 3p Din `person` fungerade inte perfekt.
+AVDRAG 2p Kommandot sok fungerar inte i webbklienten.
+AVDRAG 1p Din `search ps` fungerade inte, borde gett två träffar.
+AVDRAG 1p Din `search 5` fungerade inte, borde gett tre träffar.
+
+AVDRAG 2p Jag kunde inte få search att filtrera något alls.
+Din `search` verkar inte fungera, den visar alltid alla rader (inga poäng).
+
+AVDRAG 3-4p Din `person` fungerade inte perfekt.
+AVDRAG 1p Du hade döpt `person` till ett annat kommando.
+
+AVDRAG 1p Kommandot `search` saknas i terminalklientens meny.
+AVDRAG 3p Webbklienten innehåller inte sökfunktionen.
+AVDRAG 2p Sökfunktionen fungerar inte i webbklienten.
+
+AVDRAG 2p Din rapport från loggen ser inte helt korrekt ut (webbklient och terminalklient).
+
+AVDRAG 1p Kommandot `person` hette `rapport` och utskriften av rapporten var korrekt men tabellformatteringen hade inslag av udda radbrytning.
+
+AVDRAG 1p Du har inte korrekt innehåll i databasen enligt Excelfilen.
+
+Såg du att det fanns 4 flikar i Excelarket? https://dbwebb.se/f/65110
+
+AVDRAG 2p Dina *.sql-filer ger felmeddelande och går ej att köra i en sekvens.
+
+AVDRAG 1p Din webbklient har inte startrouten `sapo/index`.
+AVDRAG 1p Du använde inte config/db/sapo.json som konfigurationsfil.
+
+AVDRAG 2p Du har varit inkonsekvent när du mixat stora och små bokstäver.
+
+AVDRAG 2p Jag får ett felmeddelande, "Error: ER_WRONG_FIELD_WITH_GROUP: Expression #1 of SELECT list is not in GROUP BY clause and contains nonaggregated column 'XXX' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by". Du kan läsa om felet här: https://dbwebb.se/t/8420
