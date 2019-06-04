@@ -1,13 +1,14 @@
 #!/usr/bin/env bash
 cd me/tentamen || exit
 
-target="exam"
+target="sapo"
 
 echo "
 FÖLJANDE SKALL FUNGERA via localhost:1337
 ----------------------
 $target/index    - Välkomstsida, gemensam header footer och navigering
-$target/report   - Rapport av joinad tabell
+$target/logg     - Visa utskrift av joinad tabell
+$target/search   - Sök i loggen
 
 (servern startas i bakgrunden och dödas senare)
 (var med på att utskrift från servern krockar med annan utskrift)

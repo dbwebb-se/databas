@@ -6,9 +6,11 @@ FÖLJANDE SKALL FUNGERA
 ----------------------
 menu                - Visa en meny
 exit                - Avsluta
-report              - Visa innehåll i joinad tabell
-search <str>        - Sök i rapporten
+logg                - VVisa innehåll i joinad tabell
+search <str>        - Sök i loggen
 
+'search ps' visar två rader.
+'search 5' visar tre rader.
 "
 
 node cli.js

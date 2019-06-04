@@ -1,5 +1,7 @@
 AVDRAG -5p Generellt, det verkar som flera väsentliga delar saknas i din inlämning, det går inte att köra 
 
+AVDRAG 1p Din package.json saknade vissa moduler men jag installerade dem för hand.
+
 AVDRAG -1p Du hade valideringsfel vid `dbwebb validate`.
 
 AVDRAG -1p Din terminalklient `menu` har spår av en massa gamla saker, det borde inte vara där.

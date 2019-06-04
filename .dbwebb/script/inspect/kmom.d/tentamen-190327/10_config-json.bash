@@ -5,7 +5,7 @@ cd me/tentamen/config/db || exit
 ls -l
 
 # Quit if file is missing
-file="exam"
+file="sapo"
 [[ ! -f $file.json ]] && echo "File '$file.json' is missing!" && exit 1
 
 # Check $file.json
