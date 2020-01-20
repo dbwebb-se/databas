@@ -14,6 +14,37 @@ The course repo is managed by a [dbwebb command line utility](https://dbwebb.se/
 
 
 
+Running databases in docker-compose
+-------------------
+
+This is for those who knows how docker and docker-compose works.
+
+The file `docker-compose.yaml` contains containers for the latest versions of `mysql` and `mariadb`.
+
+You start them like this.
+
+```
+docker-compose up mysql
+# or
+docker-compose up mariadb
+```
+
+The database server starts up. Review [`docker-compose.yaml`](docker-compose.yaml) for details on their setup.
+
+Change `mysql` to `mariadb` to run the other container.
+
+You can connect by starting the terminal client.
+
+```
+docker-compose run mysql mysql
+# or
+docker-compose run mariadb mysql
+```
+
+By default configuration, mysql client connects to the mysql database and mariadb client connects to the mariadb database.
+
+
+
 Acknowledgement
 -------------------
 
@@ -27,5 +58,5 @@ Feel free to help building up the repository with more content suited for traini
 
 ```
  .
-..:  Copyright (c) 2017-2018 dbwebb et al, info@dbwebb.se
+..:  Copyright (c) 2017-2020 dbwebb et al, info@dbwebb.se
 ```

@@ -1,6 +1,7 @@
 [client]
 #host = 127.0.0.1
-host = mysql
+host = mariadb
+#host = mysql
 protocol = tcp
 #port = 13306
 
