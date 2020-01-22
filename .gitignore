@@ -9,6 +9,7 @@ package-lock.json
 inspect.output
 log-gui-main.ansi
 log-gui-inspect.ansi
+.log/
 
 # Mac
 .DS_Store
