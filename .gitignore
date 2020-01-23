@@ -10,6 +10,7 @@ inspect.output
 log-gui-main.ansi
 log-gui-inspect.ansi
 .log/
+inspect-gui
 
 # Mac
 .DS_Store
