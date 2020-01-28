@@ -41,7 +41,14 @@ docker-compose run mysql mysql
 docker-compose run mariadb mysql
 ```
 
-By default configuration, mysql client connects to the mysql database and mariadb client connects to the mariadb database.
+By default configuration, mysql client connects to the mysql database and mariadb client connects to the mariadb database. They run on the same port so you can not have them both active (by their default configuration).
+
+You may upgrade or clean up the databases by removing their volume. Do like this.
+
+```
+# Stop and clean volumes
+docker-compose down -v
+```
 
 
 
