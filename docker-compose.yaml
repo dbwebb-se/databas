@@ -6,14 +6,26 @@ volumes:
 
 services:
     # Primary services to use with this course
-    cli: &cli
-        image: dbwebb/courserepo:cli
+    databas: &databas
+        image: dbwebb/courserepo:databas
         volumes:
             - ".:/home/dbwebb/repo"
+            - "/home/dbwebb/repo/bin"
+            - "/home/dbwebb/repo/build"
+            - "/home/dbwebb/repo/node_modules"
+            - "/home/dbwebb/repo/vendor"
             - "./example/sql/inspect/my.cnf:/home/dbwebb/.my.cnf"
 
+    cli:
+        <<: *databas
+        #image: dbwebb/courserepo:cli
+        # image: dbwebb/courserepo:databas
+        # volumes:
+        #     - ".:/home/dbwebb/repo"
+        #     - "./example/sql/inspect/my.cnf:/home/dbwebb/.my.cnf"
+
     server:
-        <<: *cli
+        <<: *databas
         ports:
             - "1337:1337"
 
