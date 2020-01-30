@@ -14,6 +14,7 @@ let hand = [];
 for (let i=0; i<5; i++) {
     hand[i] = new Dice();
     hand[i].roll();
+    console.info("Rolled a " + hand[i]);
 }
 
 console.info("Here is the dices you have rolled.");

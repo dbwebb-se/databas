@@ -6,7 +6,9 @@
 "use strict";
 
 module.exports = {
-    "stringRange": stringRange
+    //"moped": stringRange,
+    "stringRange": stringRange,
+//    "function2": anotherFunction
 };
 
 
