@@ -1,0 +1,35 @@
+--
+-- department has manager
+--
+department (
+    name varchar
+    nick char
+    -- manager, could be fk of employee
+    
+    pk (nick)
+)
+
+--
+-- employee works in department
+--
+employee (
+    number int
+    name varchar
+    dep_nick char
+    -- role, could be marked as manager
+    
+    pk (number)
+    fk (dep_nick) => department(nick)
+)
+
+--
+-- manager, a connection table
+--
+manager (
+    emp_number int
+    dep_nick char
+    
+    pk (dep_nick)
+    fk (emp_number) => employee(number) 
+    fk (dep_nick) => department(nick) 
+)

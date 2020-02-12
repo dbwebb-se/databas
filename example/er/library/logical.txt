@@ -1,0 +1,79 @@
+book (
+    id int,
+    isbn char,
+    publisher varchar
+
+    pk (id)
+)
+
+headword (
+    id int,
+    word varchar,
+    
+    pk (id)
+)
+
+book2word (
+    book_id int,
+    word_id int,
+    
+    pk (book_id, word_id),
+    fk book_id -> book(id),
+    fk word_id -> word(id)
+)
+
+book2author (
+    book_id int,
+    author_id int,
+
+    pk (book_id, author_id),
+    fk book_id -> book(id),
+    fk author_id -> author(id)
+)
+
+author (
+    id int,
+    name varchar,
+    country varchar,
+    
+    pk (id)
+)
+
+reservation (
+    name varchar,
+    phone varchar,
+    book_id int,
+    
+    pk (book_id, phone)
+)
+
+loan (
+    id int,
+    book_id int,
+    customer_id int,
+    start datetime,
+    end datetime,
+    
+    pk (id)
+    -- pk (book_id, customer_id),
+    -- fk book_id -> book(id),
+    -- fk customer_id -> customer(id)
+)
+
+customer (
+    id int,
+    name varchar,
+    phone varchar,
+    email varchar,
+    
+    pk (id)
+)
+
+fine (
+    id int,
+    loan_id int,
+    amount int,
+    when datetime,
+    
+    pk (id)
+)

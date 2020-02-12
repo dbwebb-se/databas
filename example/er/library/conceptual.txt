@@ -1,0 +1,34 @@
+book (
+    _isbn_
+    publisher
+)
+
+headword (
+    _word_
+)
+
+author (
+    name
+    country
+)
+
+reservation (
+    name
+    _phone_
+)
+
+loan (
+    start
+    end
+)
+
+customer (
+    _id_
+    name
+    phone
+    email
+)
+
+fine (
+    amount
+)

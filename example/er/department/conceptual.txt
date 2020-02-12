@@ -1,0 +1,16 @@
+--
+-- department has manager
+--
+department (
+    name
+    nick
+    manager
+)
+
+--
+-- employee works in department
+--
+employee (
+    number
+    name
+)
