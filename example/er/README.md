@@ -28,6 +28,8 @@ Resources
 * Vad välja som primärnyckel till en databastabell?
     * https://dbwebb.se/forum/viewtopic.php?t=6439&p=52728
 
+* Hantera N:M-relationer vid INSERT och LOAD DATA INFILE
+    * https://dbwebb.se/forum/viewtopic.php?f=73&t=8361&p=64649#p64649
 
 
 More exercises
