@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "console-table-printer": "^1.1.58",
     "ejs": "^2.6.1",
     "myexpress": "file:express",
     "mysql": "^2.16.0",
