@@ -6,7 +6,7 @@ Jag läste igenom din redovisningstext så att allt såg bra ut. I detta kmom va
 
 Jag installerade din miljö för Node.js från "me/package.json" och testkörde dina program i "me/terminal1". Jag vill se att de kan koppla sig mot databasen i guiden och att de får ut rätt resultat. Jag vill även se att du strukturerat koden i minst en extern modul.
 
-Allt jag kollade på såg bra ut. Kör på.
+Kämpa på.
 
 $TEACHER_SIGNATURE
 
