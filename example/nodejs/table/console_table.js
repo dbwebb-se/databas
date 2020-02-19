@@ -3,6 +3,8 @@
  */
 "use strict";
 
+/* eslint-disable */
+
 // Prepare a dice hand to hold the dices (its an array)
 let hand = [];
 

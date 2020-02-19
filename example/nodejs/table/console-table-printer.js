@@ -3,6 +3,8 @@
  */
 "use strict";
 
+/* eslint-disable */
+
 const { printTable } = require('console-table-printer');
 const { Table } = require('console-table-printer');
 
