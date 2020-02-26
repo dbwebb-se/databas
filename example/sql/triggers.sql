@@ -1,5 +1,5 @@
 --
--- https:;;dbwebb.se/kunskap/triggers-i-databas
+-- https://dbwebb.se/kunskap/triggers-i-databas
 -- Example
 -- 
 DROP TABLE IF EXISTS account;
