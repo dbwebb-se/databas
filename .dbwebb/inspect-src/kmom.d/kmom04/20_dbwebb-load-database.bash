@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set -e
+
 echo "Executing: mysql -udbwebb dbwebb < example/sql/inspect/setup_dbwebb_no_drop.sql"
 mysql -udbwebb dbwebb < example/sql/inspect/setup_dbwebb_no_drop.sql
 
