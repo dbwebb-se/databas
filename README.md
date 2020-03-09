@@ -49,6 +49,7 @@ It is preferred to use the following container when working as a user within the
 docker-compose run databas mysql
 # or
 docker-compose run databas bash
+$ mysql
 ```
 
 This provides you with a tailored `~/.my.cnf` that works with the course repo and its databases.
