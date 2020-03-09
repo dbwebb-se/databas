@@ -40,7 +40,7 @@ services:
             MARIADB_ROOT_PASSWORD: pass
         volumes:
             - mariadb_data:/var/lib/mysql
-            - ./sql.d:/docker-entrypoint-initdb.d
+            - ./example/sql.d/mariadb:/docker-entrypoint-initdb.d
             - ./example/sql/inspect/mariadb_my.cnf:/root/.my.cnf
 
     # mariadb-client:
@@ -59,7 +59,7 @@ services:
             MYSQL_ROOT_PASSWORD: pass
         volumes:
             - mysql_data:/var/lib/mysql
-            - ./sql.d:/docker-entrypoint-initdb.d
+            - ./example/sql.d/mysql:/docker-entrypoint-initdb.d
             - ./example/sql/inspect/mysql_my.cnf:/root/.my.cnf
 
     # mysql-client:

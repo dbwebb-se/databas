@@ -21,7 +21,7 @@ This is for those who knows how docker and docker-compose works.
 
 The file `docker-compose.yaml` contains containers for the latest versions of `mysql` and `mariadb`.
 
-You start them like this.
+You start them like this (perhaps add the option `-d` to run in the background).
 
 ```
 docker-compose up mysql
@@ -42,6 +42,16 @@ docker-compose run mariadb mysql
 ```
 
 By default configuration, mysql client connects to the mysql database and mariadb client connects to the mariadb database. They run on the same port so you can not have them both active (by their default configuration).
+
+It is preferred to use the following container when working as a user within the course.
+
+```
+docker-compose run databas mysql
+# or
+docker-compose run databas bash
+```
+
+This provides you with a tailored `~/.my.cnf` that works with the course repo and its databases.
 
 You may upgrade or clean up the databases by removing their volume. Do like this.
 
