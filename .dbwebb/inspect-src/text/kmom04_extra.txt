@@ -5,3 +5,5 @@ KOMMENTAR. Det kan finnas saker i din ER som blir svåra att implementera i data
 KOMMENTAR. Din flytt av pengar gick bara i en riktning. Enligt uppgiften skulle pengaflytten gå i båda riktningarna, en riktning per klient.
 
 FIX. Du har valideringsfel. Glöm inte att alltid göra en "dbwebb update" och " dbwebb inspect" för att kontrollera din inlämning. 
+
+FIX. Du har mixat små och stora bokstäver i din SQL-kod. Vår kodstandard säger bara små bokstäver, se forumet: https://dbwebb.se/t/8379. Uppdatera din kod, var konsistent i användandet av små och stora bokstäver och undvik stora bokstäver.
