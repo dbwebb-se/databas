@@ -13,7 +13,7 @@ services:
             - "/home/dbwebb/repo/bin"
             - "/home/dbwebb/repo/build"
             - "/home/dbwebb/repo/node_modules"
-            - "/home/dbwebb/repo/vendor"
+            #- "/home/dbwebb/repo/vendor"
             - "./example/sql/inspect/my.cnf:/home/dbwebb/.my.cnf"
 
     cli:
