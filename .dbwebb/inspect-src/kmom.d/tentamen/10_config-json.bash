@@ -11,6 +11,3 @@ file="exam"
 cp $file.json ${file}_.json
 config=$( node -e "let json = require('./$file.json');json.host = 'mysql';json.user = 'user';json.password = 'pass';json.port = 3306;json.database = '$file'; console.log(JSON.stringify(json, null, 4));")
 printf "%s\n" "$config" > $file.json
-
-#cat $file.json
-echo

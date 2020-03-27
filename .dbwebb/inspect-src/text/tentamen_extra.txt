@@ -1,11 +1,11 @@
 ## Tenta 2020-03-26
 https://dbwebb.se/kurser/databas-v1/kmom10/tentamen/rock
 
-AVDRAG -2p Kan inte se artisten Honeburst i översikten på /exam/visa eller i terminalklienten. De har ingen speldag men skall visas ändå.
-
-AVDRAG -1p Kan inte se artisten Honeburst i sökresultatet på /exam/search eller i terminalklienten. Jag söker på "Hone".
+KOMMENTAR/AVDRAG 0-5p Du har en annan filstruktur än den som var anvisad. Jag fixade genom att flytta runt på dina filer/kataloger.
 
 KOMMENTAR/AVDRAG 0-2p Din backupfil fungerade inte men jag lyckades återskapa din databas från ddl.sql och insert.sql.
+
+KOMMENTAR/AVDRAG 0-2p Din backupfil innehöll konstruktioner som en annan användare än 'user' hade skapat. Det gjorde att delar av din backup inte gick att återskapa. Jag lagade det genom att uppdatera din backupfil/läsa in dina ddl/insert.sql filer.
 
 KOMMENTAR/AVDRAG 0-1p Din er.pdf låg inte på anvisad plats, men jag hittade den.
 
@@ -13,11 +13,33 @@ AVDRAG -3p Din er.pdf låg inte på anvisad plats, och jag kunde inte hitta den.
 
 AVDRAG -1p Din ER saknar relationer mellan tabellerna, det borde finnas dragna streck mellan tabellerna så man ser hur de hänger ihop.
 
+AVDRAG -1p Din ER var mer en konceptuell än logisk modell.
+
 KOMMENTAR/AVDRAG 0-1p Din webbklient svarar inte på /exam/index. Men jag hittade din route.
+
+AVDRAG -2p Kan inte se artisten Honeburst i översikten på /exam/visa eller i terminalklienten. De har ingen speldag men skall visas ändå.
+
+AVDRAG 10p Du har gjort någon form av crossjoin på förstasidans rapport och visar alla rader, oavsett hur de matchar varandra.
+
+AVDRAG -1p Kan inte se artisten Honeburst i sökresultatet på /exam/search eller i terminalklienten. Jag söker på "Hone".
+
+AVDRAG -1p Kan inte se speldagar genom att söka på delsträngen "ons".
+
+AVDRAG -1p Jag förväntade mig en fin tabell vid utskriften i terminalklienten. Tex console.table() eller liknande.
 
 AVDRAG -1p Din 'report' hade inte exakt korrekt datumformattering, tex '3rd June'.
 
-PS. Ser att du försökte på sista, i forumet diskuteras ett lösningsförslag https://dbwebb.se/t/8950
+AVDRAG -2p Din 'report' hade inte exakt korrekt sortering.
+
+PS. Jag ser att du försökte på sista uppgiften. I forumet diskuteras ett lösningsförslag https://dbwebb.se/t/8950
+
+
+
+## FIX o LÖSNINGAR
+
+När databasbackupen laddas.
+
+ERROR 1231 (42000) at line 179: Variable 'sql_mode' can't be set to the value of 'NO_AUTO_CREATE_USER' -> https://dbwebb.se/t/8381)
 
 
 
