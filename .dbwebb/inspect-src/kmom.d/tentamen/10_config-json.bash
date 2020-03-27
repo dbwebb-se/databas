@@ -2,15 +2,10 @@
 
 # Move to directory
 cd me/tentamen/config/db || exit
-ls -l
 
 # Quit if file is missing
 file="exam"
 [[ ! -f $file.json ]] && echo "File '$file.json' is missing!" && exit 1
-
-# Check $file.json
-#cat $file.json
-echo
 
 # Modify settings in $file.json
 cp $file.json ${file}_.json

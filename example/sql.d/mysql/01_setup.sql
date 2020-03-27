@@ -4,9 +4,10 @@
 --
 
 -- Create databases if they do not exists
-CREATE DATABASE IF NOT EXISTS eshop;
-CREATE DATABASE IF NOT EXISTS skolan;
 CREATE DATABASE IF NOT EXISTS dbwebb;
+CREATE DATABASE IF NOT EXISTS eshop;
+CREATE DATABASE IF NOT EXISTS exam;
+CREATE DATABASE IF NOT EXISTS skolan;
 
 -- Create the users
 CREATE USER IF NOT EXISTS 'user'@'%'

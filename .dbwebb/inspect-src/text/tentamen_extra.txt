@@ -1,4 +1,17 @@
-AVDRAG -5p Generellt, det verkar som flera väsentliga delar saknas i din inlämning, det går inte att köra 
+-- Tenta 2020-03-26
+https://dbwebb.se/kurser/databas-v1/kmom10/tentamen/rock
+
+AVDRAG -2p Kan inte se artisten Honeburst i översikten på /exam/visa eller i terminalklienten. De har ingen speldag men skall visas ändå.
+
+KOMMENTAR/AVDRAG 0-2p Din backupfil fungerade inte men jag lyckades återskapa din databas från ddl.sql och insert.sql.
+
+KOMMENTAR/AVDRAG 0-1p Din er.pdf låg inte på anvisad plats, men jag hittade den.
+
+
+
+-- Generellt
+
+AVDRAG -5p Generellt, det verkar som flera väsentliga delar saknas i din inlämning, det går inte att köra
 
 AVDRAG 1p Din package.json saknade vissa moduler men jag installerade dem för hand.
 
