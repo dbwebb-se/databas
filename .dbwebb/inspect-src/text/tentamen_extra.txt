@@ -9,11 +9,13 @@ KOMMENTAR/AVDRAG 0-2p Din backupfil fungerade inte men jag lyckades återskapa d
 
 KOMMENTAR/AVDRAG 0-1p Din er.pdf låg inte på anvisad plats, men jag hittade den.
 
+AVDRAG -3p Din er.pdf låg inte på anvisad plats, och jag kunde inte hitta den.
+
 AVDRAG -1p Din ER saknar relationer mellan tabellerna, det borde finnas dragna streck mellan tabellerna så man ser hur de hänger ihop.
 
 KOMMENTAR/AVDRAG 0-1p Din webbklient svarar inte på /exam/index. Men jag hittade din route.
 
-AVDRAG 1p Din 'report' hade inte exakt korrekt datumformattering, tex '3rd June'.
+AVDRAG -1p Din 'report' hade inte exakt korrekt datumformattering, tex '3rd June'.
 
 PS. Ser att du försökte på sista, i forumet diskuteras ett lösningsförslag https://dbwebb.se/t/8950
 
