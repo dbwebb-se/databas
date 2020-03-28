@@ -21,6 +21,8 @@ AVDRAG -2p Kan inte se artisten Honeburst i översikten på /exam/visa eller i t
 
 AVDRAG 10p Du har gjort någon form av crossjoin på förstasidans rapport och visar alla rader, oavsett hur de matchar varandra.
 
+AVDRAG -3p Du har implementerat sök men enbart i terminalen
+
 AVDRAG -1p Kan inte se artisten Honeburst i sökresultatet på /exam/search eller i terminalklienten. Jag söker på "Hone".
 
 AVDRAG -1p Kan inte se speldagar genom att söka på delsträngen "ons".
