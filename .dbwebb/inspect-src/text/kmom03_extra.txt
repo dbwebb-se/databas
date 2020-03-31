@@ -1,0 +1,3 @@
+KOMMENTAR. Jag fick fel när kan försökte köra ditt cli meny "sok sna", jag låter det vara men du kan läsa mer om det i https://dbwebb.se/t/8918
+
+(node:58) UnhandledPromiseRejectionWarning: Error: ER_WRONG_VALUE: Incorrect DATE value: 'sna'

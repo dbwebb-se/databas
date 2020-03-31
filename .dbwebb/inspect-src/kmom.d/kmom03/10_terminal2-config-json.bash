@@ -2,16 +2,12 @@
 
 # Move to directory
 cd me/kmom03/terminal2 || exit
-ls -l
 
-# Check config.json
-cat config.json
-echo
+# Quit if file is missing
+file="config"
+[[ ! -f $file.json ]] && echo "File '$file.json' is missing!" && exit 1
 
 # Modify settings in config.json
-cp config.json config_.json
-config=$( node -e 'let json = require("./config.json");json.host = "mysql";json.user = "user";json.password = "pass";json.port = 3306; console.log(JSON.stringify(json, null, 4));')
-printf "%s\n" "$config" > config.json
-
-cat config.json
-echo
+cp $file.json ${file}_.json
+config=$( node -e "let json = require('./$file.json');json.host = 'mysql';json.user = 'user';json.password = 'pass';json.port = 3306;json.database = 'skolan'; console.log(JSON.stringify(json, null, 4));")
+printf "%s\n" "$config" > $file.json

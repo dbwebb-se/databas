@@ -7,9 +7,6 @@ FÖLJANDE SKALL FUNGERA via localhost:1337
 bank/index        - Översikt, gemensam header footer och navigering
 bank/balance      - Visa tabell med nuvarande kontoställningar
 bank/move-to-adam - Flytta 1.5 peng från Eva till Adam
-
-(servern startas i bakgrunden och dödas senare)
-(var med på att utskrift från servern krockar med annan utskrift)
 "
 
 # Kill process, before starting a new

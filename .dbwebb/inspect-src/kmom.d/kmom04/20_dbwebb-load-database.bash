@@ -2,12 +2,10 @@
 
 set -e
 
-echo "mysql -udbwebb < example/sql/inspect/setup_dbwebb_no_drop.sql"
-echo "mysql -udbwebb dbwebb < example/sql/transaction_ddl.sql"
-echo "---"
+target="dbwebb"
 
-echo "Executing: mysql -udbwebb < example/sql/inspect/setup_dbwebb_no_drop.sql"
-mysql -udbwebb < example/sql/inspect/setup_dbwebb_no_drop.sql
-
-echo "Executing: mysql -udbwebb dbwebb < example/sql/transaction_ddl.sql"
+mysql -udbwebb < example/sql/inspect/setup_${target}_no_drop.sql
 mysql -udbwebb dbwebb < example/sql/transaction_ddl.sql
+
+echo "SHOW TABLES;"
+mysql -udbwebb -t -e "SHOW TABLES;" $target
