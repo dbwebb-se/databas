@@ -9,7 +9,7 @@ file="index.js"
 pid=$( lsof -n -i4TCP:1337 | grep LISTEN | awk '{ print $2 }' )
 [[ $pid ]] && kill $pid && echo "Killed pid '$pid' on port 1337"
 
-echo "Startar 'node index'..."
+echo "[$ACRONYM] Startar 'node index'..."
 DBWEBB_PORT=1337 node index &
 sleep 2
 read -p "Press enter to continue..."

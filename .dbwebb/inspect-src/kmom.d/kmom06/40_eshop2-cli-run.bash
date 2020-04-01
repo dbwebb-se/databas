@@ -6,5 +6,5 @@ e() { exit; }; export -f e
 file="cli.js"
 [[ ! -f $file ]] && echo "File '$file' is missing!" && exit 1
 
-echo "Startar 'node cli'..."
+echo "[$ACRONYM] Startar 'node cli'..."
 node cli

@@ -2,6 +2,8 @@ FIX. Du har valideringsfel som gör att det inte går att rätta din inlämning.
 
 FIX. Din databasdump saknar lagrade procedurer, se https://dbwebb.se/t/8371. Uppdatera din backup.sql så kör vi igen.
 
+FIX/KOMMENTAR. Din databasbackup ligger på fel plats, men jag hittade den. Dubbelkolla så den hamnar på rätt plats till nästa inlämning.
+
 KOMMENTAR. Länken eshop/index fungerade inte (enligt uppgiften), men det löste sig. Tänk dock att ibland är det väldigt viktigt att följa uppgiftens spec.
 
 FIX. Du har mixat små och stora bokstäver i din SQL-kod. Vår kodstandard säger bara små bokstäver, se forumet: https://dbwebb.se/t/8379. Uppdatera din kod, var konsistent i användandet av små och stora bokstäver och undvik stora bokstäver.
