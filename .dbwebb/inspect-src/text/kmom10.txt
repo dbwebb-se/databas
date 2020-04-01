@@ -1,13 +1,12 @@
-Jag har tittat på din sista inlämning och betygsatt enligt:
+Jag har tittat på din sista inlämning och bedömt samt betygsatt enligt:
 https://dbwebb.se/kurser/databas-v1#betyg
 
-Du har fått poäng och slutbetyg enligt följande:
+Du har fått poäng, bedömning och slutbetyg enligt följande:
 
 Tentamen: 20 (30p)
 Projekt:   0 (30p)
-Redovisa: 30 (40p)
+Redovisa: OK
 -------------------
-TOTALT:   55 poäng
 SLUTBETYG: D
 
 $TEACHER_SIGNATURE

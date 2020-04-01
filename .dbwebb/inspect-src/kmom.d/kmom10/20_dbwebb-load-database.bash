@@ -4,6 +4,10 @@ set -e
 
 target="eshop"
 
+# Quit if file is missing
+file="me/kmom10/eshop3/sql/eshop/backup.sql"
+[[ ! -f $file ]] && echo "File '$file' is missing!" && exit 1
+
 mysql -udbwebb < example/sql/inspect/setup_eshop.sql
 mysql -udbwebb $target < me/kmom10/eshop3/sql/eshop/backup.sql
 mysql -udbwebb $target < example/sql/list_proc_func_trig.sql

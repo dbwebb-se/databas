@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
 
-# Move to directory
-cd me/kmom10/eshop3/config/db || exit
-
 # Quit if file is missing
 file="eshop"
 [[ ! -f $file.json ]] && echo "File '$file.json' is missing!" && exit 1
+
+# Move to directory
+cd me/kmom10/eshop3/config/db || exit
 
 # Modify settings in config.json
 cp $file.json ${file}_.json
