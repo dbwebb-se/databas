@@ -1,8 +1,9 @@
 #!/usr/bin/env bash
 
 # Quit if file is missing
+path="me/kmom10/eshop3/config/db"
 file="eshop"
-[[ ! -f $file.json ]] && echo "File '$file.json' is missing!" && exit 1
+[[ ! -f $path/$file.json ]] && echo "File '$path/$file.json' is missing!" && exit 1
 
 # Move to directory
 cd me/kmom10/eshop3/config/db || exit
