@@ -6,7 +6,7 @@ file="eshop"
 [[ ! -f $path/$file.json ]] && echo "File '$path/$file.json' is missing!" && exit 1
 
 # Move to directory
-cd me/kmom10/eshop3/config/db || exit
+cd $path || exit
 
 # Modify settings in config.json
 cp $file.json ${file}_.json
