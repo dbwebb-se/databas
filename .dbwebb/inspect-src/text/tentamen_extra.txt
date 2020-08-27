@@ -3,6 +3,10 @@ https://dbwebb.se/kurser/databas-v1/kmom10/tentamen/rock
 
 KOMMENTAR/AVDRAG 0-5p Du har en annan filstruktur än den som var anvisad. Jag fixade genom att flytta runt på dina filer/kataloger.
 
+AVDRAG -1p Din backupfil ligger på fel plats.
+
+AVDRAG -2p Din backupfil saknar någon konstruktion, jag behövde ladda databasen från SQL-filerna.
+
 KOMMENTAR/AVDRAG 0-2p Din backupfil fungerade inte men jag lyckades återskapa din databas från ddl.sql och insert.sql.
 
 KOMMENTAR/AVDRAG 0-2p Din backupfil innehöll konstruktioner som en annan användare än 'user' hade skapat. Det gjorde att delar av din backup inte gick att återskapa. Jag lagade det genom att uppdatera din backupfil/läsa in dina ddl/insert.sql filer.
@@ -17,13 +21,23 @@ AVDRAG -1p Din ER var mer en konceptuell än logisk modell.
 
 KOMMENTAR/AVDRAG 0-1p Din webbklient svarar inte på /exam/index. Men jag hittade din route.
 
+AVDRAG -2p Kan inte se Jackie Chan i översikten på /exam/visa eller i terminalklienten. Han har inget vapen men skall visas ändå.
+
 AVDRAG -2p Kan inte se artisten Honeburst i översikten på /exam/visa eller i terminalklienten. De har ingen speldag men skall visas ändå.
+
+AVDRAG -1p Du har gjort en join utan att använda INNER/OUTER JOIN. Det fungerar men känns inte riktigt rätt med tanke på vad kursen har innehållit.
 
 AVDRAG 10p Du har gjort någon form av crossjoin på förstasidans rapport och visar alla rader, oavsett hur de matchar varandra.
 
 AVDRAG -3p Du har implementerat sök men enbart i terminalen
 
 AVDRAG -1p Kan inte se artisten Honeburst i sökresultatet på /exam/search eller i terminalklienten. Jag söker på "Hone".
+
+AVDRAG -1p Kan inte se artisten Honeburst i sökresultatet på /exam/search eller i terminalklienten. Jag söker på "Hone".
+
+AVDRAG -1p Kan inte se vapnen med märke Husqvarna i sökresultatet på /exam/search eller i terminalklienten. Jag söker på "Hus" och "Hus%".
+
+AVDRAG -2p Det verkar inte som sök fungerar i webbklienten. Jag försökte söka på olika saker men fick alltid samma resultat.
 
 AVDRAG -1p Kan inte se speldagar genom att söka på delsträngen "ons".
 
