@@ -1,9 +1,8 @@
-<style>
 .theme-5 #slide .titlepage h1 {
     margin-bottom: 1em;
 }
 h1 ~ h2 {
-    margin-bottom: 1em;
+    margin-bottom: 2em;
 }
 
 li {
