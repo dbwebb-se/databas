@@ -1,0 +1,26 @@
+<style>
+.theme-5 #slide .titlepage h1 {
+    margin-bottom: 1em;
+}
+h1 ~ h2 {
+    margin-bottom: 1em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+li ul {
+    margin-top: 0.5em;
+}
+
+blockquote {
+    border-left: 1px solid #666;
+    padding-left: 0.5em;
+}
+
+.footnote {
+    font-size: 0.6em;
+    border-top: 1px solid #999;
+    padding-top: 0.5em;
+}

@@ -12,6 +12,8 @@ log-gui-inspect.ansi
 .log/
 inspect-gui
 exam/
+exam_mars_20/
+exam_may_20/
 
 # Mac
 .DS_Store
