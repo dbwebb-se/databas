@@ -374,9 +374,10 @@ values = [A, K, D, J, 10, 9, 8, 7, 6, 5, 4, 3, 2]
 <script data-role="slide" data-markdown type="text/html">
 # Databas struktur
 
+* Databas innehåller tabeller
 * Tabell (relation)
-* Kolumn (attribute)
 * Rad (tuple)
+* Kolumn (attribute)
 
 </script>
 
@@ -386,7 +387,7 @@ values = [A, K, D, J, 10, 9, 8, 7, 6, 5, 4, 3, 2]
 # Struktur av tabell
 <figure>
     <div style="background-color: white"><img alt="tabell struktur" src="img/relation-tuple-attribute.png" style="width: 80%"></div>
-    <figcaption>Tabell = Relation</figcaption>
+    <figcaption>Tabell = Relation, Rad = Tuple, Kolumn = Attribute</figcaption>
 </figure>
 </script>
 
@@ -574,7 +575,7 @@ MySQL [dbwebb]> select * from student;
 * INSERT
 * UPDATE
 * DELETE
-* (manipulera innehållet i databasen och i tabellerna)
+* (manipulera innehållet i databasens tabeller)
 
 </script>
 
@@ -625,7 +626,7 @@ CREATE TABLE course
 
 
 <script data-role="slide" data-markdown type="text/html">
-# Tänk på
+# Datatyper
 
 * Datatyper skiljer mellan DMBS
 * I grunden liknande datatyper
@@ -652,14 +653,14 @@ CREATE TABLE course
 # INSERT INTO
 
 ```sql
-INSERT INTO Course VALUES ('DV1462', 'htmlphp', 7.5);
+INSERT INTO course VALUES ('DV1462', 'htmlphp', 7.5);
 
-INSERT INTO Course VALUES
+INSERT INTO course VALUES
     ('PA1436', 'design', 7.5),
     ('DV1531', 'python', 7.5),
     ('DV1532', 'javascript1', 7.5);
 
-INSERT INTO Course (code) VALUES ('DV1462');
+INSERT INTO course (code) VALUES ('DV1462');
 ```
 
 </script>
@@ -670,7 +671,7 @@ INSERT INTO Course (code) VALUES ('DV1462');
 # UPDATE
 
 ```sql
-UPDATE Course
+UPDATE course
     SET
         course = 'PA1439'
     WHERE
@@ -696,8 +697,11 @@ UPDATE Course
 # SELECT
 
 ```sql
-SELECT * FROM Course;
-SELECT name FROM Course;
+--
+-- A comment starts with two dashes
+--
+SELECT * FROM course;
+SELECT name FROM course;
 SELECT name, points FROM COURSE WHERE code = 'PA1439';
 SELECT * FROM COURSE WHERE code LIKE 'PA%';
 ```
@@ -709,9 +713,12 @@ SELECT * FROM COURSE WHERE code LIKE 'PA%';
 # DELETE
 
 ```sql
-DELETE FROM Course WHERE code LIKE 'DV%';
-DELETE FROM Course WHERE code IN ('PA1439', 'PA1436');
-DELETE FROM Course WHERE code = 'PA1439' LIMIT 1;
+DELETE FROM course WHERE code LIKE 'DV%';
+DELETE FROM course WHERE code IN ('PA1439', 'PA1436');
+DELETE FROM course
+    WHERE code = 'PA1439'
+    LIMIT 1
+;
 ```
 
 </script>
@@ -731,9 +738,14 @@ DELETE FROM Course WHERE code = 'PA1439' LIMIT 1;
 <script data-role="slide" data-markdown type="text/html">
 # Sammanfattningsvis SQL
 
-* DDL (definition av schema)
+Definition av schema
+
+* SQL DDL
     * CREATE, DROP, ALTER
-* DML (manipulation av data)
+
+Manipulering av data
+
+* SQL DML
     * INSERT, UPDATE, DELETE
     * SELECT
 
