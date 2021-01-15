@@ -1,0 +1,364 @@
+<!doctype html>
+<html class="theme-5">
+<meta charset="utf-8" />
+<link href="../html-slideshow.bundle.min.css" rel="stylesheet" />
+<link href="../style.css" rel="stylesheet" />
+<script src="https://dbwebb.se/cdn/js/html-slideshow_v1.1.0.bundle.min.js"></script>
+
+<title>Kursen databas</title>
+
+<script data-role="slide" type="text/html" data-markdown class="titlepage center">
+# Hur jobba med databasen?
+## MySQL/MariaDB och SQL
+### Mikael Roos
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# Agenda
+
+* Bra att veta
+* Uppsamling av saker från kmom01
+
+* Osäker på denna föreläsningen, kanske borde vara en genomgång av ens labbmiljö eller liknande.
+
+* Kanske göra en exempeldatabas som kan användas för att koppla js-koden?
+
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# Genomgång av SQL
+
+* Mer SQL?
+* Kika på förra årets genomgång av intro exemplet
+    * [Streams vt19, kmom02 fläs, del I](https://www.youtube.com/playlist?list=PLKtP9l5q3ce8JaLBnz0TszCXc_eCVpmOh)
+
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# Inlämningar
+
+* Läraren kollar att inlämningen uppfyller kraven
+* Begränsat med feedback
+* Fråga i forum, chatt, programmeringsstuga, issue
+    * Be om utläggningar
+* Dubbelkolla med "dbwebb inspect kmom01"
+
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# Hur rättas?
+
+* Allt laddas ned till lärarens dator
+* "dbwebb inspect kmom" körs
+* Me-sidan med redovisningstext läses
+* Uppgifterna kollas
+* Allt körs i docker, i lärarens egen databas
+    * Konsekvenser av det?
+
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# Konfigurera min databas?
+
+* Hur kan jag lösa problem?
+* GROUP BY clause and contains nonaggregated column
+    * https://dbwebb.se/t/8909
+* Vad händer om jag konfigurerar om min databas lokalt?
+    * Har rättaren samma konfiguration?
+
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# Windows kontra Unix radbrytning
+
+* Unix radbrytning `\n`
+* Windows radbrytning `\r\n`
+* Visa dolda tecken i Atom och vscode
+* Tab eller space
+* Hur många spaces?
+
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# Kodstandard
+
+* Filnamn, ej med mellanslag eller svenska tecken
+* Kodstandard för SQL
+    * Inte svenska tecken
+    * Bara små bokstäver
+* Validering av kodstandard
+* dbwebb validate
+
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# Terminalklienten
+
+```
+mysql
+mysql -uuser
+mysql -uuser -p
+mysql -uuser -ppass
+mysql -uuser -ppass skolan
+mysql -uuser -ppass skolan < fil.sql
+```
+
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# Terminalklienten...
+
+```
+mysql --help
+mysql --help | more
+mysql --help | grep "user"
+man mysql
+```
+
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# my.cnf
+
+* Konfigurationsfil som läses av terminalklient(er)
+* Inställningar per klient eller generellt
+* chmod 600
+* Känslig information
+* Visa värden som används `mysql --print-defaults`
+
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# SQL-filer
+
+* Filer med SQL-kommandon
+* Redigera i Workbench och kör hela eller delar av filen
+    * ctrl-enter (kör raden jag står på)
+* Redigera i Atom och kör i terminalklienten
+* Ordning av kommandon viktig (hela filen exekveras, om och om igen)
+
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# Kör SQL-filer
+
+```
+mysql -uroot -p < setup.sql
+mysql -udbwebb -p < ddl.sql
+```
+
+Inuti klienten
+
+```
+mysql> source ddl.sql
+mysql> source dml.sql
+```
+
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# Bash-skript
+
+* Textfil med kommandon
+* Programmeringsspråk med variabler, arrayer, loopar, funktioner
+* Skriptspråk för shellet
+* Samla kommandon, automatisera, förenkla
+* dbwebb-cli är skrivet i bash
+* Googla "bash for loop"
+
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# Fixa ett bash skript?
+
+* Basha förra veckans intro?
+
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html" class="titlepage center">
+# kmom02
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# Formattera datum i Js
+
+* Tips från coachen:
+    * [Formattera datum i JavaScript](https://dbwebb.se/forum/viewtopic.php?f=57&t=8220)
+    * [Formattera datum i (My)SQL](https://dbwebb.se/forum/viewtopic.php?f=57&t=8222)
+* Konfiguration i npm mysql konfig fil?
+
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# SELECT med IF-sats
+
+```
+SELECT IF (1 = 2, 'yes', 'no');
+```
+
+* [Functions and Operators > Control Flow Functions](https://dev.mysql.com/doc/refman/8.0/en/control-flow-functions.html)
+
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# COALESCE operator
+
+```
+SELECT COALESCE(NULL, NULL, columnA, columnB);
+```
+
+* [Functions and Operators > Operators > Comparison Functions and Operators](https://dev.mysql.com/doc/refman/8.0/en/comparison-operators.html#function_coalesce)
+
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# Terminalklienten och my.cnf
+
+* [my.cnf](https://github.com/dbwebb-se/databas/blob/master/example/sql/my.cnf)
+
+```
+mysql --print-defaults
+```
+
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# Validering och kodstandard
+
+* JavaScript kodstandard och validering
+* SQL kodstandard
+    * Enbart små bokstäver
+    * Ej svenska tecken (kolumnnamn, tabellnamn, AS)
+* Namnen är på svenska eller engelska?
+
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# [Forumet](https://dbwebb.se/forum/viewforum.php?f=73)
+
+* FAQ i forumet
+
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# Läs mer om JavaScript
+
+* Jag vill veta mer om kärnan i programmeringsspråket JavaScript
+* [Axels böcker](https://dbwebb.se/kurser/databas-v1/kmom02#javascript)
+
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html" class="titlepage center">
+# kmom03
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# kmom03 Agenda
+
+* Samla DDL
+* INNER/OUTER JOIN
+* Subquery
+* UNION
+* LOAD LOCAL INFILE
+* Import/export Excel
+* mysqldump
+
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html" class="titlepage center">
+# kmom04
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# Normalisering
+
+* Ett sätt att designa en databas
+* 1NF, 2NF, 3NF, 3BCNF
+
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html" class="titlepage center">
+# kmom05
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# Dokumentation av databas
+
+* Lista API
+    * Dubbelkolla att du kan verkställa ditt API
+* Glöm inte bort reverse engineering för framtida dokumentation
+* Tabeller med kolumner och förklaring till kolumn, eventuell värdemängd
+* Verktyg för att dokumentera databas
+
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# Avslutningsvis
+
+* Frågor på det?
+
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+<!-- empty slide by intention -->
+</script>
