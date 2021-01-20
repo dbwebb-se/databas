@@ -8,8 +8,8 @@
 <title>Kursen databas</title>
 
 <script data-role="slide" type="text/html" data-markdown class="titlepage center">
-# JavaScript och MySQL
-## Hur koppla Javascript till MySQL
+# JavaScript and MySQL
+## How to connect JavaScript with MySQL
 ### Mikael Roos
 </script>
 
@@ -18,70 +18,69 @@
 <script data-role="slide" data-markdown type="text/html">
 # Agenda
 
-* JavaScript
-* Node.js
-* Asynkron programmeringsmodell
-* Callback, promise, async/await
-* Koppling till MySQL
+* Connections to MySQl
+* Node.js connectors
+* Example in JavaScript
 
 </script>
 
 
 
 <script data-role="slide" data-markdown type="text/html">
-# JavaScript
+# Connect to MySQL
 
-* 1995, Netscape, Brendan Eich, 10 dagar
-* ECMAScript standard
-* ES5, ES5.1
-* ES6 - ES9, ES2015 - ES2018
-* Refmanual på MDN
+* MySQL Connectors provide connectivity to the MySQL server for client programs
+* APIs provide low-level access to MySQL
+* Execute MySQL statements from another language
+* ODBC, Java (JDBC), C++, Python, Node.js, PHP, Perl, Ruby, and C
+* Third-Party MySQL APIs
 
-</script>
-
-
-
-<script data-role="slide" data-markdown type="text/html">
-# Node.js
-
-* Opensource, cross platform
-* Ryan Dahl, 2009
-* JS på servern fanns tidigare, men inte så poppis
-* Google V8 js engine + event loop + I/O API
-* 2010 kom npm
-* Både klient och server, "samma" språk
-* Egen refmanual
+<p class="footnote">Docs at https://dev.mysql.com/doc/connectors/en/connectors-apis.html.</p>
 
 </script>
 
 
 
-<script data-role="slide" data-markdown type="text/html">
-# Asynkron programmering
-
-* Programmeringsmodell
-    * Eventstyrd
-    * Asynkron
-* Event loop
-* Blockande I/O
-
+<script data-role="slide" data-markdown type="text/html" class="center">
+# Npm package mysql
+<figure>
+    <img src="img/npm-mysql.png" style="width: 80%">
+    <figcaption>The package mysql in the npm database.</figcaption>
+</figure>
 </script>
 
 
 
 <script data-role="slide" data-markdown type="text/html">
-# Callbacks
+# The package mysql
+
+* Documentation in the README
+    * https://www.npmjs.com/package/mysql
+* Add a promisify layer using `promise-mysql`
+    * https://www.npmjs.com/package/promise-mysql
+
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html" class="center">
+# Npm package promise-mysql
+<figure>
+    <img src="img/npm-promise-mysql.png" style="width: 80%">
+    <figcaption>The package promise-mysql in the npm database.</figcaption>
+</figure>
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# Get going
+
+* Init the project and install the libraries
 
 ```
-rl.question("What to search for? ", function(search) {
-    console.info(str);
-});
-```
-
-```
-rl.question("What to search for? ", (search) => {
-    console.info(str);
-});
+$ npm init
+$ npm install mysql promise-mysql --save
 ```
 
 </script>
@@ -89,31 +88,67 @@ rl.question("What to search for? ", (search) => {
 
 
 <script data-role="slide" data-markdown type="text/html">
-# Promise
-
-* Ett resultat av en asynkron operation
-* Pending... initial state
-* Fulfilled... state of successful operation
-* Rejected... state of failed operation
-* Funktion returnerar ett Promise()
-
-</script>
-
-
-
-<script data-role="slide" data-markdown type="text/html">
-# Promise...
+# Connect to MySQL
 
 ```
-function readFile(filename, enc){
-    return new Promise(function (fulfill, reject) {
-        fs.readFile(filename, enc, function (err, res) {
-            if (err)
-                reject(err);
-            else
-                fulfill(res);
-        });
+const mysql = require("promise-mysql");
+
+(async function() {
+    let sql;
+    let res;
+    const db = await mysql.createConnection({
+        "host":     "localhost",
+        "user":     "user",
+        "password": "pass",
+        "database": "skolan"
     });
+
+    sql = "SELECT 1+1 AS Sum";
+    res = await db.query(sql);
+    console.info(res);
+    db.end();
+})();
+```
+
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# Use config.json
+
+```
+(async function() {
+    const db = await mysql.createConnection({
+        "host":     "localhost",
+        "user":     "user",
+        "password": "pass",
+        "database": "skolan"
+    });
+```
+
+```
+const config = require("./config.json");
+
+(async function() {
+    const db = await mysql.createConnection(config);
+
+})();
+```
+
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# Use config.json...
+
+```
+{
+    "host":     "localhost",
+    "user":     "user",
+    "password": "pass",
+    "database": "skolan"
 }
 ```
 
@@ -122,21 +157,26 @@ function readFile(filename, enc){
 
 
 <script data-role="slide" data-markdown type="text/html">
-# Async och await
-
-* En funktion som genererar ett Promise kan användas med await
-* En funktion där man använder await, måste definieras som async
-
-</script>
-
-
-
-<script data-role="slide" data-markdown type="text/html">
-# Async och await...
+# Format SQL query
 
 ```
-str = await readFile(filename, "UTF-8");
-console.info(str);
+(async function() {
+    const db = await mysql.createConnection(config);
+    let sql, res;
+
+    sql = `
+        SELECT
+            akronym,
+            fornamn,
+            efternamn,
+            avdelning
+        FROM larare
+        ORDER BY akronym;
+    `;
+    res = await db.query(sql);
+    console.info(res);
+    db.end();
+})();
 ```
 
 </script>
@@ -144,60 +184,178 @@ console.info(str);
 
 
 <script data-role="slide" data-markdown type="text/html">
-# Promisifiering
+# The resultset
 
-* Lägg ett lager av Promise runt en callback funktion
-* Tillåter att man använder async och await
-* Med Node.js funktioner (util.promisfy)
-* Generellt på externa libb (promisfy-ish)
+* An array with objects
+* The array contains the matching rows
+* Each row (object) contains the columns (values)
 
-</script>
-
-
-
-<script data-role="slide" data-markdown type="text/html">
-# Koppling till MySQL
-
-* Externt lib, via npm
-* Alternativ finns
-* Lager av promise, för att använda async/await
-* Manualen för libbet visar hur det skall användas
+```
+res = await db.query(sql);
+```
 
 </script>
 
 
 
 <script data-role="slide" data-markdown type="text/html">
-# Moduler
+# The resultset...
 
-* Funktioner och klasser kan organiseras i moduler
-* Det finns varianter av hur moduler hanteras
-    * Standardiserat "ES6 import", men begränsat stöd
-* Node.js har require (den tar vi)
+```
+res = await db.query(sql);
+```
 
-</script>
-
-
-
-<script data-role="slide" data-markdown type="text/html">
-# Exempelprogram
-
-* Koda exempelprogram med main och extern modul.
-* Koppla till MySQL
-
-</script>
-
-
-
-<script data-role="slide" data-markdown type="text/html">
-# Avslutningsvis
-
-* Frågor på det?
+```
+[ RowDataPacket {
+    akronym: 'ala',
+    fornamn: 'Alastor',
+    efternamn: 'Moody',
+    avdelning: 'DIPT' },
+  RowDataPacket {
+    akronym: 'dum',
+    fornamn: 'Albus',
+    efternamn: 'Dumbledore',
+    avdelning: 'ADM' } ]
+```
 
 </script>
 
 
 
 <script data-role="slide" data-markdown type="text/html">
-<!-- empty slide by intention -->
+# The resultset JSON
+
+```
+data = JSON.stringify(res, null, 4);
+```
+
+```
+[
+    {
+        "akronym": "ala",
+        "fornamn": "Alastor",
+        "efternamn": "Moody",
+        "avdelning": "DIPT"
+    },
+    {
+        "akronym": "dum",
+        "fornamn": "Albus",
+        "efternamn": "Dumbledore",
+        "avdelning": "ADM"
+    }
+}
+```
+
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# Use placeholders
+
+```
+sql = `
+    SELECT
+        akronym,
+        fornamn,
+        efternamn,
+        avdelning,
+        lon
+    FROM larare
+    WHERE
+        akronym LIKE ?
+        OR fornamn LIKE ?
+        OR efternamn LIKE ?
+        OR avdelning LIKE ?
+        OR lon = ?
+    ORDER BY akronym;
+`;
+res = await db.query(sql, [like, like, like, like, search]);
+```
+
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html" class="center">
+# Exploits of a Mom
+<figure>
+    <img src="https://imgs.xkcd.com/comics/exploits_of_a_mom.png" width="80%">
+    <figcaption>Comic about SQL injection https://xkcd.com/327/.</figcaption>
+</figure>
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# SQL injection
+
+* Use variable as holder for name
+
+```
+name = "Robert";
+sql = `SELECT * FROM student WHERE name = 'name'`;
+```
+
+* But what if the variable contains this?
+
+```
+name = "Robert'; DROP TABLE student; --";
+sql = `SELECT * FROM student WHERE name = 'name'`;
+
+SELECT * FROM student WHERE name = 'Robert'; DROP TABLE student; --'
+```
+
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# SQL injection...
+
+* Placeholders will solve this and escape the value
+
+```
+name = "Robert'); DROP TABLE student; --";
+
+sql = `SELECT * FROM student WHERE name = ?`;
+
+res = await db.query(sql, [name]);
+```
+
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# Escape values
+
+* Values can be manually escaped
+
+```
+sql = 'SELECT * FROM users WHERE id = '
+    + connection.escape(userId);
+```
+
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# Avoid SQL injection
+
+* Use placeholders
+* Let the API escape the values
+
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html" class="titlepage center">
+# The End
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
 </script>
