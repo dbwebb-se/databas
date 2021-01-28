@@ -9,7 +9,7 @@
 
 <script data-role="slide" type="text/html" data-markdown class="titlepage center">
 # Modellera databas
-## Entity Relationship (ER) modellering och konceptuell modellering
+## Entity Relationship (ER), konceptuell modellering
 ### Mikael Roos
 </script>
 
@@ -18,146 +18,268 @@
 <script data-role="slide" data-markdown type="text/html">
 # Agenda
 
-* ER-modellering
+* Konceptuell ER-modellering
+* Att rita diagrammen
+
+<p class="footnote">Från artikeln "ER-modellering" på http://www.databasteknik.se/webbkursen/er/.</p>
 
 </script>
 
 
 
-<script data-role="slide" data-markdown type="text/html">
-# Olika sätt att rita modeller
+<script data-role="slide" type="text/html" data-markdown class="center">
+# Entiteter till lådor
+
+<figure>
+<img style="background-color: white; padding: 1em;" src="img/entitetstyper.gif" width="50%">
+<figcaption>Rita upp de typer av saker som finns i databasen. De kallas entitetstyper, och ritas som fyrkantiga lådor.</figcaption>
+</figure>
 
 </script>
 
 
 
-<script data-role="slide" data-markdown type="text/html">
+<script data-role="slide" type="text/html" data-markdown class="center">
+# Sambandstyp är relationen
 
-<img src="https://dbwebb.se/image/snapvt18/er-notation.png">
-
-</script>
-
-
-
-<script data-role="slide" data-markdown type="text/html">
-# Entity Relationship (ER)
-
-* Modellering i tre faser
-    * Konceptuell modellering
-    * Logisk modellering
-    * Fysisk modellering
+<figure>
+<img style="background-color: white; padding: 1em;" src="img/sambandstyp.gif" width="50%">
+<figcaption>Rita sen upp de samband som finns mellan de olika typerna av saker. De kallas sambandstyper, och ritas som diamanter mellan de fyrkantiga lådorna.</figcaption>
+</figure>
 
 </script>
 
 
 
-<script data-role="slide" data-markdown type="text/html">
-# Konceptuell modellering
+<script data-role="slide" type="text/html" data-markdown class="center">
+# Hur många personer bor i varje hus?
 
-1. Beskriv databasen i text
-1. Skriv ned alla entiteter
-1. Skriv ned alla relationer (matris)
-1. Rita förenklat diagram (entiteter och relationer)
-1. Komplettera diagram med kardinalitet
-1. Komplettera diagram med attribut och kandidatnycklar
+<figure>
+<img style="background-color: white; padding: 1em;" src="img/kardinalitet.gif" width="50%">
+<figcaption>"N" betyder att det kan bo flera personer i varje hus, och "1" betyder att varje person bara kan bo i ett hus. Det kallas ett många-till-ett-samband. Siffran kallas kardinalitet.</figcaption>
+</figure>
 
 </script>
 
 
 
-<script data-role="slide" data-markdown type="text/html">
-# Konceptuell modellering
+<script data-role="slide" type="text/html" data-markdown class="center">
+# 1:1 relation
 
-* Modellera oavsett tänkt databassystem
-* Låt icke tekniska personer ta del
-* Rita lådor, ringar och streck som binder dem samman
-* Gissa vilka nycklar som kan fungera
-
-</script>
-
-
-
-<script data-role="slide" data-markdown type="text/html">
-# Logisk modellering
-
-* Översätt modellen till relationsmodellen
-* Tabeller, primärnycklar, främmande nycklar
-* Datatyper
+<figure>
+<img style="background-color: white; padding: 1em;" src="img/1-1-samband.gif" width="50%">
+<figcaption>En person kan vid ett och samma tillfälle bara köra en bil, och varje bil kan bara köras av en person.</figcaption>
+</figure>
 
 </script>
 
 
 
-<script data-role="slide" data-markdown type="text/html">
-# Fysisk modellering
+<script data-role="slide" type="text/html" data-markdown class="center">
+# 1:N relation
 
-* Översätt modellen till specifik databasmotor (RDBMS, tex MySQL eller Oracle)
-* Skapa/generera SQL-kod
+<figure>
+<img style="background-color: white; padding: 1em;" src="img/1-N-samband.gif" width="50%">
+<figcaption>En person kan äga flera bilar, men varje bil kan bara ägas av en person. Om man vänder på det och börjar med bilarna blir det i stället ett många-till-ett-samband (N:1-samband).</figcaption>
+</figure>
+
+</script>
+
+
+<script data-role="slide" type="text/html" data-markdown class="center">
+# N:M relation
+
+<figure>
+<img style="background-color: white; padding: 1em;" src="img/N-M-samband.gif" width="50%">
+<figcaption>En person kan äga flera hus, och varje hus kan ägas gemensamt av flera personer.</figcaption>
+</figure>
 
 </script>
 
 
 
-<script data-role="slide" data-markdown type="text/html">
-# Följ processen
+<script data-role="slide" type="text/html" data-markdown class="center">
+# Flera sambandstyper mellan samma entitetstyper
 
-* [Kokbok för databasmodellering](https://dbwebb.se/kunskap/kokbok-for-databasmodellering)
-* Måste man verklingen följa processen?
-
-</script>
-
-
-
-<script data-role="slide" data-markdown type="text/html">
-# Referens om ER-modellering
-
-* Boken är bra, jag lovar
-* [Bokens webbkurs](http://www.databasteknik.se/webbkursen/er/)
-    * ER-modellering (kika här)
-    * Översättning från ER-modellen till relationsmodellen (nästa vecka)
+<figure>
+<img style="background-color: white; padding: 1em;" src="img/N-M-samband.gif" width="50%">
+<figcaption>Hus kan ägas gemensamt av flera personer, och varje person kan vara med och äga flera hus.</figcaption>
+</figure>
 
 </script>
 
 
 
-<script data-role="slide" data-markdown type="text/html">
-# Rita ER
+<script data-role="slide" type="text/html" data-markdown class="center">
+# Fullständigt deltagande
 
-* På papper eller med verktyg
-* draw.io
-
-</script>
-
-
-
-<script data-role="slide" data-markdown type="text/html">
-# Förväntningar ER doc
-
-* "Make it look good"
-* Framsida, titel, bild, författare
-* Table of content
-* Varje steg startar på en ny sida?
+<figure>
+<img style="background-color: white; padding: 1em;" src="img/fullstandigt.gif" width="50%">
+<figcaption>Om varje person som är med i databasen måste bo i ett hus, kan man rita ut det villkoret med ett dubbelstreck mellan Person och Bor i.</figcaption>
+</figure>
 
 </script>
 
 
 
-<script data-role="slide" data-markdown type="text/html">
-# Reverse engineering
+<script data-role="slide" type="text/html" data-markdown class="center">
+# Attribut
 
-* Dokumentera befintlig databas
-* Skapa mental bild av databasen
-* Testa workbench
+<figure>
+<img style="background-color: white; padding: 1em;" src="img/attribut.gif" width="50%">
+<figcaption>Att Personnummer är understruket betyder att personnummer är unika, dvs två personer kan inte ha samma personnummer. Personnumret kan alltså användas som nyckel. Samma sak med Husnummer.</figcaption>
+</figure>
 
 </script>
 
 
 
-<script data-role="slide" data-markdown type="text/html">
-# Avslutningsvis
+<script data-role="slide" type="text/html" data-markdown class="center">
+# Attribut på relation
 
-* Frågor på det?
+<figure>
+<img style="background-color: white; padding: 1em;" src="img/sambandsattribut.gif" width="50%">
+<figcaption>Inflyttningsår anger vilket år en person flyttade in i det hus hon bor i. I det här fallet skulle man också kunna sätta attributet Inflyttningsår på personen, eftersom varje person bor i exakt ett hus, och alltså har exakt ett inflyttningsår, men det är nog naturligare att låta inflyttningsåret höra till Bor i-sambandet.</figcaption>
+</figure>
 
+</script>
+
+
+
+<script data-role="slide" type="text/html" data-markdown class="center">
+# Vän med sig själv?
+
+<figure>
+<img style="background-color: white; padding: 1em;" src="img/schema-data.gif" width="30%">
+<figcaption>Personer kan vara vänner med andra personer.</figcaption>
+</figure>
+
+</script>
+
+
+
+<script data-role="slide" type="text/html" data-markdown class="center">
+# Vän med sig själv...?
+
+<figure>
+<img style="background-color: white; padding: 1em;" src="img/er-data.gif" width="40%">
+<figcaption>Personer kan vara vänner med andra personer.</figcaption>
+</figure>
+
+</script>
+
+
+
+<script data-role="slide" type="text/html" data-markdown class="center">
+# Sammansatta attribut
+
+<figure>
+<img style="background-color: white; padding: 1em;" src="img/sammansatt.gif" width="50%">
+<figcaption>Telefonnummer kan ju behandlas som en enhet (070-7347013), men om man ofta vill dela upp personerna i databasen efter riktnummer är det kanske bättre att dela upp numren i två delar (070 och 7347013),</figcaption>
+</figure>
+
+</script>
+
+
+
+<script data-role="slide" type="text/html" data-markdown class="center">
+# Flervärda attribut
+
+<figure>
+<img style="background-color: white; padding: 1em;" src="img/flervart.gif" width="50%">
+<figcaption>Att telefonnummer är ett flervärt attribut innebär att en person kan ha hur många telefonnummer som helst: noll, ett, två eller kanske en miljard.</figcaption>
+</figure>
+
+</script>
+
+
+
+<script data-role="slide" type="text/html" data-markdown class="center">
+# Härledda attribut
+
+<figure>
+<img style="background-color: white; padding: 1em;" src="img/harlett.gif" width="50%">
+<figcaption>I det här fallet ska man alltså inte lagra antal boende för varje hus, utan man räknar ut det på nytt varje gång man behöver värdet, helt enkelt genom att räkna hur många instanser det finns av "bor i"-sambandet som hör ihop med just det huset.</figcaption>
+</figure>
+
+</script>
+
+
+
+<script data-role="slide" type="text/html" data-markdown class="center">
+# Svaga entitetstyper
+
+<figure>
+<img style="background-color: white; padding: 1em;" src="img/svag.gif" width="50%">
+<figcaption>Det finns lägenheter, som var och en har ett eget nummer. Lägenheterna innehåller rum, men rummen har bara namn, som inte är unika för hela databasen. Däremot är de unika inom en viss lägenhet: om man vet ett rumsnamn, och numret på den lägenhet som rummet hör till, så räcker det för att unikt identifiera rummet i hela databasen.</figcaption>
+</figure>
+
+</script>
+
+
+
+<script data-role="slide" type="text/html" data-markdown class="center">
+# Objektifiering av sambandstyper
+
+<figure>
+<img style="background-color: white; padding: 1em;" src="img/boende.gif" width="50%">
+<figcaption>Gör om Bor i-sambandet till en egen entitetstyp, som vi kallar Boende. Nu ser vi inte längre ett boende som en sambandstyp som knyter ihop en person och ett hus, utan nu är ett boende en egen sak. Varje boende-entitet hör ihop med en person (den som bor) och med ett hus (huset hon bor i).</figcaption>
+</figure>
+
+</script>
+
+
+
+<script data-role="slide" type="text/html" data-markdown class="center">
+# Objektifiering av sambandstyper...
+
+<figure>
+<img style="background-color: white; padding: 1em;" src="img/film-samband.gif" width="50%">
+<figcaption>N:M-sambandet betyder att en person kan ha sett flera filmer, och att en film kan ha setts av flera personer. Men vi kan inte ange att en person sett samma film flera gånger.</figcaption>
+</figure>
+
+</script>
+
+
+
+<script data-role="slide" type="text/html" data-markdown class="center">
+# Objektifiering av sambandstyper...
+
+<figure>
+<img style="background-color: white; padding: 1em;" src="img/film-entitet.gif" width="50%">
+<figcaption>Om vi i stället betraktar en filmtittning som en egen sak, och inte bara en typ av samband mellan personer och filmer, så kan vi ha flera olika tittningar där en viss person sett en viss film.</figcaption>
+</figure>
+
+</script>
+
+
+
+<script data-role="slide" type="text/html" data-markdown class="center">
+# Flervägssamband
+
+<figure>
+<img style="background-color: white; padding: 1em;" src="img/trevagssamband.gif" width="50%">
+<figcaption>Kanske vill vi än en gång hålla reda på vilka personer som har sett vilka filmer, men vi vill dessutom veta vilka biografer de sett filmerna på.</figcaption>
+</figure>
+
+</script>
+
+
+
+<script data-role="slide" type="text/html" data-markdown class="center">
+# Flervägssamband...
+
+<figure>
+<img style="background-color: white; padding: 1em;" src="img/objektifiering.gif" width="50%">
+<figcaption>Här ser vi alltså inte filmseende som en sambandstyp som knyter ihop en person, en film och en biograf, utan nu är filmseendet en egen sak. Varje filmtittningsentitet hör ihop med en person (vem), en film (vad) och en biograf (var).</figcaption>
+</figure>
+
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html" class="titlepage center">
+# Slut
 </script>
 
 

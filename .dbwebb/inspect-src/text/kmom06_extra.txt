@@ -8,7 +8,7 @@ KOMMENTAR. Länken eshop/index fungerade inte (enligt uppgiften), men det löste
 
 FIX. Du har mixat små och stora bokstäver i din SQL-kod. Vår kodstandard säger bara små bokstäver, se forumet: https://dbwebb.se/t/8379. Uppdatera din kod, var konsistent i användandet av små och stora bokstäver och undvik stora bokstäver.
 
-FIX. Dina databas-funktioner har inte karaktäristik angiven så de går inte att ladda från backup-filen. Se forumet: https://dbwebb.se/t/8419. Uppdatera dina funktioner med karaktäristik och skapa en ny backupfil.
+FIX. Jag får ett fel "This function has none of DETERMINISTIC, NO SQL, or READS SQL DATA" när jag läser in din backupfil. Dina databas-funktioner har inte karaktäristik angiven så de går inte att ladda från backup-filen. Se issuen: https://github.com/dbwebb-se/databas/issues/19. Uppdatera dina funktioner med karaktäristik och skapa en ny backupfil.
 
 Executing: mysql -udbwebb eshop < me/kmom06/eshop2/sql/eshop/backup.sql
 ERROR 1418 (HY000) at line XXX: This function has none of DETERMINISTIC, NO SQL, or READS SQL DATA in its declaration a
