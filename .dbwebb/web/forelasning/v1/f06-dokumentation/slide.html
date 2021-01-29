@@ -1,0 +1,210 @@
+<!doctype html>
+<html class="theme-5">
+<meta charset="utf-8" />
+<link href="../html-slideshow.bundle.min.css" rel="stylesheet" />
+<link href="../style.css" rel="stylesheet" />
+<script src="https://dbwebb.se/cdn/js/html-slideshow_v1.1.0.bundle.min.js"></script>
+
+<title>Kursen databas</title>
+
+<script data-role="slide" type="text/html" data-markdown class="titlepage center">
+# Transaktioner
+##
+### Mikael Roos
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# Agenda
+
+* Transaktion
+* Tips MySQL/Node.js
+
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# Transaktion
+
+* Utför allt, eller inget.
+* På hedersord.
+
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# Transaktion
+
+```
+START TRANSACTION;
+
+-- DO SQL DEPENDENT ON EACH OTHER
+
+-- DO ROLLBACK or COMMIT;
+
+-- ROLLBACK;
+COMMIT;
+```
+
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# ACID
+
+* Samling properties för databastransaktioner
+* Beskriver hur en transaktion måste bete sig
+* Viktig komponent för att säkerställa integritet i en datas
+
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# A - Atomicity
+
+* En transaktion utförs som en enhet, eller inte alls.
+* Allt eller inget.
+* Den är odelbar.
+
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# C - Consistency
+
+* Transaktionen flyttar databasen från ett giltigt läge till ett annat
+* Alla regler såsom constraints, cascades och triggers skall vara giltiga
+
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# I - Isolation
+
+* Även om flera transaktioner exekveras samtidigt så skall resultatet från transaktionerna betraktas som om de exekverades sekventiellt.
+* En transaktion kan inte se effekter av en delvis exekverad transaktion.
+
+
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# D - Durability
+
+* När en transaktion är committad så skall den vara beständig, även om strömmen går och databasmotorn krashar.
+
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# ACID
+
+* A - Atomicity
+* C - Consistency
+* I - Isolation
+* D - Durability
+
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# Hantera ACID
+
+* Tex vid återstart
+    * Avbrutna transaktioner, som inte räknas som klara, ska tas bort (undo)
+    * Transaktioner som räknas som klara måste också kontrolleras.
+* Jämför transaktionslogg med innehållet i tabellerna (redo)
+
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# Transaktionslogg
+
+* Skriv notering i loggfilen, utför sedan ändringen (write-ahead logging)
+    * Typ transaktion
+    * Vilket dataobjekt
+    * Nuvarande värde
+    * Nytt värde
+
+* All data som behövs för undo/redo
+
+</script>
+
+
+<!--
+<script data-role="slide" data-markdown type="text/html">
+# Hur funkar låsning mellan transaktioner?
+</script>
+-->
+
+
+<script data-role="slide" data-markdown type="text/html">
+# Kolla igenom exemplet med transaktioner i Workbench
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# TIPS Node/MySQL
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# [Multipla queries](https://dbwebb.se/uppgift/flytta-pengar-med-terminal-program-och-med-express#flera)
+
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# Placeholder `??`
+
+* [npm mysql](https://www.npmjs.com/package/mysql)
+
+```
+async function findAllInTable(table) {
+    let sql = `SELECT * FROM ??;`;
+    let res;
+
+    res = await db.query(sql, [table]);
+```
+
+</script>
+
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# Extra
+
+* [En JS-funktion för att flytta pengar i godtycklig riktning](https://dbwebb.se/uppgift/flytta-pengar-med-terminal-program-och-med-express#extra)
+
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# Avslutningsvis
+
+* Frågor på det?
+
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+<!-- empty slide by intention -->
+</script>
