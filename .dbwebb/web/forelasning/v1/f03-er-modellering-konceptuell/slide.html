@@ -102,7 +102,7 @@
 # Flera sambandstyper mellan samma entitetstyper
 
 <figure>
-<img style="background-color: white; padding: 1em;" src="img/N-M-samband.gif" width="50%">
+<img style="background-color: white; padding: 1em;" src="img/flera.gif" width="50%">
 <figcaption>Hus kan ägas gemensamt av flera personer, och varje person kan vara med och äga flera hus.</figcaption>
 </figure>
 
@@ -127,7 +127,7 @@
 
 <figure>
 <img style="background-color: white; padding: 1em;" src="img/attribut.gif" width="50%">
-<figcaption>Att Personnummer är understruket betyder att personnummer är unika, dvs två personer kan inte ha samma personnummer. Personnumret kan alltså användas som nyckel. Samma sak med Husnummer.</figcaption>
+<figcaption>Att Personnummer är understruket betyder att personnummer är unika, dvs två personer kan inte ha samma personnummer. Personnumret kan alltså användas som nyckel (kandidatnyckel). Samma sak med Husnummer.</figcaption>
 </figure>
 
 </script>
@@ -211,11 +211,16 @@
 
 <figure>
 <img style="background-color: white; padding: 1em;" src="img/svag.gif" width="50%">
-<figcaption>Det finns lägenheter, som var och en har ett eget nummer. Lägenheterna innehåller rum, men rummen har bara namn, som inte är unika för hela databasen. Däremot är de unika inom en viss lägenhet: om man vet ett rumsnamn, och numret på den lägenhet som rummet hör till, så räcker det för att unikt identifiera rummet i hela databasen.</figcaption>
+<figcaption>Vi har ritat Rum med en dubbel fyrkant, för att ange att det är en svag entitetstyp. Det finns lägenheter, som var och en har ett eget nummer. Lägenheterna innehåller rum, men rummen har bara namn, som inte är unika för hela databasen. Däremot är de unika inom en viss lägenhet: om man vet ett rumsnamn, och numret på den lägenhet som rummet hör till, så räcker det för att unikt identifiera rummet i hela databasen.</figcaption>
 </figure>
 
 </script>
 
+
+
+<script data-role="slide" type="text/html" data-markdown class="titlepage center">
+# Relation till entitet
+</script>
 
 
 <script data-role="slide" type="text/html" data-markdown class="center">
@@ -231,7 +236,7 @@
 
 
 <script data-role="slide" type="text/html" data-markdown class="center">
-# Objektifiering av sambandstyper...
+# Objektifiering av N:M
 
 <figure>
 <img style="background-color: white; padding: 1em;" src="img/film-samband.gif" width="50%">
@@ -243,7 +248,7 @@
 
 
 <script data-role="slide" type="text/html" data-markdown class="center">
-# Objektifiering av sambandstyper...
+# Objektifiering av N:M...
 
 <figure>
 <img style="background-color: white; padding: 1em;" src="img/film-entitet.gif" width="50%">
@@ -272,6 +277,85 @@
 <figure>
 <img style="background-color: white; padding: 1em;" src="img/objektifiering.gif" width="50%">
 <figcaption>Här ser vi alltså inte filmseende som en sambandstyp som knyter ihop en person, en film och en biograf, utan nu är filmseendet en egen sak. Varje filmtittningsentitet hör ihop med en person (vem), en film (vad) och en biograf (var).</figcaption>
+</figure>
+
+</script>
+
+
+
+<script data-role="slide" type="text/html" data-markdown class="titlepage center">
+# Utvidgade ER-diagram (EER)
+</script>
+
+
+
+<script data-role="slide" type="text/html" data-markdown class="center">
+# Subklasser (arv)
+
+<figure>
+<img style="background-color: white; padding: 1em;" src="img/subklasser.gif" width="50%">
+<figcaption>Det här säger att databasen innehåller personer. En del av de personerna är (förutom att de är personer) studenter, en del är lärare, och en del är astronauter.</figcaption>
+</figure>
+
+</script>
+
+
+
+<script data-role="slide" type="text/html" data-markdown class="center">
+# Subklasser (arv)...
+
+<figure>
+<img style="background-color: white; padding: 1em;" src="img/enkelt-arv.gif" width="50%">
+<figcaption>Vi antar nu att en del av personerna är studenter. En student har, precis som alla andra personer, ett namn och ett personnummer, och hon bor i ett hus. Men en student har dessutom ett medelbetyg, och hon läser kurser.</figcaption>
+</figure>
+
+</script>
+
+
+
+<script data-role="slide" type="text/html" data-markdown>
+# Termer
+
+* Entiteter/entitetstyper, svaga entitetstyper
+* Sambandstyp/relation, flerbägssamband
+* Fullständigt deltagade
+* Kardinalitet
+* 1:1, 1:N, N:M
+* Attribut, sammansatt, flervärt, härledda
+* Kandidatnycklar
+* Arv
+
+</script>
+
+
+
+<script data-role="slide" type="text/html" data-markdown>
+# Översätta till relationsmodellen
+
+När den konceptuella modellen är klar behöver den översättas till relationsmodellen.
+
+* Begränsningar och möjligheter i relationsmodellen
+
+</script>
+
+
+
+<script data-role="slide" type="text/html" data-markdown>
+# Varför?
+
+* Varför inte tabeller från början?
+* Varför inte ER-diagram hela vägen?
+
+</script>
+
+
+
+<script data-role="slide" type="text/html" data-markdown class="center">
+# Alternativa notationer
+
+<figure>
+<img style="background-color: white; padding: 1em;" src="img/alternativ.gif" width="40%">
+<figcaption>Olika sätt att representera konceptuell modell.</figcaption>
 </figure>
 
 </script>
