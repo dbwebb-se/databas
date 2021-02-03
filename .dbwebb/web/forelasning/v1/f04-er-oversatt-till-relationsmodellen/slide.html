@@ -40,7 +40,7 @@
 <script data-role="slide" data-markdown type="text/html">
 # Logisk modellering
 
-* Översätt modellen till relationsmodellen
+* Översätt ER-modellen till relationsmodellen
 * Tabeller, primärnycklar, främmande nycklar
 * Datatyper
 
@@ -52,7 +52,6 @@
 # Översätt till relationsmodellen
 
 * Inga många-många förhållanden (N:M)
-    * Person äger hus, hus ägs av personer
 * Inga komplexa relationer
     * Endast 1:1 eller 1:N
 * Inga flervärdesattribut
@@ -67,7 +66,7 @@
 <script data-role="slide" data-markdown type="text/html" class="titlepage center">
 # Översätt till relationsmodellen
 
-<p class="footnote">Från artikeln "Översättning från ER-modellen till relationsmodellen" på http://www.databasteknik.se/webbkursen/er/.</p>
+<p class="footnote">Materialet kommer från artikeln "Översättning från ER-modellen till relationsmodellen" på http://www.databasteknik.se/webbkursen/er/.</p>
 
 </script>
 
@@ -75,26 +74,7 @@
 <script data-role="slide" data-markdown type="text/html" class="titlepage center">
 # Översätt till relationsmodellen
 
-Varje vanlig entitetstyp blir en tabell. Vanliga attribut blir kolumner i tabellen.
-
-Varje 1:N-sambandstyp blir ett referensattribut i "många"-entitetstypens tabell.
-
-Varje 1:1-sambandstyp blir ett referensattribut i den ena entitetstypens tabell.
-
-Varje N:M-sambandstyp blir en egen tabell.
-
-Varje flervägssambandstyp blir en egen tabell.
-
-Attribut på sambandstyper blir kolumner. För 1:1- och 1:N-sambandstyper i samma tabell som den med referensattributet, och för N:M-sambandstyper i den särskilda sambandstabellen.
-
-Varje svag entitetstyp blir en tabell. Primärnyckeln består av den svaga entitetstypens partiella nyckel, kombinerad med den identifierande entitetstypens primärnyckel.
-
-Sammansatta attribut behandlas som om de bara bestod av delarna.
-
-Varje flervärt attribut blir en egen tabell. Primärnyckeln består av entitetstypens primärnyckel, kombinerad med det flervärda attributet.
-Härledda attribut ignoreras.
-
-Arv i EER-modellen representeras genom att varje subklass får en egen tabell, som har samma primärnyckel som superklassen, plus subklassens extra kolumner.
+Låt oss se ett antal steg som hjälper oss att översätta ER-modellen till relationsmodellen.
 
 </script>
 
@@ -104,7 +84,7 @@ Arv i EER-modellen representeras genom att varje subklass får en egen tabell, s
 # Vanliga entitetstyper
 
 <figure>
-<img style="background-color: white; padding: 1em;" src="img/entitetstyper.gif" width="50%">
+<img style="background-color: white; padding: 1em;" src="img/vanliga-entitetstyper.png" width="70%">
 <figcaption>Varje vanlig entitetstyp blir en tabell, med samma namn som entitetstypen. Vanliga attribut blir kolumner i tabellen.</figcaption>
 </figure>
 
@@ -116,8 +96,8 @@ Arv i EER-modellen representeras genom att varje subklass får en egen tabell, s
 # 1:N-sambandstyper
 
 <figure>
-<img style="background-color: white; padding: 1em;" src="img/samband-1n.gif" width="50%">
-<figcaption>Varje 1:N-sambandstyp blir ett referensattribut i "många"-entitetstypens tabell.</figcaption>
+<img style="background-color: white; padding: 1em;" src="img/1-N-sambandstyper.png" width="60%">
+<figcaption>Varje 1:N-sambandstyp blir ett referensattribut i "många"-entitetstypens tabell. De två entitetstyperna blir två tabeller. Äger-sambandstypen blir ett referensattribut i Bil-tabellen</figcaption>
 </figure>
 
 </script>
@@ -128,8 +108,20 @@ Arv i EER-modellen representeras genom att varje subklass får en egen tabell, s
 # 1:1-sambandstyper
 
 <figure>
-<img style="background-color: white; padding: 1em;" src="img/samband.gif" width="50%">
-<figcaption>Varje 1:1-sambandstyp blir ett referensattribut i den ena entitetstypens tabell.</figcaption>
+<img style="background-color: white; padding: 1em;" src="img/1-1-sambandstyp-er.png" width="70%">
+<figcaption>Varje 1:1-sambandstyp blir ett referensattribut i den ena entitetstypens tabell. Ibland kan man slå ihop tabellerna.</figcaption>
+</figure>
+
+</script>
+
+
+
+<script data-role="slide" type="text/html" data-markdown class="center">
+# 1:1-sambandstyper...
+
+<figure>
+<img style="background-color: white; padding: 1em;" src="img/1-1-sambandstyp.png" width="50%">
+<figcaption>A) Ett referensattribut i den ena tabellen. B) Ett referensattribut i den andra tabellen. C) Slå ihop tabellerna.</figcaption>
 </figure>
 
 </script>
@@ -140,8 +132,8 @@ Arv i EER-modellen representeras genom att varje subklass får en egen tabell, s
 # N:M-sambandstyper
 
 <figure>
-<img style="background-color: white; padding: 1em;" src="img/samband-nm.gif" width="50%">
-<figcaption>Varje N:M-sambandstyp blir en egen tabell.</figcaption>
+<img style="background-color: white; padding: 1em;" src="img/N-M-sambandstyper.png" width="50%">
+<figcaption>Varje N:M-sambandstyp blir en egen tabell. Tabellen Äger har en primärnyckel som består av både Person och Hus. Dessutom är Person referensattribut till tabellen Person, och Hus är referensattribut till tabellen Hus.</figcaption>
 </figure>
 
 </script>
@@ -149,11 +141,23 @@ Arv i EER-modellen representeras genom att varje subklass får en egen tabell, s
 
 
 <script data-role="slide" type="text/html" data-markdown class="center">
-# Sambandstyper av högre grad än två
+# Sambandstyper > 2
 
 <figure>
-<img style="background-color: white; padding: 1em;" src="img/samband-3.gif" width="50%">
+<img style="background-color: white; padding: 1em;" src="img/sambandstyp-fler-an-2.png" width="70%">
 <figcaption>Trevägssamband, och samband av ännu högre grad, är det enklast att göra en mellantabell av.</figcaption>
+</figure>
+
+</script>
+
+
+
+<script data-role="slide" type="text/html" data-markdown class="center">
+# Sambandstyper > 2...
+
+<figure>
+<img style="background-color: white; padding: 1em;" src="img/sambandstyp-fler-an-2-tabell.png" width="80%">
+<figcaption>Sambandstypen Sett blir en egen tabell, som har en sammansatt primärnyckel bestående av primärnycklarna från de tre hopkopplade tabellerna.</figcaption>
 </figure>
 
 </script>
@@ -164,7 +168,7 @@ Arv i EER-modellen representeras genom att varje subklass får en egen tabell, s
 # Attribut på sambandstyper
 
 <figure>
-<img style="background-color: white; padding: 1em;" src="img/attribut-samband.gif" width="50%">
+<img style="background-color: white; padding: 1em;" src="img/attribut-sambandstyp-1-N.png" width="60%">
 <figcaption>Attribut på sambandstyper blir kolumner. För 1:1- och 1:N-sambandstyper i samma tabell som den med referensattributet.</figcaption>
 </figure>
 
@@ -176,7 +180,7 @@ Arv i EER-modellen representeras genom att varje subklass får en egen tabell, s
 # Attribut på sambandstyper...
 
 <figure>
-<img style="background-color: white; padding: 1em;" src="img/attribut-samband-nm.gif" width="50%">
+<img style="background-color: white; padding: 1em;" src="img/attribut-sambandstyp-N-M.png" width="60%">
 <figcaption>Attribut på sambandstyper blir kolumner. För N:M-sambandstyper i den särskilda sambandstabellen.</figcaption>
 </figure>
 
@@ -188,7 +192,7 @@ Arv i EER-modellen representeras genom att varje subklass får en egen tabell, s
 # Svaga entitetstyper
 
 <figure>
-<img style="background-color: white; padding: 1em;" src="img/svag.gif" width="50%">
+<img style="background-color: white; padding: 1em;" src="img/svaga-entitetstyper.png" width="50%">
 <figcaption>Varje svag entitetstyp blir en tabell. Primärnyckeln består av den svaga entitetstypens partiella nyckel, kombinerad med den identifierande entitetstypens primärnyckel.</figcaption>
 </figure>
 
@@ -200,7 +204,7 @@ Arv i EER-modellen representeras genom att varje subklass får en egen tabell, s
 # Sammansatta attribut
 
 <figure>
-<img style="background-color: white; padding: 1em;" src="img/sammansatt.gif" width="50%">
+<img style="background-color: white; padding: 1em;" src="img/sammansatta-attribut.png" width="60%">
 <figcaption>Sammansatta attribut behandlas som om de bara bestod av delarna.</figcaption>
 </figure>
 
@@ -212,7 +216,7 @@ Arv i EER-modellen representeras genom att varje subklass får en egen tabell, s
 # Flervärda attribut
 
 <figure>
-<img style="background-color: white; padding: 1em;" src="img/flervart.gif" width="50%">
+<img style="background-color: white; padding: 1em;" src="img/flervart-attribut.png" width="40%">
 <figcaption>Varje flervärt attribut blir en egen tabell. Primärnyckeln består av entitetstypens primärnyckel, kombinerad med det flervärda attributet.</figcaption>
 </figure>
 
@@ -224,8 +228,8 @@ Arv i EER-modellen representeras genom att varje subklass får en egen tabell, s
 # Härledda attribut
 
 <figure>
-<img style="background-color: white; padding: 1em;" src="img/harledda.gif" width="50%">
-<figcaption>Härledda attribut kan räknas ut, behövs inte lagras.</figcaption>
+<img style="background-color: white; padding: 1em;" src="img/harlett-attribut.png" width="70%">
+<figcaption>Härledda attribut kan räknas ut, behövs inte lagras. Om man ändå väljer att lagra dem så blir det dubbelagring av data.</figcaption>
 </figure>
 
 </script>
@@ -236,7 +240,7 @@ Arv i EER-modellen representeras genom att varje subklass får en egen tabell, s
 # Arv i EER-modellen
 
 <figure>
-<img style="background-color: white; padding: 1em;" src="img/arv.gif" width="30%">
+<img style="background-color: white; padding: 1em;" src="img/eer.png" width="80%">
 <figcaption>Varje subklass får en egen tabell som har samma primärnyckel som superklassen, plus subklassens extra kolumner.</figcaption>
 </figure>
 
@@ -247,97 +251,14 @@ Arv i EER-modellen representeras genom att varje subklass får en egen tabell, s
 <script data-role="slide" data-markdown type="text/html">
 # Sammanfattning
 
-* A
-* B
-*
-
-</script>
-
-
-
-<script data-role="slide" data-markdown type="text/html" class="titlepage center">
-# Tips och trix
-</script>
-
-
-
-<script data-role="slide" data-markdown type="text/html">
-# Exempel
-
-> Databasen behöver också innehålla ett lager där man ser hur många av varje produkt som finns i lagret och en notering om var produkten ligger i lagret (vilken hylla). En och samma produkt kan vara utspridd över olika hyllor i lagret.
-
-</script>
-
-
-
-<script data-role="slide" data-markdown type="text/html">
-# Primärnyckel?
-
-* Hur välja primärnyckel från kandidatnycklar?
-* Se forumet [Vad välja som primärnyckel till en databastabell?](https://dbwebb.se/forum/viewtopic.php?t=6439&p=52728)
-
-</script>
-
-
-
-<script data-role="slide" data-markdown type="text/html">
-# Primärnyckel?
-
-1. Välj en primärnyckel som är unik och tillräckligt framtidssäker.
-2. Välj inte en surrogatnyckel av slentrian.
-3. Välj medvetet mellan SIGNED/UNSIGNED INTEGER och välj medvetet CHARSET för CHAR/VARCHAR. Båda kan påverka nyckelns omfång och behov av lagring.
-4. Har du möjlighet att välja? Ta då en kortare nyckel.
-5. Har du möjlighet att välja? Välj CHAR framför AUTO_INCREMENT (om prioritera tydlighet)
-6. (Krångla inte)
-
-</script>
-
-
-
-<script data-role="slide" data-markdown type="text/html">
-# Exempel
-
-> Produkt, order, leverantör, kund
-
-* Utgå från en [färdig order](https://docs.google.com/document/d/149HXTs_1Xu_hOyFnV6mc9YEuUNe085XyzHtvPqM_L6Y/edit?usp=sharing).
-
-* [Forumtråd om Produkt, Produkt2Order, Order](https://dbwebb.se/forum/viewtopic.php?t=8361)
-
-</script>
-
-
-
-<script data-role="slide" data-markdown type="text/html">
-# SQL för Order
-
-* [Färdig order](https://docs.google.com/document/d/149HXTs_1Xu_hOyFnV6mc9YEuUNe085XyzHtvPqM_L6Y/edit?usp=sharing).
-* Hur många SQL-frågor krävs för att skapa en order?
-
-</script>
-
-
-
-<script data-role="slide" data-markdown type="text/html">
-# En logg
-
-```
-$ tail access.log
-167.114.210.37 - - [19/Feb/2020:10:17:22 +0100] "GET /forum/viewforum.php?f=11&sid=d1c510be19076a0b7e1d4c3ba4b24a36&start=175 HTTP/1.1" 200 7895 "-" "Mozilla/5.0 (Windows; U; Windows NT 5.1; de; rv:1.9.2.3) Gecko/20100401 Firefox/3.6.3"
-51.254.44.185 - - [19/Feb/2020:10:17:22 +0100] "GET /forum/viewforum.php?f=44&sid=05c9096c4d8ce15d31f438cff78725f7 HTTP/1.1" 200 7940 "-" "Mozilla/5.0 (Windows; U; Windows NT 5.1; de; rv:1.9.2.3) Gecko/20100401 Firefox/3.6.3"
-85.24.145.35 - - [19/Feb/2020:10:17:36 +0100] "GET /guide HTTP/1.1" 200 7312 "https://dbwebb.se/guide/kom-igang-med-sql-i-mysql/spara-SQL-i-filer" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.130 Safari/537.36"
-```
-
-</script>
-
-
-
-<script data-role="slide" data-markdown type="text/html">
-# En loggtabell
-
-* Hur rita på ER?
-* Relationer med alla tabeller?
-* Ensam entitet?
-* Syftet med en logg, transaktionslogg
+* Inga många-många förhållanden (N:M)
+    * Skapa kopplingstabell
+* Inga komplexa relationer
+    * Endast 1:1 eller 1:N
+* Inga flervärdesattribut
+* Varje rad är unik
+* Ingen dubbellagring
+* Rapporter kräver att data hämtas från flera tabeller
 
 </script>
 

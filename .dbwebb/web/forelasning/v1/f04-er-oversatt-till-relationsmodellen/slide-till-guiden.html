@@ -1,0 +1,121 @@
+<!doctype html>
+<html class="theme-5">
+<meta charset="utf-8" />
+<link href="../html-slideshow.bundle.min.css" rel="stylesheet" />
+<link href="../style.css" rel="stylesheet" />
+<script src="https://dbwebb.se/cdn/js/html-slideshow_v1.1.0.bundle.min.js"></script>
+
+<title>Kursen databas</title>
+
+<script data-role="slide" type="text/html" data-markdown class="titlepage center">
+# Översätt till relationsmodellen
+## Entity Relationship (ER), logisk modellering
+### Mikael Roos
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# Agenda
+
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html" class="titlepage center">
+# Tips och trix
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# Exempel
+
+> Databasen behöver också innehålla ett lager där man ser hur många av varje produkt som finns i lagret och en notering om var produkten ligger i lagret (vilken hylla). En och samma produkt kan vara utspridd över olika hyllor i lagret.
+
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# Primärnyckel?
+
+* Hur välja primärnyckel från kandidatnycklar?
+* Se forumet [Vad välja som primärnyckel till en databastabell?](https://dbwebb.se/forum/viewtopic.php?t=6439&p=52728)
+
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# Primärnyckel?
+
+1. Välj en primärnyckel som är unik och tillräckligt framtidssäker.
+2. Välj inte en surrogatnyckel av slentrian.
+3. Välj medvetet mellan SIGNED/UNSIGNED INTEGER och välj medvetet CHARSET för CHAR/VARCHAR. Båda kan påverka nyckelns omfång och behov av lagring.
+4. Har du möjlighet att välja? Ta då en kortare nyckel.
+5. Har du möjlighet att välja? Välj CHAR framför AUTO_INCREMENT (om prioritera tydlighet)
+6. (Krångla inte)
+
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# Exempel
+
+> Produkt, order, leverantör, kund
+
+* Utgå från en [färdig order](https://docs.google.com/document/d/149HXTs_1Xu_hOyFnV6mc9YEuUNe085XyzHtvPqM_L6Y/edit?usp=sharing).
+
+* [Forumtråd om Produkt, Produkt2Order, Order](https://dbwebb.se/forum/viewtopic.php?t=8361)
+
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# SQL för Order
+
+* [Färdig order](https://docs.google.com/document/d/149HXTs_1Xu_hOyFnV6mc9YEuUNe085XyzHtvPqM_L6Y/edit?usp=sharing).
+* Hur många SQL-frågor krävs för att skapa en order?
+
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# En logg
+
+```
+$ tail access.log
+167.114.210.37 - - [19/Feb/2020:10:17:22 +0100] "GET /forum/viewforum.php?f=11&sid=d1c510be19076a0b7e1d4c3ba4b24a36&start=175 HTTP/1.1" 200 7895 "-" "Mozilla/5.0 (Windows; U; Windows NT 5.1; de; rv:1.9.2.3) Gecko/20100401 Firefox/3.6.3"
+51.254.44.185 - - [19/Feb/2020:10:17:22 +0100] "GET /forum/viewforum.php?f=44&sid=05c9096c4d8ce15d31f438cff78725f7 HTTP/1.1" 200 7940 "-" "Mozilla/5.0 (Windows; U; Windows NT 5.1; de; rv:1.9.2.3) Gecko/20100401 Firefox/3.6.3"
+85.24.145.35 - - [19/Feb/2020:10:17:36 +0100] "GET /guide HTTP/1.1" 200 7312 "https://dbwebb.se/guide/kom-igang-med-sql-i-mysql/spara-SQL-i-filer" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.130 Safari/537.36"
+```
+
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# En loggtabell
+
+* Hur rita på ER?
+* Relationer med alla tabeller?
+* Ensam entitet?
+* Syftet med en logg, transaktionslogg
+
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html" class="titlepage center">
+# Slut
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+<!-- empty slide by intention -->
+</script>
