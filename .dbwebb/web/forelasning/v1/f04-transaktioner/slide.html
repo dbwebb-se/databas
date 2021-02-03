@@ -8,8 +8,8 @@
 <title>Kursen databas</title>
 
 <script data-role="slide" type="text/html" data-markdown class="titlepage center">
-# Transaktioner
-## Allt eller inget
+# Transactions
+## All or nothing
 ### Mikael Roos
 </script>
 
@@ -18,25 +18,76 @@
 <script data-role="slide" data-markdown type="text/html">
 # Agenda
 
-* Transaktion
-* Tips MySQL/Node.js
+* Storage engines
+* Transaction
+* ACID
+* Locking
+* Transactions in npm mysql
 
 </script>
 
 
 
 <script data-role="slide" data-markdown type="text/html">
-# Transaktion
+# Storage engines
 
-* Utför allt, eller inget.
-* På hedersord.
+* InnoDB (default, ACID compliant)
+* MyISAM (good for read-only/read-mostly)
+* Memory (RAM only)
+* CSV (text files comma separated values)
+* Archive (unindexed seldom-references historical data)
+* Blackhole (like /dev/null)
 
 </script>
 
 
 
 <script data-role="slide" data-markdown type="text/html">
-# Transaktion
+# Transaction
+
+* Do it all - or nothing
+
+> "cross my heart and hope to die"
+
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html" class="titlepage center">
+# Example for transaction
+## Move money between accounts
+
+Adam sends 1,5 bitcoin to Eva.
+</script>
+
+
+
+<script data-role="slide" type="text/html" data-markdown class="center">
+# Move money
+
+<figure>
+<img src="img/move-money-1.png" width="80%">
+<figcaption>Move money with two UPDATE statements.</figcaption>
+</figure>
+
+</script>
+
+
+
+<script data-role="slide" type="text/html" data-markdown class="center">
+# Move money...
+
+<figure>
+<img src="img/move-money-2.png" width="80%">
+<figcaption>Move money within a transaction.</figcaption>
+</figure>
+
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# Transaction
 
 ```
 START TRANSACTION;
@@ -53,10 +104,57 @@ COMMIT;
 
 
 
+<script data-role="slide" type="text/html" data-markdown class="center">
+# MySQL transaction
+
+<figure>
+<img src="img/syntax.png" width="80%">
+<figcaption>Description of the "Transaction statement" from the manual.</figcaption>
+</figure>
+
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# Transaction statement
+
+* START TRANSACTION or BEGIN start a new transaction.
+
+* COMMIT commits the current transaction, making its changes permanent.
+
+* ROLLBACK rolls back the current transaction, canceling its changes.
+
+* SET autocommit disables or enables the default autocommit mode for the current session.
+
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# Autocommit is default
+
+By default, MySQL runs with autocommit mode enabled.
+
+This means that, when not otherwise inside a transaction, each statement is atomic, as if it were surrounded by START TRANSACTION and COMMIT.
+
+You cannot use ROLLBACK to undo the effect; however, if an error occurs during statement execution, the statement is rolled back.
+
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html" class="titlepage center">
+# Transactions are ACID
+
+</script>
+
+
+
 <script data-role="slide" data-markdown type="text/html">
 # ACID
 
-* Samling properties för databastransaktioner
+* Samling av properties för databastransaktioner
 * Beskriver hur en transaktion måste bete sig
 * Viktig komponent för att säkerställa integritet i en datas
 
@@ -143,27 +241,141 @@ COMMIT;
 </script>
 
 
-<!--
-<script data-role="slide" data-markdown type="text/html">
-# Hur funkar låsning mellan transaktioner?
-</script>
--->
 
+<script data-role="slide" type="text/html" data-markdown class="center">
+# Transaction access mode
 
-<script data-role="slide" data-markdown type="text/html">
-# Kolla igenom exemplet med transaktioner i Workbench
-</script>
+<figure>
+<img src="img/syntax1.png" width="80%">
+<figcaption>Characteristics can be set for the transaction. Permit or prohibit changes to tables used in the transaction.</figcaption>
+</figure>
 
-
-
-<script data-role="slide" data-markdown type="text/html">
-# TIPS Node/MySQL
 </script>
 
 
 
 <script data-role="slide" data-markdown type="text/html">
-# [Multipla queries](https://dbwebb.se/uppgift/flytta-pengar-med-terminal-program-och-med-express#flera)
+# Isolation level
+
+> "The isolation level is the setting that fine-tunes the balance between performance and reliability, consistency, and reproducibility of results when multiple transactions are making changes and performing queries at the same time."
+
+<p class="footnote">This is a global setting on the server.</p>
+
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# Isolation level...
+
+* REPEATABLE READ (default innodb)
+* READ COMMITTED (expert usage)
+* SERIALIZABLE (highest amount of consistency)
+* READ UNCOMMITTED (least amount of consistency)
+
+<p class="footnote">The levels on the edges (SERIALIZABLE and READ UNCOMMITTED) change the processing behavior to such an extent that they are rarely used.</p>
+
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# REPEATABLE READ
+
+* Prevents any rows that are queried from being changed by other transactions
+* Blocking non-repeatable reads but not phantom reads
+* Moderately strict locking strategy
+    * All queries within a transaction see data from the same snapshot
+    * (data as it was at the time the transaction started)
+
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# READ COMMITTED
+
+> Transactions cannot see uncommitted data from other transactions, but they can see data that is committed by another transaction after the current transaction started.
+
+* Locking strategy that relaxes some of the protection between transactions
+* To improve performance
+
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# Read phenomena
+
+* Dirty reads (read data from a row that has been modified but not committed)
+* Non-repeatable reads (reads the same row twice but gets different data each time)
+* Phantom reads (new rows are added or removed by another transaction)
+
+<p class="footnote">Phenomena which can occur when a transaction reads data that another transaction has modified.</p>
+
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# Deadlock
+
+> "A deadlock is a situation where different transactions are unable to proceed because each holds a lock that the other needs.
+> Because both transactions are waiting for a resource to become available, neither ever release the locks it holds."
+
+<p class="footnote">Keep transactions that insert or update data small enough that they do not stay open for long periods of time.</p>
+
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# Locking between transactions?
+
+* Transaction access mode
+    * READ WRITE and READ ONLY
+* Global isolation level
+    * REPEATABLE READ, READ COMMITTED
+* Storage engine used
+* Avoid deadlock...
+
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html" class="titlepage center">
+# Tip on npm mysql package
+## When moving money between Adam and Eva
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# Multiple queries
+
+* Allow sending multiple queries within each `query()`
+
+```
+{
+    "host":     "localhost",
+    "user":     "user",
+    "password": "pass",
+    "database": "dbwebb",
+    "multipleStatements": true
+}
+```
+
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html" class="center">
+# Transactions
+
+<figure>
+<img style="background-color: white;" src="img/api-transaction.png" width="60%">
+<figcaption>Convenience functions that execute the START TRANSACTION, COMMIT, and ROLLBACK commands respectively.</figcaption>
+</figure>
 
 </script>
 
@@ -171,8 +383,6 @@ COMMIT;
 
 <script data-role="slide" data-markdown type="text/html">
 # Placeholder `??`
-
-* [npm mysql](https://www.npmjs.com/package/mysql)
 
 ```
 async function findAllInTable(table) {
@@ -182,25 +392,40 @@ async function findAllInTable(table) {
     res = await db.query(sql, [table]);
 ```
 
-</script>
-
-
-
-
-<script data-role="slide" data-markdown type="text/html">
-# Extra
-
-* [En JS-funktion för att flytta pengar i godtycklig riktning](https://dbwebb.se/uppgift/flytta-pengar-med-terminal-program-och-med-express#extra)
+<p class="footnote">Compare this to the placeholder `?`.</p>
 
 </script>
 
 
 
 <script data-role="slide" data-markdown type="text/html">
-# Avslutningsvis
+# Hint
 
-* Frågor på det?
+1. Move 1,5 from Adam to Eva
+1. Move 1,5 from Eva to Adam
 
+* Be DRY
+* Write the JavaScript function so it has one set of SQL that can move money in any direction
+
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# References
+
+* [MySQL
+Transactional and Locking Statements](https://dev.mysql.com/doc/refman/8.0/en/commit.html)
+* [MySQl InnoDB Locking and Transaction Model](https://dev.mysql.com/doc/refman/8.0/en/innodb-locking-transaction-model.html)
+* [Boken Databasteknik, webbkursen om Transaktioner](http://www.databasteknik.se/webbkursen/transaktioner/index.html)
+* [npm mysql](https://www.npmjs.com/package/mysql)
+
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html" class="titlepage center">
+# Slut
 </script>
 
 
