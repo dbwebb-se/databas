@@ -18,122 +18,21 @@
 <script data-role="slide" data-markdown type="text/html">
 # Agenda
 
-* Allmänt
 * Tidsstämplar
 * Programmera i databasen
 * Compound statement syntax
 * Lagrad procedur
 * Trigger
+* JavaScript till lagrad procedur
 
 </script>
 
 
 
-<script data-role="slide" data-markdown type="text/html">
-# Rättningsläget (3v fre)
+<script data-role="slide" data-markdown type="text/html" class="titlepage center">
+# Om Tidstämplar
 
-| Kmom | Status |
-|:----:|:------:|
-| 01   | 154/156 |
-| 02   | 122/131 |
-| 03   |  68/88 |
-| 04   |  16/34 |
-| 05   |  3/5 |
-| 06   |  0/1 |
-
-</script>
-
-
-
-<script data-role="slide" data-markdown type="text/html">
-# Examinationen
-
-* Torsdag 26/3 "programmeringstenta" 5h
-* [Se tidigare programmeringstentor](https://dbwebb.se/kurser/databas-v1/kmom10)
-* Bygg vidare på eshop för högre betyg (enskilt)
-* Mer detaljer vid nästa veckas stream
-
-</script>
-
-
-
-<script data-role="slide" data-markdown type="text/html">
-# Om kmom05
-
-* Du kan utföra denna uppgift enskilt, eller i samma grupp som utförde ER-modelleringen.
-
-</script>
-
-
-
-<script data-role="slide" data-markdown type="text/html">
-# Sagt om kmom05
-
-* Mycket
-* Stor spec
-* Enklare än jag först trodde
-* Repetition
-* Återanvänd koden mellan klienterna
-
-</script>
-
-
-
-<script data-role="slide" data-markdown type="text/html">
-# Om kmom05
-
-* Implementera delmängd av ER
-* CRUD web + cli
-* Excelark bas av tabeller/innehåll
-* Bygg vidare i kmom06 + optionellt kmom10
-* KISS Keep It Stupid Simple
-
-</script>
-
-
-
-<script data-role="slide" data-markdown type="text/html">
-# Tips kmom05
-
-* CRUD web + cli
-	* Återanvänd kod i JavaScript
-	* Tänk databas API (lagrade proc)
-	* "Ingen sql-kod i klienterna"
-* Inkonsekvent SQL med stora/små bokstäver
-
-</script>
-
-
-
-<script data-role="slide" data-markdown type="text/html">
-# Tips kmom05...
-
-* Triggers visar hur loggtabell kan fungera
-
-</script>
-
-
-
-<script data-role="slide" data-markdown type="text/html">
-# Tips kmom05...
-
-* God grund DDL/INSERT (csv)
-	* Använd csv-filer för att fylla data
-	* `\n` kontra `\r\n` i csv-filer
-	* Lokal sökväg
-	* Bash-script som skapar om db + backup?
-	* Snabbt och enkelt att återskapa/förändra databasen
-</script>
-
-
-
-<script data-role="slide" data-markdown type="text/html">
-# Tips kmom05...
-
-* ["Testspec" finns i uppgiften](https://dbwebb.se/uppgift/bygg-databasen-till-en-eshop-del-1#test)
-* Testa din lösning med default data
-* Läs in din egna databasbackup
-	* Gör ett bashskript så slipper du minnas hur du gör
+<p class="footnote">Exempelkoden för detta exemepl finns i https://github.com/dbwebb-se/databas/blob/master/example/sql/timestamp.sql.</p>
 
 </script>
 
@@ -142,26 +41,29 @@
 <script data-role="slide" data-markdown type="text/html">
 # Tidstämplar
 
-* [`example/sql/timestamp.sql`](https://github.com/dbwebb-se/databas/blob/master/example/sql/timestamp.sql)
-* Visar soft delete
+* När raden skapas
+* När raden uppdateras
+* När raden "raderas"
+	* Soft delete
 
 </script>
 
 
 
 <script data-role="slide" data-markdown type="text/html">
-# Tidstämplar
+# Skapa tabellen
 
 ```
+DROP TABLE IF EXISTS t1;
+
 CREATE TABLE t1 (
-	val CHAR(1) PRIMARY KEY,
+    id INTEGER AUTO_INCREMENT PRIMARY KEY,
+    value CHAR(2),
     created TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated TIMESTAMP DEFAULT NULL
                              ON UPDATE CURRENT_TIMESTAMP,
     deleted TIMESTAMP DEFAULT NULL
 );
-
-INSERT INTO t1 (val) VALUES (1), (2), (3);
 ```
 
 </script>
@@ -169,43 +71,243 @@ INSERT INTO t1 (val) VALUES (1), (2), (3);
 
 
 <script data-role="slide" data-markdown type="text/html">
-# Tidstämplar...
+# Lägg in värden
 
 ```
-MySQL [dbwebb]> SELECT * FROM t1;
-+-----+---------------------+---------------------+---------+
-| val | created             | updated             | deleted |
-+-----+---------------------+---------------------+---------+
-| 1   | 2020-02-26 10:09:40 | 2020-02-26 10:09:40 | NULL    |
-| 2   | 2020-02-26 10:09:40 | 2020-02-26 10:09:40 | NULL    |
-| 3   | 2020-02-26 10:09:40 | 2020-02-26 10:09:40 | NULL    |
-+-----+---------------------+---------------------+---------+
+INSERT INTO t1 (value) VALUES
+    ('A'), ('B'), ('C');
+```
+
+```
+mysql> INSERT INTO t1 (value) VALUES
+    ->     ('A'), ('B'), ('C');
+Query OK, 3 rows affected (0.02 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+```
+
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# Lägg in värden...
+
+```
+mysql> SELECT * FROM t1;
++----+-------+---------------------+---------+---------+
+| id | value | created             | updated | deleted |
++----+-------+---------------------+---------+---------+
+|  1 | A     | 2021-02-18 13:20:59 | NULL    | NULL    |
+|  2 | B     | 2021-02-18 13:20:59 | NULL    | NULL    |
+|  3 | C     | 2021-02-18 13:20:59 | NULL    | NULL    |
++----+-------+---------------------+---------+---------+
 3 rows in set (0.00 sec)
 ```
+
 </script>
 
 
 
 <script data-role="slide" data-markdown type="text/html">
-# Tidstämplar...
+# Tidstämpel created
 
 ```
-MySQL [dbwebb]> UPDATE t1 SET val = 7 WHERE val = 1;
-MySQL [dbwebb]> SELECT * FROM t1;
-+-----+---------------------+---------------------+---------+
-| val | created             | updated             | deleted |
-+-----+---------------------+---------------------+---------+
-| 2   | 2020-02-26 10:11:15 | NULL                | NULL    |
-| 3   | 2020-02-26 10:11:15 | NULL                | NULL    |
-| 7   | 2020-02-26 10:11:15 | 2020-02-26 10:13:02 | NULL    |
-+-----+---------------------+---------------------+---------+
+CREATE TABLE t1 (
+
+
+    created TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+
+
+);
+```
+
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# Uppdatera värden
+
+```
+UPDATE t1 SET value = 'Bb' WHERE id = 2;
+UPDATE t1 SET value = 'Cc' WHERE id = 3;
+```
+
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# Uppdatera värden...
+
+```
+mysql> SELECT * FROM t1;
++----+-------+---------------------+---------------------+---------+
+| id | value | created             | updated             | deleted |
++----+-------+---------------------+---------------------+---------+
+|  1 | A     | 2021-02-18 13:20:59 | NULL                | NULL    |
+|  2 | Bb    | 2021-02-18 13:20:59 | 2021-02-18 13:21:56 | NULL    |
+|  3 | Cc    | 2021-02-18 13:20:59 | 2021-02-18 13:22:48 | NULL    |
++----+-------+---------------------+---------------------+---------+
 3 rows in set (0.00 sec)
 ```
+
 </script>
 
 
 
 <script data-role="slide" data-markdown type="text/html">
+# Tidstämpel updated
+
+```
+CREATE TABLE t1 (
+
+
+
+	updated TIMESTAMP DEFAULT NULL
+							 ON UPDATE CURRENT_TIMESTAMP,
+
+);
+```
+
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# Radera värden (soft)
+
+```
+UPDATE t1 SET deleted = NOW() WHERE id = 3;
+```
+
+```
+mysql> UPDATE t1 SET deleted = NOW() WHERE id = 3;
+Query OK, 1 row affected (0.02 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+```
+
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# Radera värden...
+
+```
+mysql> SELECT * FROM t1;
++----+-------+---------------------+---------------------+---------------------+
+| id | value | created             | updated             | deleted             |
++----+-------+---------------------+---------------------+---------------------+
+|  1 | A     | 2021-02-18 13:20:59 | NULL                | NULL                |
+|  2 | Bb    | 2021-02-18 13:20:59 | 2021-02-18 13:21:56 | NULL                |
+|  3 | Cc    | 2021-02-18 13:20:59 | 2021-02-18 13:25:41 | 2021-02-18 13:25:41 |
++----+-------+---------------------+---------------------+---------------------+
+3 rows in set (0.00 sec)
+```
+
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# Tidstämpel deleted
+
+```
+CREATE TABLE t1 (
+
+
+
+
+
+	deleted TIMESTAMP DEFAULT NULL
+);
+```
+
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# SELECT per status
+
+* Visa de rader som är uppdaterade
+* Visa de rader som är raderade
+* Plocka fram vilka rader som är skapade men inte raderade
+
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# Rader som är uppdaterade
+
+```
+mysql> SELECT * FROM t1 WHERE updated IS NOT NULL;
++----+-------+---------------------+---------------------+---------------------+
+| id | value | created             | updated             | deleted             |
++----+-------+---------------------+---------------------+---------------------+
+|  2 | Bb    | 2021-02-18 13:20:59 | 2021-02-18 13:21:56 | NULL                |
+|  3 | Cc    | 2021-02-18 13:20:59 | 2021-02-18 13:25:41 | 2021-02-18 13:25:41 |
++----+-------+---------------------+---------------------+---------------------+
+2 rows in set (0.00 sec)
+```
+
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# Rader som är raderade
+
+```
+mysql> SELECT * FROM t1 WHERE deleted IS NOT NULL;
++----+-------+---------------------+---------------------+---------------------+
+| id | value | created             | updated             | deleted             |
++----+-------+---------------------+---------------------+---------------------+
+|  3 | Cc    | 2021-02-18 13:20:59 | 2021-02-18 13:25:41 | 2021-02-18 13:25:41 |
++----+-------+---------------------+---------------------+---------------------+
+1 row in set (0.00 sec)
+```
+
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# Uppdaterade men inte raderade
+
+```
+mysql> SELECT * FROM t1
+    -> WHERE
+    ->     deleted IS NULL
+    ->     AND updated IS NOT NULL
+    -> ;
++----+-------+---------------------+---------------------+---------+
+| id | value | created             | updated             | deleted |
++----+-------+---------------------+---------------------+---------+
+|  2 | Bb    | 2021-02-18 13:20:59 | 2021-02-18 13:21:56 | NULL    |
++----+-------+---------------------+---------------------+---------+
+1 row in set (0.00 sec)
+```
+
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html" class="titlepage center">
+# Tidstämplar
+
+* Kolumner ger "mening" (semantik) till radernas status
+
+<p class="footnote">Exempelkoden för detta exemepl finns i https://github.com/dbwebb-se/databas/blob/master/example/sql/timestamp.sql.</p>
+
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html" class="titlepage center">
 # Programmera i databasen
 </script>
 
