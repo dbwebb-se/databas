@@ -1,0 +1,414 @@
+<!doctype html>
+<html class="theme-5">
+<meta charset="utf-8" />
+<link href="../html-slideshow.bundle.min.css" rel="stylesheet" />
+<link href="../style.css" rel="stylesheet" />
+<script src="https://dbwebb.se/cdn/js/html-slideshow_v1.1.0.bundle.min.js"></script>
+
+<title>Kursen databas</title>
+
+<script data-role="slide" type="text/html" data-markdown class="titlepage center">
+# Triggers
+## Programmera i databasen
+### Mikael Roos
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# Agenda
+
+* Trigger
+
+* Förutsätter att du har koll på
+    * Lagrade procedurer
+    * Compound statements
+
+<p class="footnote">Bygger på artikeln https://dbwebb.se/kunskap/triggers-i-databas.</p>
+
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# Triggers i databasen
+
+* Händelser som sker när rader uppdateras
+* Kod som kan exekveras, kopplat till dessa händelser
+* Gör kontroller, stäm av värden, uppdatera tabeller, avbryt uppdatering
+* Inför automatik i databasen
+
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# Triggers sker på en tabell
+
+* INSERT
+* UPDATE
+* DELETE
+
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# Triggers sker
+
+* På tabell
+    * BEFORE (INSERT, UPDATE, DELETE)
+    * AFTER (INSERT, UPDATE, DELETE)
+
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# Tillgång till OLD, NEW
+
+* Koden som exekveras i en trigger har tillgång till:
+* Den nya raden
+    * NEW (NEW.id, NEW.kolumn, etc)
+* Den gamla raden
+    * OLD (OLD.id, OLD.kolumn, etc)
+
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# Exempel
+
+* Flytta pengar mellan konton
+
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# Exempel...
+
+```
+mysql> SELECT * FROM account;
++------+------+---------+
+| id   | name | balance |
++------+------+---------+
+| 1111 | Adam |   10.00 |
+| 2222 | Eva  |    7.00 |
++------+------+---------+
+2 rows in set (0.00 sec)
+```
+
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# Exempel
+
+```
+mysql> CALL move_money('1111', '2222', 1.5);
++------+------+---------+
+| id   | name | balance |
++------+------+---------+
+| 1111 | Adam |    8.50 |
+| 2222 | Eva  |    8.50 |
++------+------+---------+
+2 rows in set (0.02 sec)
+
+Query OK, 0 rows affected (0.02 sec)
+```
+
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# Exempel trigger
+
+* Flytta pengar mellan konton
+* Logga information om pengaflytten
+    * En händelselogg, transaktionslogg
+
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# Tabell för logg
+
+```
+CREATE TABLE account_log
+(
+    `id` INTEGER PRIMARY KEY AUTO_INCREMENT,
+    `when` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    `what` VARCHAR(20),
+    `account` CHAR(4),
+    `balance` DECIMAL(4, 2),
+    `amount` DECIMAL(4, 2)
+);
+```
+
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# Hur logga
+
+```
+INSERT INTO
+    account_log (what, account, amount)
+    VALUES
+        ('move_money from', from_account, -amount),
+        ('move_money to', to_account, amount);
+```
+
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# Resultat i loggtabellen
+
+```
++----+------------------+-----------------+---------+--------+
+| id | when             | what            | account | amount |
++----+------------------+-----------------+---------+--------+
+|  1 | 2021-02-12 10:42 | move_money from | 1111    |  -1.50 |
+|  2 | 2021-02-12 10:42 | move_money to   | 2222    |   1.50 |
++----+------------------+-----------------+---------+--------+
+```
+
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# Typ av trigger?
+
+* En flytt av pengar är en (två) UPDATE
+* Triggern anropas vid varje UPDATE
+* Vill vi göra BEFORE eller AFTER UPDATE?
+    * AFTER om vi enbart vill logga
+    * BEFORE om vi även skulle vilja hindra flytten från att genomföras, tex om vi kollar om det verkligen finns pengar att flytta
+
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# Trigger
+
+```
+DROP TRIGGER IF EXISTS log_balance_update;
+
+CREATE TRIGGER log_balance_update
+AFTER UPDATE
+ON account FOR EACH ROW
+    INSERT INTO account_log (`what`, `account`, `balance`, `amount`)
+        VALUES ('trigger', NEW.id, NEW.balance, NEW.balance - OLD.balance);
+```
+
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# Se triggern användas
+
+```
+CALL move_money('1111', '2222', 1.5);
+
+mysql> SELECT * FROM account_log ORDER BY `when` DESC LIMIT 2;
++----+---------------------+---------+---------+---------+--------+
+| id | when                | what    | account | balance | amount |
++----+---------------------+---------+---------+---------+--------+
+|  1 | 2021-02-18 14:17:13 | trigger | 2222    |   11.50 |   1.50 |
+|  2 | 2021-02-18 14:17:13 | trigger | 1111    |    5.50 |  -1.50 |
++----+---------------------+---------+---------+---------+--------+
+2 rows in set (0.00 sec)
+```
+
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# Trigger compound statement
+
+```
+DROP TRIGGER IF EXISTS trigger_test1;
+DELIMITER ;;
+
+CREATE TRIGGER trigger_test1
+AFTER UPDATE
+ON account FOR EACH ROW
+BEGIN
+    -- Some compound statements
+END
+;;
+
+DELIMITER ;
+```
+
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# Debugga trigger
+
+* Man kan inte göra SELECT i en trigger för att "skriva ut"
+
+> ERROR 1415 (0A000): Not allowed to return a result set from a trigger
+
+* Spara till en debuggingtabell eller loggtabell
+
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# Trigger som hindrar flytt
+
+```
+CREATE TRIGGER trigger_test2
+BEFORE UPDATE
+ON account FOR EACH ROW
+BEGIN
+    SIGNAL SQLSTATE '45000' SET message_text = 'My Error Message';
+END
+;;
+```
+
+<p class="footnote">Signalera ett fel, ungefär som att kasta ett exception.</p>
+
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# Trigger som hindrar flytt...
+
+```
+mysql> UPDATE account
+    -> SET
+    ->     balance = 10.0
+    -> ;
+ERROR 1644 (45000): My Error Message
+```
+
+<p class="footnote">Notera att man inte direkt ser att det är en trigger som ger felet.</p>
+
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# Admin
+
+```
+SHOW TRIGGERS
+    [{FROM | IN} db_name]
+    [LIKE 'pattern' | WHERE expr]
+
+SHOW TRIGGERS;
+SHOW TRIGGERS LIKE 'account' \G;
+SHOW TRIGGERS FROM dbwebb \G;
+```
+
+<p class="footnote">Läs mer på https://dev.mysql.com/doc/refman/8.0/en/show-triggers.html.</p>
+
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# SHOW CREATE
+
+```
+SHOW CREATE TRIGGER log_balance_update \G
+```
+
+<p class="footnote">Läs mer på https://dev.mysql.com/doc/refman/8.0/en/show-create-trigger.html.</p>
+
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# Felsök trigger
+
+* Glöm inte bort att du har dem...
+* Udda fel?
+    * Kolla om du har triggers på din db/tabell
+* Droppa alla triggers och försök igen
+    * För att vara på den säkra sidan
+* (echo) Logga triggers genom skriva till debug tabell
+
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# Fördelar triggers
+
+* \+ Får saker att hända automatiskt
+* \+ Mindre kod i databasen
+* \+ Flexibelt lägga till eller ta bort
+* \+ Relationer som upprätthåller konsistensen
+
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# Nackdelar triggers
+
+* \- Saker händer automatiskt
+* \- Magisk osynlig kod i databasen
+* \- Glömmer bort dem
+* \- Svårt/lurigt att felsöka
+* \- Databasspecifik kod
+
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# Summering trigger
+
+* Med eller utan compound statement
+* BEFORE (INSERT | UPDATE | DELETE)
+* AFTER (INSERT | UPDATE | DELETE)
+* NEW, OLD
+    * Kombination INSERT och OLD är inte relevant
+    * Kombination DELETE och NEW är inte relevant
+
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# Summering
+
+* Tänk gränssnitt/API mot databasen
+* Mer intelligens i databasen
+
+<p class="footnote">Mer kodexempel på triggers<br>https://github.com/dbwebb-se/databas/blob/master/example/sql/triggers_insert_update_delete.sql.</p>
+
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html" class="titlepage center">
+# Slut
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+<!-- empty slide by intention -->
+</script>

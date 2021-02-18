@@ -1,0 +1,319 @@
+<!doctype html>
+<html class="theme-5">
+<meta charset="utf-8" />
+<link href="../html-slideshow.bundle.min.css" rel="stylesheet" />
+<link href="../style.css" rel="stylesheet" />
+<script src="https://dbwebb.se/cdn/js/html-slideshow_v1.1.0.bundle.min.js"></script>
+
+<title>Kursen databas</title>
+
+<script data-role="slide" type="text/html" data-markdown class="titlepage center">
+# Tidsstämplar
+## Programmera i databasen
+### Mikael Roos
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# Agenda
+
+* Tidsstämplar i databasen
+
+<p class="footnote">bygger på artikeln https://dbwebb.se/coachen/anvand-timestamp-for-status-i-databastabellen.</p>
+
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# Tidstämplar
+
+* När raden skapas
+* När raden uppdateras
+* När raden "raderas"
+	* Soft delete
+
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# Skapa tabellen
+
+```
+DROP TABLE IF EXISTS t1;
+
+CREATE TABLE t1 (
+    id INTEGER AUTO_INCREMENT PRIMARY KEY,
+    value CHAR(2),
+    created TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated TIMESTAMP DEFAULT NULL
+                             ON UPDATE CURRENT_TIMESTAMP,
+    deleted TIMESTAMP DEFAULT NULL
+);
+```
+
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# Lägg in värden
+
+```
+INSERT INTO t1 (value) VALUES
+    ('A'), ('B'), ('C');
+```
+
+```
+mysql> INSERT INTO t1 (value) VALUES
+    ->     ('A'), ('B'), ('C');
+Query OK, 3 rows affected (0.02 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+```
+
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# Lägg in värden...
+
+```
+mysql> SELECT * FROM t1;
++----+-------+---------------------+---------+---------+
+| id | value | created             | updated | deleted |
++----+-------+---------------------+---------+---------+
+|  1 | A     | 2021-02-18 13:20:59 | NULL    | NULL    |
+|  2 | B     | 2021-02-18 13:20:59 | NULL    | NULL    |
+|  3 | C     | 2021-02-18 13:20:59 | NULL    | NULL    |
++----+-------+---------------------+---------+---------+
+3 rows in set (0.00 sec)
+```
+
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# Tidstämpel created
+
+```
+CREATE TABLE t1 (
+
+
+    created TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+
+
+);
+```
+
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# Uppdatera värden
+
+```
+UPDATE t1 SET value = 'Bb' WHERE id = 2;
+UPDATE t1 SET value = 'Cc' WHERE id = 3;
+```
+
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# Uppdatera värden...
+
+```
+mysql> SELECT * FROM t1;
++----+-------+---------------------+---------------------+---------+
+| id | value | created             | updated             | deleted |
++----+-------+---------------------+---------------------+---------+
+|  1 | A     | 2021-02-18 13:20:59 | NULL                | NULL    |
+|  2 | Bb    | 2021-02-18 13:20:59 | 2021-02-18 13:21:56 | NULL    |
+|  3 | Cc    | 2021-02-18 13:20:59 | 2021-02-18 13:22:48 | NULL    |
++----+-------+---------------------+---------------------+---------+
+3 rows in set (0.00 sec)
+```
+
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# Tidstämpel updated
+
+```
+CREATE TABLE t1 (
+
+
+
+	updated TIMESTAMP DEFAULT NULL
+							 ON UPDATE CURRENT_TIMESTAMP,
+
+);
+```
+
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# Radera värden (soft)
+
+```
+UPDATE t1 SET deleted = NOW() WHERE id = 3;
+```
+
+```
+mysql> UPDATE t1 SET deleted = NOW() WHERE id = 3;
+Query OK, 1 row affected (0.02 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+```
+
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# Radera värden...
+
+```
+mysql> SELECT * FROM t1;
++----+-------+---------------------+---------------------+---------------------+
+| id | value | created             | updated             | deleted             |
++----+-------+---------------------+---------------------+---------------------+
+|  1 | A     | 2021-02-18 13:20:59 | NULL                | NULL                |
+|  2 | Bb    | 2021-02-18 13:20:59 | 2021-02-18 13:21:56 | NULL                |
+|  3 | Cc    | 2021-02-18 13:20:59 | 2021-02-18 13:25:41 | 2021-02-18 13:25:41 |
++----+-------+---------------------+---------------------+---------------------+
+3 rows in set (0.00 sec)
+```
+
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# Tidstämpel deleted
+
+```
+CREATE TABLE t1 (
+
+
+
+
+
+	deleted TIMESTAMP DEFAULT NULL
+);
+```
+
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# SELECT per status
+
+* Visa de rader som är uppdaterade
+* Visa de rader som är raderade
+* Plocka fram vilka rader som är skapade men inte raderade
+
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# Rader som är uppdaterade
+
+```
+mysql> SELECT * FROM t1 WHERE updated IS NOT NULL;
++----+-------+---------------------+---------------------+---------------------+
+| id | value | created             | updated             | deleted             |
++----+-------+---------------------+---------------------+---------------------+
+|  2 | Bb    | 2021-02-18 13:20:59 | 2021-02-18 13:21:56 | NULL                |
+|  3 | Cc    | 2021-02-18 13:20:59 | 2021-02-18 13:25:41 | 2021-02-18 13:25:41 |
++----+-------+---------------------+---------------------+---------------------+
+2 rows in set (0.00 sec)
+```
+
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# Rader som är raderade
+
+```
+mysql> SELECT * FROM t1 WHERE deleted IS NOT NULL;
++----+-------+---------------------+---------------------+---------------------+
+| id | value | created             | updated             | deleted             |
++----+-------+---------------------+---------------------+---------------------+
+|  3 | Cc    | 2021-02-18 13:20:59 | 2021-02-18 13:25:41 | 2021-02-18 13:25:41 |
++----+-------+---------------------+---------------------+---------------------+
+1 row in set (0.00 sec)
+```
+
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# Uppdaterade men inte raderade
+
+```
+mysql> SELECT * FROM t1
+    -> WHERE
+    ->     deleted IS NULL
+    ->     AND updated IS NOT NULL
+    -> ;
++----+-------+---------------------+---------------------+---------+
+| id | value | created             | updated             | deleted |
++----+-------+---------------------+---------------------+---------+
+|  2 | Bb    | 2021-02-18 13:20:59 | 2021-02-18 13:21:56 | NULL    |
++----+-------+---------------------+---------------------+---------+
+1 row in set (0.00 sec)
+```
+
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# Fundering
+
+> Hur skulle du implementera en tidsstämpel för "published" som kan styra om en viss rad skall betraktas som publicerad eller inte?
+
+> Tex, om du vill att en bloggartikel skall vara publicerade per en vissa datum?
+
+> Bestäm att artikeln skall vara publicerad nästa lördag?
+
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# Tidstämplar
+
+* Kolumner ger "mening" (semantik) till radernas status
+
+<p class="footnote">Exempelkoden för detta exempel finns i https://github.com/dbwebb-se/databas/blob/master/example/sql/timestamp.sql.</p>
+
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html" class="titlepage center">
+# Slut
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+<!-- empty slide by intention -->
+</script>

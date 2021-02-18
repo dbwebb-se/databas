@@ -1,0 +1,571 @@
+<!doctype html>
+<html class="theme-5">
+<meta charset="utf-8" />
+<link href="../html-slideshow.bundle.min.css" rel="stylesheet" />
+<link href="../style.css" rel="stylesheet" />
+<script src="https://dbwebb.se/cdn/js/html-slideshow_v1.1.0.bundle.min.js"></script>
+
+<title>Kursen databas</title>
+
+<script data-role="slide" type="text/html" data-markdown class="titlepage center">
+# Lagrade procedurer
+## Programmera i databasen
+### Mikael Roos
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# Agenda
+
+* Programmera i databasen
+* Lagrad procedur
+ 	* Stored procedure (SP)
+* Compound statement syntax
+
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# Programmera i databasen
+
+* Använda programmeringsstrukturer i databasen, mer än bara SQL
+* Skapa ett API mot databasen
+* Variabler
+* Lagrade procedurer
+* Triggers
+* Funktioner
+
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html" class="titlepage center">
+# Variabler i SQL skript
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# SET och SQL
+
+* Globala systemvariabler `@@local_infile`
+* Användadefinierade variabler `@amount`
+
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# Globala systemvariabler
+
+```
+SHOW VARIABLES;
+SHOW VARIABLES LIKE '%cache%';
+SHOW VARIABLES LIKE 'local_infile';
+
+SELECT @@have_query_cache;
+SELECT @@global.secure_file_priv;
+
+SET GLOBAL local_infile = 1;
+```
+
+<p class="footnote">Läs mer på https://dev.mysql.com/doc/refman/8.0/en/show-variables.html.</p>
+
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# Användardefinierade variabler
+
+```
+SET @amount = 1.5;
+SET @from   = '1111';
+SET @to     = '2222';
+SET @balance = (SELECT balance FROM account WHERE id = @from);
+
+SELECT balance INTO @balance FROM account WHERE id = @from;
+SELECT @balance;
+```
+
+<p class="footnote">Löst typade och har ett scope av sessionen/filen de är deklarerade i.</p>
+
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# Exempel flytta peng
+
+```
++------+------+---------+
+| id   | name | balance |
++------+------+---------+
+| 1111 | Adam |   10.00 |
+| 2222 | Eva  |    7.00 |
++------+------+---------+
+```
+
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# Flytta pengar
+
+```
+SET @amount = 1.5;
+SET @from   = '1111';
+SET @to     = '2222';
+
+START TRANSACTION;
+
+SET @balance = (SELECT balance FROM account WHERE id = @from);
+
+UPDATE account SET balance = balance + @amount WHERE id = @to;
+UPDATE account SET balance = balance - @amount WHERE id = @from;
+
+COMMIT;
+
+SELECT * FROM account;
+```
+
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html" class="titlepage center">
+# Lagrade procedurer
+## Stored Procedure (SP)
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# Lagrade procedurer
+
+> Små program/procedurer som kan anropas och exekvera databaskod i form av SQL och mer vanliga programmeringskonstruktioner med variabler, if-satser, loopar med mera.
+
+<p class="footnote">Läs mer på https://dev.mysql.com/doc/refman/8.0/en/create-procedure.html.</p>
+
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# Lagrad procedur
+
+* Definieras som ett databasobjekt med CREATE, DROP, ALTER
+* Namn på proceduren
+* In, out, inout parametrar
+* Utför SQL och programmeringskonstruktioner
+* Leverera resultset(s)
+* Anropas med CALL
+
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# En lagrad proc
+
+```
+DROP PROCEDURE IF EXISTS small_proc;
+
+DELIMITER ;;
+
+CREATE PROCEDURE small_proc ()
+BEGIN
+    SELECT NOW() AS "Current time";
+END
+;;
+
+DELIMITER ;
+```
+
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# Delimiter
+
+```
+DELIMITER ;;
+
+CREATE PROCEDURE/TRIGGER/FUNCTION
+BEGIN
+    -- Compound statements
+END
+;;
+
+DELIMITER ;
+```
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# Anropa lagrad proc
+
+```
+CALL small_proc();
+```
+
+```
+mysql> CALL small_proc();
++---------------------+
+| Current time        |
++---------------------+
+| 2021-02-18 15:42:28 |
++---------------------+
+1 row in set (0.00 sec)
+```
+
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html" class="titlepage center">
+# Compound statement
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# Compound statement
+
+* Inuti "lagrade program" (i databasen)
+    * Lagrade procedurer
+    * Triggers
+    * Funktioner
+    * Event
+
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# Compound statement...
+
+```
+BEGIN
+	-- Programming code, variables and SQL combined
+END
+```
+
+<p class="footnote">Läs mer på https://dev.mysql.com/doc/refman/8.0/en/sql-compound-statements.html.</p>
+
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# Lokala variabler
+
+```
+BEGIN
+	DECLARE a_balance INT;
+    DECLARE a_id INT;
+    DECLARE a_who VARCHAR(20) DEFAULT 'mos';
+
+    SET a_id = 1111;
+    SET a_who = 'MegaMos';
+
+    SET a_balance = (SELECT balance FROM account WHERE id = a_id);
+	SELECT balance INTO a_balance FROM account WHERE id = a_id;
+
+    SELECT a_who, a_id, a_balance;
+END
+```
+
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# Lokala variabler...
+
+* Hårt typade
+* Scope av compound statement
+
+</script>
+
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# Namngivning av variabler
+
+* Mixa inte namngivning av lokala variabler och kolumn/tabellnamn
+* Använd en namngivningsstrategi för att undvika krockar
+* Gäller även parametrar som skickas till proceduren
+
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# IF
+
+```
+BEGIN
+	DECLARE a_balance INT DEFAULT 7;
+
+    IF a_balance < 0 THEN
+        SELECT 'A';
+    ELSEIF a_balance < 3 THEN
+        SELECT 'B';
+    ELSE
+        SELECT 'C';
+    END IF;
+END;;
+```
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# Mer konstruktioner
+
+* LOOP, REPEAT/UNTIL, WHILE
+* CASE/WHEN/ELSE
+* LEAVE/RETURN
+* CURSOR/OPEN/FETCH/CLOSE
+* CONDITION/HANDLER/SIGNAL
+
+</script>
+
+
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# En lagrad proc
+
+```
+CREATE PROCEDURE test_proc ()
+BEGIN
+    DECLARE a_balance INT DEFAULT 7;
+
+    IF a_balance < 0 THEN
+        SELECT 'A';
+    ELSEIF a_balance < 3 THEN
+        SELECT 'B';
+    ELSE
+        SELECT 'C';
+    END IF;
+END;;
+
+CALL test_proc(); -- Ger resultset med 'C'
+```
+
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# IN parametrar
+
+```
+CREATE PROCEDURE test_proc (
+    p_balance INT
+)
+BEGIN
+    IF p_balance < 0 THEN
+        SELECT 'A';
+    ELSEIF p_balance < 3 THEN
+        SELECT 'B';
+    ELSE
+        SELECT 'C';
+    END IF;
+END;;
+
+CALL test_proc(-1); -- 'A'
+CALL test_proc(1);  -- 'B'
+CALL test_proc(7);  -- 'C'
+```
+
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# INOUT parametrar
+
+```
+CREATE PROCEDURE test_proc (
+    INOUT p_balance INT
+)
+BEGIN
+    SET p_balance = p_balance + 1;
+END;;
+
+SET @val = 1;
+
+CALL test_proc(@val);
+SELECT @val; -- 2
+```
+
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# IN och OUT parametrar
+
+```
+CREATE PROCEDURE test_proc (
+	IN p_balance INT,
+    OUT p_sum INT
+)
+BEGIN
+	SET p_sum = p_balance + 1;
+END;;
+
+SET @val = 0;
+
+CALL test_proc(41, @val);
+SELECT @val; -- 42
+```
+
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# Resultsets
+
+```
+CREATE PROCEDURE test_proc (
+	IN p_id INT
+)
+BEGIN
+	SELECT * FROM account;
+    SELECT balance FROM account WHERE id = p_id;
+END;;
+
+CALL test_proc(1); -- 2 resultsets
+```
+
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# Vilka procedurer finns?
+
+```
+SHOW PROCEDURE STATUS;
+SHOW PROCEDURE STATUS LIKE '%money';
+```
+
+<p class="footnote">Se mer på https://dev.mysql.com/doc/refman/8.0/en/show-procedure-status.html.</p>
+
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# Hur skapades proceduren?
+
+```
+SHOW CREATE PROCEDURE move_money \G;
+```
+
+<p class="footnote">Se mer på https://dev.mysql.com/doc/refman/8.0/en/show-procedure-status.html.</p>
+
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# Felsök med varning
+
+```
+mysql> CALL edit_account('1337', 'Mega', 4200000);
+Query OK, 1 row affected, 1 warning (0.00 sec)
+
+SHOW WARNINGS;
+```
+
+<p class="footnote">Kanske är det någon datatyp som inte matchar?</p>
+
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# Debugga
+
+* Kommentera bort hela eller delar av koden
+* (echo) SELECT "Meddelande"
+* Testa alltid i databasklienten först, sedan i JavaScript
+
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# Varför proc?
+
+* \+ Komplicerade konstruktioner i databasen
+* \+ Dölj databasimplementation bakom API
+* \+ Testbart API, enhetstesta
+* \+ Rätt kompetens för rätt kodtyp
+* \+ Var sak på sin plats (separation of concerns)
+
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# Nackdelar proc?
+
+* \- Databasspecifik kod
+* \- Kompabilitet mellan databaser
+* \- Kräver utveckling, test och felsökningsmiljö
+
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# Kodexempel
+
+De kodexempel vi använt idag fins på:
+
+<p class="footnote">https://github.com/dbwebb-se/databas/blob/master/example/sql/stored_procedure_slides.sql.</p>
+
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# Summering
+
+* Programmera i databasen
+* All kod lagras om object i databasen
+* Så mycket mer än bara SQL
+* Variabler
+* Lagrade procedurer
+* Compound statement
+* Triggers
+* Funktioner
+* Event
+
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html" class="titlepage center">
+# Slut
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+<!-- empty slide by intention -->
+</script>

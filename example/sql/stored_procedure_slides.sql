@@ -1,6 +1,20 @@
 --
 -- Example stored procedures, from slides
--- 
+--
+
+--
+DROP PROCEDURE IF EXISTS small_proc;
+
+DELIMITER ;;
+CREATE PROCEDURE small_proc ()
+BEGIN
+    SELECT NOW() AS "Current time";
+END;;
+DELIMITER ;
+
+CALL small_proc();
+
+
 
 --
 --
@@ -36,13 +50,9 @@ CREATE PROCEDURE test_proc (
     p_balance INT
 )
 BEGIN
-    DECLARE a_balance INT DEFAULT 7;
-
-    SET a_balance = p_balance;
-
-    IF a_balance < 0 THEN
+    IF p_balance < 0 THEN
         SELECT 'A';
-    ELSEIF a_balance < 3 THEN
+    ELSEIF p_balance < 3 THEN
         SELECT 'B';
     ELSE
         SELECT 'C';
