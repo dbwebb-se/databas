@@ -4,7 +4,8 @@ set -e
 
 target="skolan"
 
-mysql -udbwebb skolan < example/sql/inspect/setup_$target.sql
+echo "[$ACRONYM] Loading me/skolan/$target.sql"
+
 mysql -udbwebb skolan < me/skolan/$target.sql
 
 echo "SHOW TABLES;"
