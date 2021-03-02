@@ -1,0 +1,304 @@
+<!doctype html>
+<html class="theme-5">
+<meta charset="utf-8" />
+<link href="../html-slideshow.bundle.min.css" rel="stylesheet" />
+<link href="../style.css" rel="stylesheet" />
+<script src="https://dbwebb.se/cdn/js/html-slideshow_v1.1.0.bundle.min.js"></script>
+
+<title>Kursen databas</title>
+
+<script data-role="slide" type="text/html" data-markdown class="titlepage center">
+# Programmera i databasen
+## Funktioner
+### Mikael Roos
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# Agenda
+
+* Funktioner
+
+</script>
+
+
+
+TILL CANVAS
+
+<script data-role="slide" data-markdown type="text/html">
+# Examinationen
+
+* Torsdagen den 26/3 "programmeringstenta"
+* 5h (9-14 campus / 9-24 distans)
+* [Se tidigare programmeringstentor](https://dbwebb.se/kurser/databas-v1/kmom10)
+* Detaljer vid nästa veckas stream `dbwebb exam ls`
+* Projekt - Bygg vidare på eshop för högre betyg
+
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# Bedömning och betygsättning
+
+* [Läs på](https://dbwebb.se/kurser/faq/bedomning-och-betygsattning-tentamen-och-projekt)
+* Tenta F,E-C
+* Projekt D-A (påverkar 1-3 nivåer)
+* Texter +/- kan påverka en betygsnivå
+
+</script>
+
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# Funktioner
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# Vad är Funktion
+
+* Egen funktion liknande ABS(), CONCAT(), etc
+* CREATE/DROP/ALTER FUNCTION
+* Lagras i databasen
+
+```
+SELECT grade(points) AS Betyg FROM exam;
+```
+
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# Använd funktion
+
+```
+SELECT grade(75) AS Betyg;
+
+SELECT
+    score AS Poäng,
+    grade(score) AS Betyg
+FROM exam;
+```
+
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# Två typer av Function
+
+* User Defined Function (UDF)
+    * Extern kod som länkas in till databasservern
+    * Skriv i C/C++ eller liknande
+    * Kan skapa aggregerande funktioner likt SUM()
+
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# Två typer av Function...
+
+* FUNCTION, liknande PROCEDURE
+    * Jämför lagrad procedur/trigger
+    * Kan använda compound statements
+    * Kan använda SQL mot andra tabeller
+
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# Använd Funktion
+
+* Används i en SELECT (tex)
+* Returnerar ett värde, `RETURNS CHAR(2)`
+* Kan ta argument
+
+```
+SELECT score, grade(score) FROM examination;
+```
+
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# Funktion kod template
+
+```
+DROP FUNCTION IF EXISTS grade;
+DELIMITER ;;
+
+CREATE FUNCTION grade()
+RETURNS CHAR(2)
+BEGIN
+    -- Statements
+END;;
+
+DELIMITER ;
+```
+
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# Funktion kod
+
+```
+CREATE FUNCTION grade()
+RETURNS CHAR(2)
+BEGIN
+    RETURN 'Fx';
+END;;
+```
+
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# Inkommande argument
+
+```
+CREATE FUNCTION grade(
+    score INTEGER
+)
+RETURNS CHAR(2)
+BEGIN
+    RETURN 'Fx';
+END;;
+```
+
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# Använd funktion
+
+```
+SELECT
+    score AS poäng,
+    grade(score) AS Betyg
+FROM examination;
+```
+
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# Compound statements
+
+```
+RETURNS CHAR(2)
+BEGIN
+    IF score >= 90 THEN
+        RETURN 'A';
+    ELSEIF score >= 80 THEN
+        RETURN 'B';
+    ELSEIF score >= 70 THEN
+        RETURN 'C';
+    ELSEIF score >= 60 THEN
+        RETURN 'D';
+    ELSEIF score >= 55 THEN
+        RETURN 'E';
+    ELSEIF score >= 50 THEN
+        RETURN 'FX';
+    END IF;
+    RETURN 'F';
+END;;
+```
+
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# Funktion karaktäristik
+
+* [NOT] DETERMINISTIC
+* CONTAINS SQL | NO SQL | READS SQL DATA | MODIFIES SQL DATA
+* [RTFM (Read The Fine Manual)](https://dev.mysql.com/doc/refman/8.0/en/create-procedure.html)
+
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# Funktion karaktäristik...
+
+```
+CREATE FUNCTION time_of_the_day()
+RETURNS DATETIME
+NOT DETERMINISTIC NO SQL
+BEGIN
+    RETURN NOW();
+END
+;;
+```
+
+</script>
+
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# Sammanfatta
+
+* Parametrar inkommande
+* Returnerar ett värde
+* Datatyper enligt MySQL
+* Compound statements
+* Kan utföra SQL
+* Karaktäristik
+
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# Administrera funktioner
+
+```
+SHOW FUNCTION STATUS;
+SHOW FUNCTION STATUS LIKE 'grade' \G
+SHOW FUNCTION STATUS WHERE Db = 'dbwebb';
+
+SHOW CREATE FUNCTION grade \G
+```
+
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# Varför funktioner
+
+* Snygga till koden
+* Återanvänd komplicerade konstruktioner
+* DRY (Do not Repeat Yourself)
+
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# Avslutningsvis
+
+* Frågor på det?
+
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+<!-- empty slide by intention -->
+</script>

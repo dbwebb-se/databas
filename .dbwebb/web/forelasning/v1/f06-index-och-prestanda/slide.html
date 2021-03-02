@@ -1,0 +1,469 @@
+<!doctype html>
+<html class="theme-5">
+<meta charset="utf-8" />
+<link href="../html-slideshow.bundle.min.css" rel="stylesheet" />
+<link href="../style.css" rel="stylesheet" />
+<script src="https://dbwebb.se/cdn/js/html-slideshow_v1.1.0.bundle.min.js"></script>
+
+<title>Kursen databas</title>
+
+<script data-role="slide" type="text/html" data-markdown class="titlepage center">
+# Programmera i databasen
+## Index och prestanda
+### Mikael Roos
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# Agenda
+
+* Prestanda i databasen
+* Index
+
+<p class="footnote">Bygger på delar av artikeln https://dbwebb.se/kunskap/index-och-prestanda-i-mysql.</p>
+
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# Prestandaoptimering hårdvara
+
+* Datorn, minne, processor
+* Hårddisk
+* Konfigurera MySQL server mot maskinen
+* Replikering, backup, high availability, redundans
+
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# Prestandaoptimering schema
+
+* Optimera data i tabellerna
+    * Datatyp, längd
+* Optimera schemat mot frågorna
+    * Förenkla att göra frågor
+* Optimera frågorna
+    * Olika sätt att ställa samma fråga
+    * SELECT * eller bara välja vissa kolumner?
+* Använd MEMORY tabell
+
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# Notering om prestanda
+
+* Om databasen är en flaskhals:
+    * Cacha svaren utanför databasen
+    * Ställ färre frågor till databasen
+    * Hämta mindre data från databasen
+* Sker låsningar i databasen?
+* Optimering kan ske på flera nivåer
+
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# Frågeoptimeraren
+
+* Query optimizer
+* Parsa och tolka SQL-frågan
+* Optimerar utförandet av frågan
+* Optimal plan för exekvering, "execution plan"
+* Skillnaden kan vara sekunder, timmar, dagar
+* Hur ge frågeoptimeraren goda förutsättningar?
+
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# Index
+
+* "Full table scan"
+    * Undvik
+* Index skapar genvägar till svaret
+    * Eliminera vissa rader från att bearbetas
+    * Vi slipper full table scan
+
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# Varför index?
+
+* Finn matchande rader för `WHERE col = 2`
+* För att hämta rader från andra tabeller vid joins, ON-villkoren (FK)
+* Mindre viktigt för små tabeller
+* Mindre viktigt för stora tabeller där (nästan) alla rader måste processas
+
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# Implementation
+
+* MySQL löser det bakom kulisserna
+* B-tree
+* Hash index
+* Kan skilja mella storage engine
+* Välj typ av index per kolumn (avancerat)
+
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# B-tree
+
+* Trädstruktur, flera children (ej binary tree)
+* Snabb för
+    * exakt matchning (=)
+    * ranges (>, <, BETWEEN)
+
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# Hash index
+
+* Adaptive hash index
+* Jämför key:value array
+* Snabb för
+    * exakt matchning (=, IN)
+* Index byggs vid behov
+* Hash index bygger på befintligt B-tree index
+
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# Indexera allt?
+
+* Index har en kostnad
+* Plats på hårddisken
+* Frågeoptimeraren väljer mellan olika index
+* Databasen måste hålla indexen uppdaterade
+
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# Vanliga index
+
+* En kolumn kan kopplas till ett eller flera index
+* Ett index kan kopplas till en eller flera kolumner
+* PRIMARY KEY
+* UNIQUE
+* INDEX
+* FULLTEXT
+
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# Exempel tabell
+
+```
+CREATE TABLE `course`
+(
+    `code` CHAR(6),
+    `nick` CHAR(12),
+    `points` DECIMAL(3, 1),
+    `name` VARCHAR(60)
+);
+```
+
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# Exempel tabell...
+
+```
+mysql> SELECT * FROM course;
++--------+------------+--------+------------------------------------------------------+
+| code   | nick       | points | name                                                 |
++--------+------------+--------+------------------------------------------------------+
+| DV1531 | python     |    7.5 | Programmering och Problemlösning med Python          |
+| PA1439 | htmlphp    |    7.5 | Webbteknologier                                      |
+| DV1561 | javascript |    7.5 | Programmering med JavaScript                         |
+| PA1436 | design     |    7.5 | Teknisk webbdesign och användbarhet                  |
+| DV1547 | linux      |    7.5 | Programmera webbtjänster i Linux                     |
+| PA1437 | oopython   |    7.5 | Objektorienterad design och programmering med Python |
+| DV1546 | webapp     |    7.5 | Webbapplikationer för mobila enheter                 |
+| DV1506 | webgl      |    7.5 | Spelteknik för webben                                |
+| PA1444 | dbjs       |   10.0 | Webbprogrammering och databaser                      |
++--------+------------+--------+------------------------------------------------------+
+9 rows in set (0.00 sec)
+```
+
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# PRIMARY KEY
+
+```
+CREATE TABLE `course`
+(
+    `code` CHAR(6),
+
+    PRIMARY KEY (`code`)
+);
+```
+
+<p class="footnote">Gör en rad unik och skapa index.</p>
+
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# UNIQUE
+
+```
+CREATE TABLE `course`
+(
+    `nick` CHAR(12),
+
+    UNIQUE KEY (`nick`)
+);
+```
+
+<p class="footnote">Gör en rad unik och skapa index, alternativ nyckel.</p>
+
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# INDEX
+
+```
+CREATE TABLE `course`
+(
+    `points` DECIMAL(3, 1),
+    `name` VARCHAR(60),
+
+    KEY `index_points` (`points`),
+    KEY `index_name` (`name`)
+);
+```
+
+<p class="footnote">Skapa index för de kolumner som kan behöva.</p>
+
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# FULLTEXT
+
+```
+CREATE TABLE `course`
+(
+    `name` VARCHAR(60),
+
+    FULLTEXT KEY `full_name` (`name`)
+);
+```
+
+<p class="footnote">Text index gör texten indexerad och sökbar.</p>
+
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# FOREIGN KEY (index)
+
+```
+CREATE TABLE `Course` (
+    `acronym` CHAR(6),
+
+    FOREIGN KEY `acronym` REFERENCES `teacher`(`acronym`)
+);
+```
+
+<p class="footnote">En FK är en constraint, eventuellt även ett index.</p>
+
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# EXPLAIN
+
+* Visa frågeoptimerarens syn
+
+```
+EXPLAIN Course;
+EXPLAIN SELECT * FROM Course;
+EXPLAIN SELECT * FROM Course WHERE code = "PA1444";
+```
+
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# EXPLAIN Course
+
+```
+mysql> EXPLAIN Course;
++--------+--------------+------+-----+---------+-------+
+| Field  | Type         | Null | Key | Default | Extra |
++--------+--------------+------+-----+---------+-------+
+| code   | char(6)      | NO   | PRI | NULL    |       |
+| nick   | char(12)     | YES  | UNI | NULL    |       |
+| points | decimal(3,1) | YES  | MUL | NULL    |       |
+| name   | varchar(60)  | YES  | MUL | NULL    |       |
++--------+--------------+------+-----+---------+-------+
+4 rows in set (0.01 sec)
+```
+
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# EXPLAIN SELECT
+
+```
+mysql> EXPLAIN SELECT * FROM course;
++----+-------------+--------+------+---------------+------+------+
+| id | select_type | table  | type | possible_keys | key  | rows |
++----+-------------+--------+------+---------------+------+------+
+|  1 | SIMPLE      | course | ALL  | NULL          | NULL |    9 |
++----+-------------+--------+------+---------------+------+------+
+1 row in set (0.00 sec)
+```
+
+<p class="footnote">9 rader är full table scan.</p>
+
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# EXPLAIN SELECT WHERE
+
+```
+mysql> EXPLAIN SELECT * FROM course WHERE code = "PA1444";
++----+-------------+--------+-------+---------------+---------+------+
+| id | select_type | table  | type  | possible_keys | key     | rows |
++----+-------------+--------+-------+---------------+---------+------+
+|  1 | SIMPLE      | course | const | PRIMARY       | PRIMARY |    1 |
++----+-------------+--------+-------+---------------+---------+------+
+```
+
+<p class="footnote">1 rad innebär att indexet gör sitt jobb.</p>
+
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# Tabell utan index och nycklar
+
+```
+CREATE TABLE `Course` (
+    `code` CHAR(6),
+    `nick` CHAR(12),
+    `points` DECIMAL(3, 1),
+    `name` VARCHAR(60)
+);
+```
+
+</script>
+
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# Tabell med index och nycklar
+
+```
+CREATE TABLE `Course` (
+    `code` CHAR(6),
+    `nick` CHAR(12),
+    `points` DECIMAL(3, 1),
+    `name` VARCHAR(60),
+
+    PRIMARY KEY (`code`),
+    UNIQUE KEY `nick_unique` (`nick`),
+    KEY `index_name` (`name`),
+    KEY `index_points` (`points`),
+    FULLTEXT KEY `full_name` (`name`)
+);
+```
+
+<p class="footnote">Sen tillkommer eventuella FK.</p>
+
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# Jobba med index
+
+* CREATE/DROP INDEX
+* SHOW INDEX
+* EXPLAIN
+* SHOW CREATE TABLE
+
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# Logga långsamma frågor
+
+* SET profiling=1
+* SHOW PROFILE(S)
+* SHOW PROFILE FOR QUERY 3;
+
+<p class="footnote">Undersök vilka delar av din databas som är långsam och kan behöva en översyn avseende prestanda och optimering.</p>
+
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+# Summering
+
+* Allmänt om prestandaoptimering av databas
+* INDEX för de kolumner som ofta används
+* Undvik full table scan
+* Tänk antal rader som måste processas för att ge svaret
+* Frågeoptimeraren
+* EXPLAIN för att undersöka vilket index som används och hur bra det är
+
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html" class="titlepage center">
+# Slut
+</script>
+
+
+
+<script data-role="slide" data-markdown type="text/html">
+<!-- empty slide by intention -->
+</script>
