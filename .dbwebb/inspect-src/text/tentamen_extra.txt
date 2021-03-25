@@ -1,5 +1,4 @@
-## Tenta 2020-03-26
-https://dbwebb.se/kurser/databas-v1/kmom10/tentamen/rock
+AVDRAG -1p Din package.json saknar detaljer så att dina program inte går att köra.
 
 KOMMENTAR/AVDRAG 0-5p Du har en annan filstruktur än den som var anvisad. Jag fixade genom att flytta runt på dina filer/kataloger.
 
@@ -20,6 +19,10 @@ AVDRAG -1p Din ER saknar relationer mellan tabellerna, det borde finnas dragna s
 AVDRAG -1p Din ER var mer en konceptuell än logisk modell.
 
 KOMMENTAR/AVDRAG 0-1p Din webbklient svarar inte på /exam/index. Men jag hittade din route.
+
+AVDRAG -1p Länken till hundens webbplats var felaktig.
+
+AVDRAG -1p Det gick inte söka på delsträng, tex B.
 
 AVDRAG -2p Kan inte se Jackie Chan i översikten på /exam/visa eller i terminalklienten. Han har inget vapen men skall visas ändå.
 
