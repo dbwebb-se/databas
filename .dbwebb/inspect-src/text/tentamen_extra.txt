@@ -10,6 +10,8 @@ KOMMENTAR/AVDRAG 0-2p Din backupfil fungerade inte men jag lyckades återskapa d
 
 KOMMENTAR/AVDRAG 0-2p Din backupfil innehöll konstruktioner som en annan användare än 'user' hade skapat. Det gjorde att delar av din backup inte gick att återskapa. Jag lagade det genom att uppdatera din backupfil/läsa in dina ddl/insert.sql filer.
 
+AVDRAG -1p Din fil ddl.sql/insert.sql innehåll felaktig kod som gjorde att de inte gick att köra utan handpåläggning.
+
 KOMMENTAR/AVDRAG 0-1p Din er.pdf låg inte på anvisad plats, men jag hittade den.
 
 AVDRAG -3p Din er.pdf låg inte på anvisad plats, och jag kunde inte hitta den.
