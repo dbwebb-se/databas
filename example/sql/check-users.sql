@@ -10,7 +10,7 @@ SELECT
     plugin
 FROM mysql.user
 WHERE
-    User IN ('root', 'dbwebb', 'user')
+    User IN ('root', 'dbadm', 'user')
 ORDER BY User
 ;
 
