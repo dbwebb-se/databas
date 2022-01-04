@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 . ".dbwebb/inspect-src/kmom.d/functions.bash"
 
-TARGET_DIR="me/skolan"
-CHECK_FILES="ddl.sql insert.sql insert-csv.sql kurs.csv kurstillfalle.csv dml-join2.sql dml-outer-join.sql dml-subquery.sql reset-part-3.sql skolan.sql"
+TARGET_DIR="me/redovisa"
+CHECK_FILES=""
 
 cd $TARGET_DIR || exit 1
 

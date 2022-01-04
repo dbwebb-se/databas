@@ -40,6 +40,8 @@ dbwebb test skolan1
 #
 #dbwebb validate klient
 
+dbwebb test kmom01
+
 
 
 # --------------------------------------------------------------------------
@@ -79,6 +81,8 @@ cp example/package.json me
 # Other
 #
 dbwebb validate search
+
+dbwebb test kmom02
 
 
 
@@ -125,6 +129,8 @@ dbwebb validate er1
 #
 dbwebb validate cli
 
+dbwebb test kmom03
+
 
 
 # --------------------------------------------------------------------------
@@ -160,6 +166,8 @@ dbwebb validate express-sql
 dbwebb validate trans
 dbwebb validate myexpress
 
+dbwebb test kmom04
+
 
 
 # --------------------------------------------------------------------------
@@ -191,6 +199,8 @@ dbwebb validate eshop1
 #
 dbwebb validate prog
 dbwebb validate crud
+
+dbwebb test kmom05
 
 
 
@@ -224,6 +234,8 @@ dbwebb validate eshop2
 dbwebb validate func
 dbwebb validate index
 
+dbwebb test kmom06
+
 
 
 # --------------------------------------------------------------------------
@@ -237,6 +249,8 @@ dbwebb validate index
 # doc/er.pdf
 # sql/ddl.pdf
 # sql/insert.pdf
+
+dbwebb test kmom10
 
 
 
