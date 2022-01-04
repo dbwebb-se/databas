@@ -116,6 +116,7 @@ dbwebb test skolan3
 #
 cp example/nodejs/mysql/config.json me/kmom03/terminal2
 touch me/kmom03/terminal2/index.js
+mkdir me/kmom03/terminal2/src
 dbwebb validate terminal2
 
 #

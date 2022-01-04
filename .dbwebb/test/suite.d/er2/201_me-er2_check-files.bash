@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 . ".dbwebb/inspect-src/kmom.d/functions.bash"
 
-TARGET_DIR="me/redovisa"
-CHECK_FILES=""
+TARGET_DIR="me/kmom04/er2"
+CHECK_FILES="er.pdf"
 
 cd $TARGET_DIR || exit 1
 
