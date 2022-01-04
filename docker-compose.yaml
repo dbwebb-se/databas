@@ -14,7 +14,7 @@ services:
             - "/home/dbwebb/repo/build"
             - "/home/dbwebb/repo/node_modules"
             #- "/home/dbwebb/repo/vendor"
-            - "./example/sql/inspect/my.cnf:/home/dbwebb/.my.cnf"
+            - "./example/sql/v2/my.cnf:/home/dbwebb/.my.cnf"
 
     cli:
         <<: *databas
@@ -37,6 +37,8 @@ services:
             - mariadb_data:/var/lib/mysql
             - ./example/sql.d/mariadb:/docker-entrypoint-initdb.d
             - ./example/sql/inspect/mariadb_my.cnf:/root/.my.cnf
+            #- ./example/sql/v2/my.cnf:/root/.my.cnf
+            - .:/home
 
     mysql:
         container_name: mysql
@@ -51,3 +53,4 @@ services:
             - mysql_data:/var/lib/mysql
             - ./example/sql.d/mysql:/docker-entrypoint-initdb.d
             - ./example/sql/inspect/mysql_my.cnf:/root/.my.cnf
+            #- ./example/sql/v2/my.cnf:/root/.my.cnf

@@ -22,21 +22,23 @@ dbwebb validate redovisa
 #
 # SQL-guiden del 1
 #
-touch me/skolan/setup.sql
-touch me/skolan/ddl.sql
-touch me/skolan/dml_insert.sql
-touch me/skolan/dml_delete.sql
-touch me/skolan/ddl_migrate.sql
-touch me/skolan/dml_update.sql
-touch me/skolan/dml_update_lonerevision.sql
-touch me/skolan/reset_part1.bash
-touch me/skolan/dml_select.sql
+touch me/skolan/create-user.sql
+touch me/skolan/create-database.sql
+touch me/skolan/ddl-larare.sql
+touch me/skolan/insert-larare.sql
+touch me/skolan/dml-delete.sql
+touch me/skolan/ddl-alter.sql
+touch me/skolan/dml-update.sql
+touch me/skolan/dml-update-lonerevision.sql
+touch me/skolan/dml-select.sql
+touch me/skolan/reset-part-1.sql
 dbwebb validate skolan
+dbwebb test skolan1
 
 #
 # Other
 #
-dbwebb validate klient
+#dbwebb validate klient
 
 
 
@@ -50,14 +52,14 @@ dbwebb validate klient
 #
 # SQL-guiden del 2
 #
-touch me/skolan/dml_agg.sql
-touch me/skolan/dml_func.sql
-touch me/skolan/dml_view.sql
-touch me/skolan/ddl_copy.sql
-touch me/skolan/dml_union.sql
-touch me/skolan/dml_join.sql
-touch me/skolan/reset_part2.bash
+touch me/skolan/dml-agg.sql
+touch me/skolan/dml-func.sql
+touch me/skolan/dml-view.sql
+touch me/skolan/dml-union.sql
+touch me/skolan/dml-join.sql
+touch me/skolan/reset-part-2.sql
 dbwebb validate skolan
+dbwebb test skolan2
 
 #
 # terminal1
@@ -90,19 +92,18 @@ dbwebb validate search
 #
 # SQL-guiden del 3
 #
-touch me/skolan/test_encoding.sql
-touch me/skolan/ddl_all.sql
+touch me/skolan/ddl.sql
 touch me/skolan/insert.sql
-touch me/skolan/ddl_more_tables.sql
-touch me/skolan/dml_insert_csv.sql
-touch me/skolan/dml_join2.sql
-touch me/skolan/dml_outer_join.sql
-touch me/skolan/dml_subquery.sql
-touch me/skolan/dml_export.sql
-touch me/skolan/report.xls
+touch me/skolan/insert-csv.sql
+touch me/skolan/kurs.csv
+touch me/skolan/kurstillfalle.csv
+touch me/skolan/dml-join2.sql
+touch me/skolan/dml-outer-join.sql
+touch me/skolan/dml-subquery.sql
+touch me/skolan/reset-part-3.sql
 touch me/skolan/skolan.sql
-touch me/skolan/reset_part3.bash
 dbwebb validate skolan
+dbwebb test skolan3
 
 
 

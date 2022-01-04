@@ -4,7 +4,10 @@
 host = mysql
 protocol = tcp
 #port = 13306
+#user=dbadm
+#password=P@ssw0rd
+user=root
+password=pass
 
 [mysql]
 loose-local-infile = 1
-password = pass

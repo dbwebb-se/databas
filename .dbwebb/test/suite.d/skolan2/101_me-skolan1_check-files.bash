@@ -2,7 +2,7 @@
 . ".dbwebb/inspect-src/kmom.d/functions.bash"
 
 TARGET_DIR="me/skolan"
-CHECK_FILES="create-user.sql create-database.sql ddl-larare.sql insert-larare.sql dml-delete.sql ddl-alter.sql dml-update.sql dml-update-lonerevision.sql dml-select.sql reset-part-1.sql"
+CHECK_FILES="dml-agg.sql dml-func.sql dml-view.sql dml-union.sql dml-join.sql reset-part-2.sql"
 
 #setup.sql ddl.sql dml_insert.sql dml_delete.sql ddl_migrate.sql dml_update.sql dml_update_lonerevision.sql reset_part1.bash dml_select.sql"
 

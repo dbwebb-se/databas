@@ -4,11 +4,14 @@
 # Map item to dirname while doing, for example, dbwebb validate lab1
 #
 
+# redovisa
+me/redovisa
+
 # Guiden skolan
 me/skolan
 
 # kmom01
-me/kmom01/klient
+#me/kmom01/klient
 
 # kmom02
 me/kmom02/js
@@ -45,6 +48,3 @@ me/kmom10/try1
 me/kmom10/try2
 me/kmom10/try3
 me/kmom10/prep
-
-# redovisa
-me/redovisa
