@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 . ".dbwebb/inspect-src/kmom.d/functions.bash"
 
-TARGET_DIR="me/kmom04/er2"
-CHECK_FILES="er.pdf ddl.sql setup.sql"
+TARGET_DIR="me/kmom04/express-sql"
+CHECK_FILES="config/db/bank.json index.js cli.js"
 
 cd $TARGET_DIR || exit 1
 
