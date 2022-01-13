@@ -2,9 +2,10 @@ Databasteknologier för webben - databas
 ===================
 
 [![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/dbwebbse/databas?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=body_badge)
-[![Build Status](https://travis-ci.org/dbwebb-se/databas.svg?branch=master)](https://travis-ci.org/dbwebb-se/databas)
 [![CircleCI](https://circleci.com/gh/dbwebb-se/databas.svg?style=svg)](https://circleci.com/gh/dbwebb-se/databas)
-
+<!--
+[![Build Status](https://travis-ci.org/dbwebb-se/databas.svg?branch=master)](https://travis-ci.org/dbwebb-se/databas)
+-->
 
 Course material for course "databas", aimed at a swedish target audience as an introduction to web programming for computer science students at University level.
 
