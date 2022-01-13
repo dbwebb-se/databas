@@ -152,6 +152,7 @@ dbwebb validate er2
 #
 # express-sql
 #
+install -d me/kmom04/express-sql/src/
 install -d me/kmom04/express-sql/config/db/
 cp example/express-mysql/config/db/bank.json me/kmom04/express-sql/config/db
 touch me/kmom04/express-sql/index.js

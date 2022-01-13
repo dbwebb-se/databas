@@ -14,7 +14,7 @@ const path = "file.txt";
 console.info("1) Program is starting up!");
 
 readFile(path, "utf-8")
-.then(data => { console.info(data); })
-.catch(error => {console.error(error)});
+    .then(data => { console.info(data); })
+    .catch(error => { console.error(error); });
 
 console.info("3) End of the program!");

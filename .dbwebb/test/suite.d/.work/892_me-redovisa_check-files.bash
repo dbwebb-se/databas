@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 . ".dbwebb/inspect-src/kmom.d/functions.bash"
 
-TARGET_DIR="me/kmom03/terminal2"
-CHECK_FILES="config.json index.js"
+TARGET_DIR="me/redovisa"
+CHECK_FILES=""
 
 cd $TARGET_DIR || exit 1
 

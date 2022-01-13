@@ -31,7 +31,7 @@ td {
     padding: 0.2em;
 }
 
-td.right {
+.right {
     text-align: right;
 }
 
@@ -54,11 +54,7 @@ form.label-left input[type=number] {
 form.label-left label {
     display: inline-block;
     width: 5em;
-    float: left;
     padding-top: 6px;
-    padding-right: 1em;
-
-    /* text-align: right; */
 }
 
 form.label-left label::after {

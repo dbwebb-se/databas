@@ -64,6 +64,8 @@ function text {
 #
 # Log to summary
 #
+EXIT_STATUS=0
+
 function doLog {
     local status=2
 
@@ -118,8 +120,10 @@ for file in "$WORK_TARGET/"??*_*.bash; do
     bash "$file"
     status=$?
     if (( $status == 2 )); then
+        EXIT_STATUS=1
         output="$MSG_WARNING $target\n"
     elif (( $status )); then
+        EXIT_STATUS=1
         output="$MSG_FAILED  $target\n"
     else
         output="$MSG_OK      $target\n"
@@ -131,3 +135,5 @@ done
 printf "\n"
 header "Summary"
 printf "$summary"
+
+exit $EXIT_STATUS

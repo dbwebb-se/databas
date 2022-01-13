@@ -76,5 +76,5 @@ Feel free to help building up the repository with more content suited for traini
 
 ```
  .
-..:  Copyright (c) 2017-2020 dbwebb et al, info@dbwebb.se
+..:  Copyright (c) 2017-2021 dbwebb et al, info@dbwebb.se
 ```
