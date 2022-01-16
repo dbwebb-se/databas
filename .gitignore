@@ -11,8 +11,9 @@ log-gui-main.ansi
 log-gui-inspect.ansi
 .log/
 inspect-gui
-/exam*/
 
 # Mac
 .DS_Store
-exam_aug_20/
+
+/exam_archive/
+/exam/
