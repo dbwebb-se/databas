@@ -11,6 +11,7 @@ log-gui-main.ansi
 log-gui-inspect.ansi
 .log/
 inspect-gui
+.work/
 
 # Mac
 .DS_Store
