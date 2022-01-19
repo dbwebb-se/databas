@@ -34,7 +34,7 @@ export LOG="$( realpath "$COURSE_REPO_BASE/.log/test/$TESTSUITE" )"
 # Check that the testsuite is an actual directory
 TEST_TARGET="$DIR/suite.d/$TESTSUITE"
 if [[ ! -d "$TEST_TARGET" ]]; then
-    printf "No such directory '%s'\n" "$TEST_TARGET"
+    printf "No such target directory '%s' to run testsuite from.\nCheck what testsuite you can run.\n" "$TEST_TARGET"
     exit 1
 fi
 WORK_TARGET="$DIR/suite.d/.work"
