@@ -1,6 +1,6 @@
 Välkommen till kursen databas.
 
-Jag kollade snabbt igenom din inlämning och utskrifterna från "dbwebb inspect" så att alla saker ligger på rätt plats och att filerna validerar.
+Jag kollade snabbt igenom din inlämning och utskrifterna från "dbwebb test kmom01" så att alla saker ligger på rätt plats och ser korrekt ut.
 
 Jag kollade igenom din redovisningstext så att allt såg bra ut.
 
