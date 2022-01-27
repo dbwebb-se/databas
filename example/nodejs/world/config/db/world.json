@@ -1,0 +1,6 @@
+{
+    "host":     "localhost",
+    "user":     "dbadm",
+    "password": "P@ssw0rd",
+    "database": "world"
+}
