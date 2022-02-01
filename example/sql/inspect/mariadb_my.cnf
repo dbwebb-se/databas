@@ -9,5 +9,6 @@ protocol = tcp
 user=root
 password=pass
 
+
 [mysql]
 loose-local-infile = 1
