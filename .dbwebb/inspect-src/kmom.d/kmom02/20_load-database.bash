@@ -4,8 +4,8 @@ set -e
 
 target="skolan"
 
-mysql -udbwebb skolan < example/sql/inspect/setup_$target.sql
-mysql -udbwebb skolan < .dbwebb/inspect-src/kmom.d/kmom02/dump_$target.sql
+mariadb < example/sql/inspect/setup_$target.sql
+mariadb skolan < .dbwebb/inspect-src/kmom.d/kmom02/backup_${target}2.sql
 
 echo "SHOW TABLES;"
-mysql -udbwebb -t -e "SHOW TABLES;" $target
+mariadb -t -e "SHOW TABLES;" $target

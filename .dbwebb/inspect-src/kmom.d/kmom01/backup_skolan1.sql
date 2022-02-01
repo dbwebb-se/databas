@@ -1,8 +1,8 @@
--- MySQL dump 10.16  Distrib 10.1.26-MariaDB, for debian-linux-gnu (x86_64)
+-- MariaDB dump 10.19  Distrib 10.5.10-MariaDB, for debian-linux-gnu (x86_64)
 --
--- Host: 127.0.0.1    Database: skolan
+-- Host: mariadb    Database: skolan
 -- ------------------------------------------------------
--- Server version	8.0.14
+-- Server version	10.5.10-MariaDB-1:10.5.10+maria~bionic
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -14,16 +14,6 @@
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
-
---
--- Current Database: `skolan`
---
-
-/*!40000 DROP DATABASE IF EXISTS `skolan`*/;
-
-CREATE DATABASE /*!32312 IF NOT EXISTS*/ `skolan` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */;
-
-USE `skolan`;
 
 --
 -- Table structure for table `larare`
@@ -40,9 +30,9 @@ CREATE TABLE `larare` (
   `kon` char(1) DEFAULT NULL,
   `lon` int(11) DEFAULT NULL,
   `fodd` date DEFAULT NULL,
-  `kompetens` int(11) NOT NULL DEFAULT '1',
+  `kompetens` int(11) NOT NULL DEFAULT 1,
   PRIMARY KEY (`akronym`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -64,4 +54,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-02-06 17:22:01
+-- Dump completed on 2022-02-01  9:54:06

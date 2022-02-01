@@ -14,7 +14,8 @@ services:
             - "/home/dbwebb/repo/build"
             - "/home/dbwebb/repo/node_modules"
             #- "/home/dbwebb/repo/vendor"
-            - "./example/sql/v2/my.cnf:/home/dbwebb/.my.cnf"
+            #- "./example/sql/v2/my.cnf:/home/dbwebb/.my.cnf"
+            - "./example/sql/inspect/mariadb_my.cnf:/home/dbwebb/.my.cnf"
 
     cli:
         <<: *databas
@@ -30,7 +31,7 @@ services:
         image: mariadb/server:latest
         restart: always
         ports:
-            - "13307:3306"
+            - "23306:3306"
         environment:
             MARIADB_ROOT_PASSWORD: pass
         volumes:
@@ -46,7 +47,7 @@ services:
         restart: always
         command: --default-authentication-plugin=mysql_native_password
         ports:
-            - "13306:3306"
+            - "23307:3306"
         environment:
             MYSQL_ROOT_PASSWORD: pass
         volumes:

@@ -10,6 +10,23 @@ This example also contains well defined code structure using a `src/` directory,
 Get going
 ---------------------------
 
+Ensure that you have the databas `world` installed. You can set it up like this.
+
+```
+mariadb < example/sql/v2/world.sql
+```
+
+You can check that it works like this.
+
+```
+$ mariadb world -e "SELECT Name FROM country WHERE Code='swe'"
++--------+
+| Name   |
++--------+
+| Sweden |
++--------+
+```
+
 Install the needed packages by using npm and the file `package.json`.
 
 ```
@@ -29,7 +46,7 @@ node cli.js
 Clean up the installation
 ---------------------------
 
-Run the following script to clean up your installation.
+Run the following script to clean up your installation. The directories and files created by `npm install` will then be removed.
 
 ```
 npm run clean
