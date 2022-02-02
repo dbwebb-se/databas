@@ -16,7 +16,6 @@
   "license": "ISC",
   "type": "module",
   "dependencies": {
-    "babel-eslint": "^10.1.0",
     "mysql": "^2.18.1",
     "promise-mysql": "^5.1.0"
   },
