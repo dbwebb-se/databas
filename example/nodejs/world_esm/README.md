@@ -5,7 +5,7 @@ Example on how to connect to a database using JavaScript.
 
 This example also contains well defined code structure using a `src/` directory with modules, config files and static code validators.
 
-This example uses node style modules with require.
+This example uses ECMAScript (ES) style modules (ESM) with import and export.
 
 
 

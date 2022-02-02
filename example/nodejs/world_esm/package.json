@@ -1,0 +1,27 @@
+{
+  "name": "world",
+  "version": "1.0.0",
+  "description": "The world database and JavaScript ===========================",
+  "main": "index.js",
+  "scripts": {
+    "start": "node cli.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "clean": "rm -rf node_modules package-lock.json",
+    "eslint": "npx eslint *.js src --no-eslintrc -c .eslintrc.json",
+    "eslint:fix": "npx eslint *.js src --no-eslintrc -c .eslintrc.json --fix",
+    "standard": "npx standard",
+    "standard:fix": "npx standard --fix"
+  },
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "dependencies": {
+    "babel-eslint": "^10.1.0",
+    "mysql": "^2.18.1",
+    "promise-mysql": "^5.1.0"
+  },
+  "devDependencies": {
+    "eslint": "^8.7.0",
+    "standard": "^16.0.4"
+  }
+}

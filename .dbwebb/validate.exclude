@@ -22,12 +22,13 @@
 -*/vendor/*
 -*/static/*
 
+-./example/nodejs/world_esm/*
+
 +./build/webroot/*
 -./build/webroot/*/build/*
 -./build/webroot/*/coverage/*
 -./build/webroot/*/node_modules/*
 -./build/webroot/*/vendor/*
-
 
 #+./me/*/src/*
 #+./me/*/test/*
