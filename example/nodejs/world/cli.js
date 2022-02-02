@@ -1,2 +1,3 @@
-const Menu = require('./src/menu.js')
-Menu.start()
+const Menu = require('./src/menu.js');
+
+Menu.start();

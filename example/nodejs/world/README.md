@@ -3,7 +3,7 @@ The world database and JavaScript
 
 Example on how to connect to a database using JavaScript.
 
-This example also contains well defined code structure using a `src/` directory, modules, config files and static code validators.
+This example also contains well defined code structure using a `src/` directory with modules, config files and static code validators.
 
 
 
@@ -39,6 +39,23 @@ Start the cli program.
 npm start
 # or
 node cli.js
+```
+
+If needed you can change the connection details in the file `config/db/world.json`.
+
+
+
+Test the code
+---------------------------
+
+You can use the code validator eslint to validate the code.
+
+```
+# To check for style issues
+npm run eslint
+
+# To fix style issues
+npm run eslint:fix
 ```
 
 
