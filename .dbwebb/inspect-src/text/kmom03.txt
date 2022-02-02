@@ -6,7 +6,7 @@ Jag läser igenom redovisningstexten för att få en uppfattning om hur du upple
 
 Jag vill se att din terminal2 fungerar enligt uppgiftens beskrivning. Jag provkör den mot din egen databas som du har i 'me/skolan/skolan.sql'.
 
-Jag tittar på din 'er.pdf' så att det följer metoden för databasmodellering enligt fasen för konceptuell modellering och att dokumentet ser välordnat ut och ER diagramet känns rimligt i stort.
+Jag tittar på din 'er.pdf' så att det följer metoden för databasmodellering enligt fasen för konceptuell modellering och att dokumentet ser välordnat ut och ER diagrammet känns rimligt i stort.
 
 $TEACHER_SIGNATURE
 
