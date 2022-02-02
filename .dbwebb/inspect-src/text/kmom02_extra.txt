@@ -1,2 +1,11 @@
 Vanliga svar på förekommande problem
 ===========================
+
+FIX. Din inlämning passerade inte genom `dbwebb test <kmom>`. Dubbelkolla vad som saknas och åtgärda det.
+
+PS. Din inlämning passerade inte genom `dbwebb test <kmom>`. Dubbelkolla vad som saknas och åtgärda det till nästa kmom.
+
+PS. Din redovisningstext ligger inte på sin plats på din me-sida. Fixa det till nästa kmom.
+
+FIX. Du har missat att använda moduler i din kod. Du behöver strukturera koden så att du använder minst en modul som du inkluderar i dina "main"-program.
+Se: https://dbwebb.se/uppgift/nodejs-terminalprogram-mot-mysql-v2#modul

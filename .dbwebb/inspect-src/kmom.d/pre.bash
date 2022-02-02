@@ -11,7 +11,7 @@
 #   $REDOVISA_HTTP_POSTFIX
 #   eval "$BROWSER" "$url" &
 #
-printf ">>> -------------- Pre (all kmoms) ----------------------\n"
+#printf ">>> -------------- Pre (all kmoms) ----------------------\n"
 
 # Open log
 echo "[$ACRONYM/$COURSE/$KMOM]" > "$LOG_DOCKER"
@@ -25,3 +25,12 @@ url="$REDOVISA_HTTP_PREFIX/~$ACRONYM/dbwebb-kurser/$COURSE/$REDOVISA_HTTP_POSTFI
 #printf "$url\n" 2>&1
 #eval "$BROWSER" "$url" &
 openUrl "$url"
+
+case $KMOM in
+    kmom03)
+        openUrl "file://$( pwd )/me/kmom03/er1/er.pdf"
+    ;;
+    kmom04)
+        openUrl "file://$( pwd )/me/kmom04/er2/er.pdf"
+    ;;
+esac

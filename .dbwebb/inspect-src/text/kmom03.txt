@@ -1,13 +1,13 @@
-Då skall vi se kmom03...
+Då kikar vi på kmom03.
 
-Jag dubbelkollar utskriften från din "dbwebb inspect". Jag vill se att allt validerar.
+Jag tittar igenom din inlämning och utskrifterna från "dbwebb test" så att allt finns med och ser rätt ut.
 
 Jag läser igenom redovisningstexten för att få en uppfattning om hur du upplever kmomet.
 
-Jag vill se att ditt terminal2 fungerar enligt uppgiftens beskrivning, så jag provkör det mot din egen databas som du har i me/skolan/skolan.sql.
+Jag vill se att din terminal2 fungerar enligt uppgiftens beskrivning. Jag provkör den mot din egen databas som du har i 'me/skolan/skolan.sql'.
 
-Jag kollar över ditt er.pdf så att det följer metoden för databasmodellering enligt fasen för konceptuell modellering och att dokumentet ser hyffsat välordnat ut.
-
-Det jag kollade på såg bra ut, kör vidare.
+Jag tittar på din 'er.pdf' så att det följer metoden för databasmodellering enligt fasen för konceptuell modellering och att dokumentet ser välordnat ut och ER diagramet känns rimligt i stort.
 
 $TEACHER_SIGNATURE
+
+PS: Har du frågor och funderingar kring modelleringen så kan GitHu issues vara en bra plats att få svar på dem.

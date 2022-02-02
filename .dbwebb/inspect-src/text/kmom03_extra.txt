@@ -1,3 +1,8 @@
-KOMMENTAR. Jag fick fel när kan försökte köra ditt cli meny "sok sna", jag låter det vara men du kan läsa mer om det i https://dbwebb.se/t/8918
+Vanliga svar på förekommande problem
+===========================
 
-(node:58) UnhandledPromiseRejectionWarning: Error: ER_WRONG_VALUE: Incorrect DATE value: 'sna'
+FIX. Din inlämning passerade inte genom `dbwebb test <kmom>`. Dubbelkolla vad som saknas och åtgärda det.
+
+PS. Din inlämning passerade inte genom `dbwebb test <kmom>`. Dubbelkolla vad som saknas och åtgärda det till nästa kmom.
+
+FIX. Ditt diagram är inte riktigt ett ER diagram enligt den konceptuella modelleringen. Ditt diagram liknar mer det som vi gör i nästa kmom. Gör ett ER diagram enligt den konceptuella modellen.
