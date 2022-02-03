@@ -28,7 +28,7 @@ services:
     # Add support for mysql and mariadb
     mariadb:
         container_name: mariadb
-        image: mariadb/server:latest
+        image: mariadb:latest
         restart: always
         ports:
             - "23306:3306"
