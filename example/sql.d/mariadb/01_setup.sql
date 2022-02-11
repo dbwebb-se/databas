@@ -21,6 +21,12 @@ CREATE USER IF NOT EXISTS 'dbwebb'@'%'
     BY 'pass'
 ;
 
+CREATE USER IF NOT EXISTS 'maria'@'%'
+    IDENTIFIED
+    -- WITH mysql_native_password
+    BY 'pass'
+;
+
 -- Grant the user all privilegies on the database.
 GRANT ALL PRIVILEGES
     ON *.*
@@ -30,4 +36,9 @@ GRANT ALL PRIVILEGES
 GRANT ALL PRIVILEGES
     ON *.*
     TO 'dbwebb'@'%'
+;
+
+GRANT ALL PRIVILEGES
+    ON *.*
+    TO 'maria'@'%'
 ;
