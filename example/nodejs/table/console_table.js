@@ -33,6 +33,11 @@ console.table(structDatas);
 // Table with header in first column
 const array = [{myId: 42, name: 'John', color: 'red'}, {myId: 1337, name: 'Jane', color: 'blue'}];
 
-const transformed = array.reduce((acc, {myId, ...x}) => { acc[myId] = x; return acc}, {});
+const transformed = array.reduce(
+    (acc, {myId, ...x}) => {
+        acc[myId] = x;
+        return acc
+    },
+{});
 console.log(transformed);
 console.table(transformed);
