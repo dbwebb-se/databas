@@ -10,4 +10,4 @@ Jag tittar på din 'er.pdf' så att det följer metoden för databasmodellering 
 
 $TEACHER_SIGNATURE
 
-PS: Har du frågor och funderingar kring modelleringen så kan GitHu issues vara en bra plats att få svar på dem.
+PS. Har du frågor och funderingar kring modelleringen så kan GitHu issues vara en bra plats att få svar på dem.

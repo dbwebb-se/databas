@@ -5,6 +5,7 @@ echo "
 FÖLJANDE SKALL FUNGERA
 ----------------------
 menu              - Visa en meny
+balance           - Visa balansen på kontona
 move              - Flytta 1.5 peng från Adam till Eva
 exit              - Avsluta
 "

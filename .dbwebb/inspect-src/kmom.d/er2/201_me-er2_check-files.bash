@@ -2,7 +2,7 @@
 . ".dbwebb/inspect-src/kmom.d/functions.bash"
 
 TARGET_DIR="me/kmom04/er2"
-CHECK_FILES="er.pdf ddl.sql setup.sql"
+CHECK_FILES="er.pdf ddl.sql setup.sql" # reset.sql
 
 cd $TARGET_DIR || exit 1
 
