@@ -6,8 +6,7 @@
     "clean-css": "^4.1.9",
     "clean-css-cli": "^4.1.11",
     "css-styleguide": "^0.9.6",
-    "eslint": "^4.10.0",
-    "eslint-plugin-react": "^7.12.4",
+    "eslint": "^8.8.0",
     "html-minifier": "^3.5.6",
     "htmlhint": "0.9.13",
     "javascript-style-guide": "^0.9.10",
@@ -15,8 +14,5 @@
     "jsonlint": "^1.6.2",
     "stylelint": "^8.2.0",
     "uglify-es": "^3.1.6"
-  },
-  "dependencies": {
-    "promise-mysql": "^3.3.1"
   }
 }
