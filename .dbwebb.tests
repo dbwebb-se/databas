@@ -184,11 +184,13 @@ dbwebb test kmom04
 #
 install -d me/kmom05/eshop1/config/db/
 install -d me/kmom05/eshop1/sql/eshop/
+install -d me/kmom05/eshop1/src
 cp example/express-mysql/config/db/bank.json me/kmom05/eshop1/config/db/eshop.json
 touch me/kmom05/eshop1/sql/eshop/setup.sql
 touch me/kmom05/eshop1/sql/eshop/ddl.sql
 touch me/kmom05/eshop1/sql/eshop/insert.sql
 touch me/kmom05/eshop1/sql/eshop/backup.sql
+touch me/kmom05/eshop1/sql/eshop/reset.sql
 touch me/kmom05/eshop1/cli.js
 touch me/kmom05/eshop1/index.js
 cp example/express-crud/package.json me/kmom05/eshop1
