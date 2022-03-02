@@ -34,4 +34,10 @@ case $KMOM in
         openUrl "file://$( pwd )/me/kmom04/er2/er.pdf"
         openUrl "http://127.0.0.1:1337/bank/index"
     ;;
+    kmom05)
+        openUrl "http://127.0.0.1:1337/eshop/index"
+    ;;
+    kmom06)
+        openUrl "http://127.0.0.1:1337/eshop/index"
+    ;;
 esac
