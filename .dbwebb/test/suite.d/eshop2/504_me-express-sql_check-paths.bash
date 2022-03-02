@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 . ".dbwebb/inspect-src/kmom.d/functions.bash"
 
-TARGET_DIR="me/kmom05/eshop1"
+TARGET_DIR="me/kmom06/eshop2"
 CHECK_DIRS="config config/db src sql sql/eshop"
 
 cd $TARGET_DIR || exit 1
