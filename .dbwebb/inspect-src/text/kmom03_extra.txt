@@ -1,8 +1,12 @@
 Vanliga svar på förekommande problem
 ===========================
 
+PS. Du har använt en egenskapad användare när du skapar dina vyer. Använd 'maria' eller 'dbadm' istället. Annars blir det problem vid rättningarna.
+
 FIX. Din inlämning passerade inte genom `dbwebb test <kmom>`. Dubbelkolla vad som saknas och åtgärda det.
 
 PS. Din inlämning passerade inte genom `dbwebb test <kmom>`. Dubbelkolla vad som saknas och åtgärda det till nästa kmom.
 
 FIX. Ditt diagram är inte riktigt ett ER diagram enligt den konceptuella modelleringen. Ditt diagram liknar mer det som vi gör i nästa kmom. Gör ett ER diagram enligt den konceptuella modellen.
+
+PS. Ni har namngivit er-dokumentet på fel sätt. Ni märker det om ni kör 'dbwebb test'.

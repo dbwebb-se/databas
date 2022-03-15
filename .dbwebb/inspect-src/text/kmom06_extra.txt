@@ -1,6 +1,11 @@
-FIX. Du har valideringsfel som gör att det inte går att rätta din inlämning. Kör "dbwebb update" följt av "dbwebb inspect" och laga felen.
+Vanliga svar på förekommande problem
+===========================
 
-FIX. Din databasdump saknar lagrade procedurer, se https://dbwebb.se/t/8371. Uppdatera din backup.sql så kör vi igen.
+FIX. Din inlämning passerade inte genom `dbwebb test <kmom>`. Dubbelkolla vad som saknas och åtgärda det.
+
+PS. Du har använt en egenskapad användare när du skapar dina procedurer/triggers. Använd 'maria' eller 'dbadm' istället. Annars blir det problem vid rättningarna.
+
+FIX. Din databasdump saknar lagrade procedurer, se https://dbwebb.se/uppgift/bygg-databasen-till-en-eshop-del-2#sma. Uppdatera din backup.sql så kör vi igen.
 
 FIX/KOMMENTAR. Din databasbackup ligger på fel plats, men jag hittade den. Dubbelkolla så den hamnar på rätt plats till nästa inlämning.
 

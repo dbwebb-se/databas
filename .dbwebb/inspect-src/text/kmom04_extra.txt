@@ -1,12 +1,14 @@
 Vanliga svar på förekommande problem
 ===========================
 
+FIX. Din inlämning passerade inte genom `dbwebb test <kmom>`. Dubbelkolla vad som saknas och åtgärda det.
+
+PS. Din inlämning passerade inte genom `dbwebb test <kmom>`. Dubbelkolla vad som saknas och åtgärda det till nästa kmom.
+
 PS. Jag såg att du hade två olika kodstycken/funktioner för att flytta pengarna. Fundera på om du inte kunde slagit samman dem till ett kodstycke, och använt parametrar för konto1, konto2 och belopp.
 
 KOMMENTAR. Det kan finnas saker i din ER som blir svåra att implementera i databasen. Men du kan alltid lösa det i kommande kmom genom att strukturera om dina tabeller. Så vi behöver inte lösa det nu. Det jag såg handlade om kopplingstabeller för att lösa N:M-förhållanden mellan tex Order och Produkt, här är vanligt att använda Orderrad som begrepp. Du kan få tips om detta i forumet https://dbwebb.se/t/8361.
 
 KOMMENTAR. Din flytt av pengar gick bara i en riktning. Enligt uppgiften skulle pengaflytten gå i båda riktningarna, en riktning per klient.
-
-FIX. Du har valideringsfel. Glöm inte att alltid göra en "dbwebb update" och " dbwebb inspect" för att kontrollera din inlämning.
 
 FIX. Du har mixat små och stora bokstäver i din SQL-kod. Vår kodstandard säger bara små bokstäver, se forumet: https://dbwebb.se/t/8379. Uppdatera din kod, var konsistent i användandet av små och stora bokstäver och undvik stora bokstäver.

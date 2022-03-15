@@ -1,11 +1,7 @@
-Då tar vi kmom06, det sista innan examinationen.
+Jag tittar igenom din inlämning och utskrifterna från "dbwebb test".
 
-Jag kör en "dbwebb inspect".
+Jag läser igenom redovisningstexten för att få en uppfattning om hur du upplever kmomet.
 
-Jag läser igenom redovisningstexten.
-
-Jag tittar över din eshop så att den uppfyller kraven från uppgiften.
-
-Oavsett vad, när du nått så här långt så är du riktigt nära. Bra gjort.
+Jag tittar över din eshop så att den uppfyller kraven från uppgiften. Jag testkör den via dina två klienter (webb, terminal) och jag använder din egen databasdump som testdatabas.
 
 $TEACHER_SIGNATURE
