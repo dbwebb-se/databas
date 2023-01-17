@@ -22,7 +22,7 @@ Vi fixar in användaren maria (första delen av guiden).
 Skapa en egen databas
 -------------------------
 
-Vi leker runt och gör  CREATE DATABASE/TABLE, SELECT, INSERT, UPDATE, DELETE, DROP.
+Vi leker runt och gör CREATE DATABASE/TABLE, SELECT, INSERT, UPDATE, DELETE, DROP.
 
 `example/sql/v2/intro.sql`
 

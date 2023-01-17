@@ -46,3 +46,33 @@ LIMIT 10
 -- What is the capital of the countrys having the country code 'SW%'?
 -- Make a report showing the name of the country and the name of the capital.
 --
+SELECT
+    Code,
+    Name,
+    Continent,
+    Region,
+    Capital
+FROM country
+WHERE
+    Code LIKE 'SW%'
+;
+
+SELECT
+    ID,
+    Name,
+    CountryCode
+FROM city
+WHERE
+    CountryCode LIKE 'SW%'
+;
+
+SELECT
+    co.Code,
+    co.Name,
+    ci.Name
+FROM country AS co
+INNER JOIN city AS ci
+    ON co.Capital = ci.ID
+WHERE
+    co.Code LIKE 'SW%'
+;
