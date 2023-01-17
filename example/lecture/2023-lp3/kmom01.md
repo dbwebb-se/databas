@@ -17,6 +17,7 @@ Fixa användaren `maria@localhost` och `maria@%`
 
 Vi fixar in användaren maria (första delen av guiden).
 
+<!-- Denna biten är delvis onödig och riskerar att krångla, hoppa över den i genomgången. -->
 
 
 Skapa en egen databas
