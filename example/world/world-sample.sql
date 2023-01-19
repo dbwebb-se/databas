@@ -67,9 +67,9 @@ WHERE
 ;
 
 SELECT
-    co.Code,
-    co.Name,
-    ci.Name
+    co.Code AS 'Country code',
+    co.Name AS 'Country',
+    ci.Name AS 'Capital'
 FROM country AS co
 INNER JOIN city AS ci
     ON co.Capital = ci.ID
