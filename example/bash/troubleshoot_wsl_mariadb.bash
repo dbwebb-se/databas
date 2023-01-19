@@ -24,7 +24,16 @@ address[dig]=$( dig +short $( hostname ).local A | head -1 )
 printf "# Win IP by 'dig' is:        %s\n" "${address[dig]}"
 dig +short $( hostname ).local A
 
+printf "# Kommandot 'ip r' säger:\n%s\n" "$( ip r )"
+
 address[localhost]="127.0.0.1"
+
+# Try to connect
+for i in "${!array[@]}"
+do
+  echo "key  : $i"
+  echo "value: ${array[$i]}"
+done
 
 
 #
