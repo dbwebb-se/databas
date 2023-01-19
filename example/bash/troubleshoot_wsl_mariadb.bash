@@ -29,10 +29,13 @@ printf "# The command 'ip route' säger:\n%s\n" "$( ip route )"
 address[localhost]="127.0.0.1"
 
 # Try to connect
-for i in "${!array[@]}"
+PORT=${1:-3306} 
+printf "\n##########################################################\n"
+printf "# Try to connect to the MariaDB server on port %s\n" "$PORT"
+for i in "${!address[@]}"
 do
-  echo "key  : $i"
-  echo "value: ${array[$i]}"
+    printf "## %s: %s\n" "$i" "${address[$i]}"
+    nc -zv "${address[$i]}" "$PORT"
 done
 
 
