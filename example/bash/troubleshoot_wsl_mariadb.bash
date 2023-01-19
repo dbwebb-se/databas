@@ -24,7 +24,7 @@ address[dig]=$( dig +short $( hostname ).local A | head -1 )
 printf "# Win IP by 'dig' is:        %s\n" "${address[dig]}"
 dig +short $( hostname ).local A
 
-printf "# Kommandot 'ip r' säger:\n%s\n" "$( ip r )"
+printf "# The command 'ip route' säger:\n%s\n" "$( ip route )"
 
 address[localhost]="127.0.0.1"
 
