@@ -2,8 +2,11 @@
 # Execute remote as:
 # curl -s https://raw.githubusercontent.com/dbwebb-se/databas/master/example/bash/troubleshoot_wsl_mariadb.bash | bash
 #
-# WSL network explaned:
+# WSL network explained:
 #  https://stackoverflow.com/questions/64763147/access-a-localhost-running-in-windows-from-inside-wsl2
+#
+# mDNS explained:
+#  https://techcommunity.microsoft.com/t5/networking-blog/mdns-in-the-enterprise/ba-p/3275777
 #
 # Additional details in PowerShell
 #
@@ -18,6 +21,16 @@
 #
 # Show ipaddress of running WSL (?)
 #  wsl hostname -i
+#
+# Show hostname and ping it
+#  hostname
+#  ping $( hostname ).local
+#
+# Verify that mDNS is up and running
+#  Get-NetUDPEndpoint -LocalPort 5353 | Select-Object LocalAddress,LocalPort,OwningProcess,@{ Name="ProcessName"; Expression={((Get-Process -Id $_.OwningProcess).Name )} }
+# then do with the OwningProcess from `svchost`
+#  tasklist /SVC /FI "PID eq <OwningProcess>"
+#
 
 printf "# Details on your release: "
 lsb_release -a
