@@ -40,11 +40,13 @@ SELECT * FROM countrylanguage WHERE CountryCode = 'SWE' ORDER BY Percentage DESC
 
 SELECT
 	co.Name AS 'Country',
+    co.LocalName 'Local name',
     ci.Name AS 'Capital',
     COUNT(lang.Language) AS 'Antal språk',
     GROUP_CONCAT(
 		CONCAT(lang.Language, ' (', lang.Percentage, ')')
         ORDER BY lang.Percentage DESC
+        SEPARATOR ' : '
 	) AS 'Language'
 FROM country AS co
 	JOIN city AS ci
@@ -55,7 +57,7 @@ WHERE
 	-- co.Code = 'SWE'
 	-- Code IN ('SWE', 'FIN')
     co.Region LIKE 'Nordic%'
-    AND lang.IsOfficial = 'T'
+    -- AND lang.IsOfficial = 'T'
 GROUP BY
 	co.Name
 ;
