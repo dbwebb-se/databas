@@ -13,6 +13,9 @@ log-gui-inspect.ansi
 inspect-gui
 .work/
 
+# Windows
+.wslrun
+
 # Mac
 .DS_Store
 
