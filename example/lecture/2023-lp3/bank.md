@@ -1,4 +1,4 @@
-Banke
+Bank
 ========================
 
 1. Beskriv databasen i ett textstycke
