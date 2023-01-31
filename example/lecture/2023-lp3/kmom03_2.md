@@ -1,6 +1,21 @@
 Kmom03 genomgång (vecka 2)
 =========================
 
+Gör en konceptuell modell som innehåller 1:1, 1:N och N:M.
+Börja översätta den till logisk modellering, preppa med alla tabeller och kolumner.
+Jobba enligt "översätt".
+
+Preppa SQL-koden för att skapa tabellerna.
+Lägg till PK, FK
+
+Preppa med innehåll.
+
+Visa INNER/OUTER JOIN.
+
+Är tentan ett bra exempel? Saknar någon relationstyp, kanske lägga till den?
+
+
+
 Kolla snabbt igenom vad som händer i kursmomentet.
 
 * ER stegen
