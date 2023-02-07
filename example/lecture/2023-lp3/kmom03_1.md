@@ -34,7 +34,7 @@ Använd Dia för att rita.
 Om termer vid ER: http://www.databasteknik.se/webbkursen/er/index.html
 
 
-
+<!--
 Exempel från en tenta
 -------------------------
 
