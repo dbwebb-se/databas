@@ -42,8 +42,8 @@ Glöm inte stegen.
 Använd databasen "classicalmodels"
 -------------------------
 
+* Join
 * Outer join
 * Sub query
-* Union
 
 `example/classicalmodels/outer.sql`
