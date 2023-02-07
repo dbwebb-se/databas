@@ -22,7 +22,9 @@ Modelleringsövning med dia
 -------------------------
 
 * Kund, order, produkter
-    * ./customer_order_product.md
+* Delar av modelleringsövningen skissades på i dokumentet [`customer_order_product.md`](./customer_order_product.md)
+* En diagramskiss med Dia sparades i [`kmom03_v2.dia`](./kmom03_v2.dia).
+* En bild av diagramskissen finns även här i [`er_customer_order_product.png`](./er_customer_order_product.png)
 
 Glöm inte stegen.
 
@@ -42,8 +44,12 @@ Glöm inte stegen.
 Använd databasen "classicalmodels"
 -------------------------
 
+Vi fokuserar på tabellerna customers, orders, orderdetails, products.
+
 * Join
 * Outer join
 * Sub query
 
-`example/classicalmodels/outer.sql`
+Vi gjorde en reverse engineering av databasen och [sparade en bild](./../../classicalmodels/classicalmodels_reverse_er.png).
+
+SQL-koden i genomgången sparades i [`example/classicalmodels/outer.sql`](./../../classicalmodels/outer.sql)

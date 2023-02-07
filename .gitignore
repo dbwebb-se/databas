@@ -15,6 +15,7 @@ inspect-gui
 
 # Windows
 .wslrun
+*:Zone.Identifier
 
 # Mac
 .DS_Store
