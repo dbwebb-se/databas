@@ -3,8 +3,6 @@ Kmom04 genomgång
 
 Kolla snabbt igenom vad som händer i kursmomentet.
 
-* ER stegen
-* ER skissa på resulat dokument
 
 
 Modellera med dia
