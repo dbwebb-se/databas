@@ -2,6 +2,11 @@
 -- Intro to SQL
 --
 
+-- 
+-- Create a course database where we can store and work with courses.
+-- 
+
+
 --
 -- CREATE/DROP database
 --
@@ -9,6 +14,8 @@ DROP DATABASE IF EXISTS ladok;
 CREATE DATABASE IF NOT EXISTS ladok;
 
 USE ladok;
+
+
 
 --
 -- CREATE/DROP table

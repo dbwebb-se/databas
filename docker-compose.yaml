@@ -24,6 +24,9 @@ services:
         <<: *databas
         ports:
             - "1337:1337"
+            - "1338:1338"
+            - "3000:3000"
+            #- "1000-9999"
 
     # Add support for mysql and mariadb
     mariadb:
