@@ -2,6 +2,7 @@
 -- Create a user with full grants.
 --
 DROP USER IF EXISTS 'maria'@'localhost';
+DROP USER IF EXISTS 'maria'@'%';
 
 CREATE USER 'maria'@'localhost'
 IDENTIFIED BY 'P@ssw0rd'

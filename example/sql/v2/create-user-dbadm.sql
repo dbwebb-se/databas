@@ -3,6 +3,7 @@
 -- backward compatible login.
 --
 DROP USER IF EXISTS 'dbadm'@'localhost';
+DROP USER IF EXISTS 'dbadm'@'%';
 
 CREATE USER 'dbadm'@'localhost'
 IDENTIFIED BY 'P@ssw0rd'
