@@ -17,6 +17,11 @@ Använd databasen "world" och gör en tripple join.
 
 `example/world/join.sql`
 
+aggregate
+built in functions
+group by?
+
+
 
 Använd databasen "classicalmodels"
 -------------------------

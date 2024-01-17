@@ -25,14 +25,12 @@ Vi fixar in användaren maria och dbadm genom att tjuvkika på de scripten som g
 
 
 
-Skapa en egen databas
+Skapa en egen databas och lek runt
 -------------------------
 
 Vi leker runt och gör CREATE DATABASE/TABLE, SELECT, INSERT, UPDATE, DELETE, DROP.
 
-`example/sql/v2/intro.sql`
-
-<!-- Kopiera och gör till en övning i database-repot -->
+* [Get going with a database and SQL](https://gitlab.com/mikael-roos/database/-/tree/main/sql/ladok)
 
 
 
@@ -41,6 +39,5 @@ Använd databasen "world"
 
 Vi använder en färdig databas "world", laddar in den och ser vad den innehåller och avslutar med en JOIN.
 
-`example/world`
+* [`example/world`](../../world/)
 
-<!-- Jobba igenom de övningar som finnsi databas-repot och förbättra -->
