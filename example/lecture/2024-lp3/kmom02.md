@@ -17,9 +17,12 @@ Använd databasen "world" och gör en tripple join.
 
 `example/world/join.sql`
 
+reverse engineer
+more select
 aggregate
 built in functions
 group by?
+vyer, subqueries, UNION
 
 
 
@@ -29,3 +32,5 @@ Använd databasen "classicalmodels"
 Använd databasen "classicalmodels" och gör en tripple join.
 
 `example/classicalmodels/join.sql`
+
+Utgå från en frågeställning och lös den.

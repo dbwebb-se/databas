@@ -13,7 +13,7 @@ Jag kommer visa min egen labbmiljö och hur jag jobbar med de olika klienterna.
 Vi dubbelkollar att `.my.cnf` fungerar.
 
 
-
+<!--
 Fixa användaren `maria@localhost` och `maria@%`
 -------------------------
 
@@ -22,6 +22,7 @@ Vi fixar in användaren maria och dbadm genom att tjuvkika på de scripten som g
 * `example/sql/v2/create-user-maria.sql`
 * `example/sql/v2/create-user-dbadm.sql`
 * `example/sql/v2/check-status.sql`
+-->
 
 
 
