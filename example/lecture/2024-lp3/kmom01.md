@@ -40,5 +40,5 @@ Använd databasen "world"
 
 Vi använder en färdig databas "world", laddar in den och ser vad den innehåller och avslutar med en JOIN.
 
-* [`example/world`](../../world/)
+* [World database and SQL: Get going](https://gitlab.com/mikael-roos/database/-/tree/main/sql/world/get-going) (jobba igenom första delen fram till JOIN).
 
