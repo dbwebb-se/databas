@@ -13,6 +13,10 @@ log-gui-inspect.ansi
 inspect-gui
 .work/
 
+course.data
+result.data
+teachers.data
+
 # Windows
 .wslrun
 *:Zone.Identifier
