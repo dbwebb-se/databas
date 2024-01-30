@@ -8,7 +8,6 @@ Allmänt
 
 * Kodstandard SQL
     * small_caps only
-* Fråga om dbwebb validate, `eslint` och `eslint --fix`
 
 
 
@@ -25,6 +24,17 @@ Kika på kursmomentet
 
 
 
+Använd databasen "classicmodels"
+-------------------------
+
+Vi använder en ny och lite större databas där vi tränar UNION, INNER/OUTER JOIN och subqueries.
+
+* [Classic models database: Get going with UNION, JOIN and subquery](https://gitlab.com/mikael-roos/database/-/tree/main/sql/classicmodels/join)
+
+Gör en reverse engineering och inspektera vad som är PRIMARY/FOREIGN KEY i tabellerna.
+
+
+
 Träna ER konceptuell modellering
 -------------------------
 
@@ -37,24 +47,18 @@ Använd Dia för att rita.
 
 Om termer vid ER: http://www.databasteknik.se/webbkursen/er/index.html
 
+Glöm inte stegen.
+
+1. Beskriv databasen i ett textstycke.
+2. Skriv ned alla entiteter.
+3. Skriv ned alla relationer och visa i matris.
+4. Rita enkelt ER-diagram med entiteter och relationer.
+5. Komplettera ER-diagram med kardinalitet.
+6. Komplettera ER-diagram med alla attribut samt kandidatnycklar.
+
+<!--
 Fokusera på hur man kan lösa en N:M förhållande i databasen.
 
 * Använd PRIMARY KEY.
 * Använd FOREIGN KEY.
-
-
-
-Använd databasen "classicalmodels"
--------------------------
-
-* Använd PRIMARY KEY.
-* Använd FOREIGN KEY.
-* UNION
-* Visa INNER/OUTER JOIN.
-* subqueries
-
-Använd databasen "classicalmodels" och gör en tripple join.
-
-`example/classicalmodels/join.sql`
-
-Utgå från en frågeställning och lös den.
+-->

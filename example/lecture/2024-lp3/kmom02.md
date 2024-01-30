@@ -25,7 +25,7 @@ Jobba sedan vidare med nästa övning.
 
 
 
-
+<!--
 Använd databasen "classicalmodels"
 -------------------------
 
@@ -36,3 +36,4 @@ Använd databasen "classicalmodels" och inspektera den.
 Utgå från en frågeställning och lös den.
 
 Prova aggregerande/inbyggda funktioner och någon join och union.
+-->

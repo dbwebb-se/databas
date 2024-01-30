@@ -16,6 +16,19 @@ Repetera snabbt igenom vad som händer i kursmomentet.
     * Outer join
     * Subquery
 
+* Fråga om dbwebb validate, `eslint` och `eslint --fix`
+
+
+
+Använd databasen "classicalmodels"
+-------------------------
+
+Vi fokuserar på tabellerna customers, orders, orderdetails, products.
+
+* [titel...](https://gitlab.com/mikael-roos/database/-/tree/main/sql/classicmodels/order-product)
+
+Vi joinar och tittar på nycklar och relationer 1:N och N:M.
+
 
 
 Modelleringsövning med dia
@@ -39,17 +52,7 @@ Glöm inte stegen.
 9. Skapa SQL DDL för tabellerna.
 10. Lista funktioner som databasen skall stödja (API).
 
+Fokusera på hur man kan lösa en N:M förhållande i databasen.
 
-
-Använd databasen "classicalmodels"
--------------------------
-
-Vi fokuserar på tabellerna customers, orders, orderdetails, products.
-
-* Join
-* Outer join
-* Sub query
-
-Vi gjorde en reverse engineering av databasen och [sparade en bild](./../../classicalmodels/classicalmodels_reverse_er.png).
-
-SQL-koden i genomgången sparades i [`example/classicalmodels/outer.sql`](./../../classicalmodels/outer.sql)
+* Använd PRIMARY KEY.
+* Använd FOREIGN KEY.
