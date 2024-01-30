@@ -13,7 +13,7 @@ COUNTER=0
 
 function present
 {
-  awk -f fix.awk $GRADEBOOK 
+  awk -f fix.awk $GRADEBOOK
   exit 0
 }
 
@@ -21,6 +21,7 @@ function getnew
 {
   echo "Getting new data..."
   > $GRADEBOOK
+
   while [[ true ]]
   do
     GRADEBOOK_URL="$BASE_URL/api/v1/courses/$COURSEID/gradebook_history/feed?page=$PAGE&per_page=100"
@@ -29,7 +30,8 @@ function getnew
     [[ $LENGTH == 0 ]] && exit 0
     (( COUNTER+=$LENGTH ))
     echo "Total gradings: $COUNTER"
-    echo "$GRADEBOOK_HOLDER" | jq '.[] | select(.grader != "Bedömd vid inlämning" and (.assignment_name | contains("quiz") | not)) | .assignment_name, .grader' >> $GRADEBOOK
+    echo "$GRADEBOOK_HOLDER" | jq '.[] | select(.grader != "Bedömd vid inlämning" and (.assignment_name | contains("quiz") | not)) | "\(.assignment_name),\(.grader),\(.grade)"' >> $GRADEBOOK
+
     ((PAGE++))
   done
 
@@ -38,13 +40,13 @@ function getnew
 
 function save {
     local course
-    if [[ -f "course.data" ]]; then 
+    if [[ -f "course.data" ]]; then
         course=$(< "course.data")
         if [[ -f "result.data" ]]; then
             present > $course"_save"
-        fi 
+        fi
     fi
-    
+
     exit 0
 }
 
@@ -78,7 +80,7 @@ function addTeacher
 [[ "$1" = "init" ]] && init
 [[ "$1" = "teachers" ]] && viewTeachers
 [[ "$1" = "add" ]] && addTeacher "$@"
-  
+
 printf "%s\n%s\n%s\n%s\n%s\n%s\n" "Commands:" "'init' (Use new coursecode)" "'fetch' (Fetches new data from Canvas)" "'save' (Saves the current result)" "'print' (Prints current result)" "'add <teacher1 teacher2..>' (Adds teacher to list)"
 
 exit 1
