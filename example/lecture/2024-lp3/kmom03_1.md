@@ -40,8 +40,12 @@ Träna ER konceptuell modellering
 
 Använd stegen från kokboken. Modellera i Markdown och sedan i Dia.
 
-* Library
-* Bank
+<!-- 
+Man hinner en övning på 30-45 min, inte två. Bank är en bra start.
+-->
+
+* [Bank](https://gitlab.com/mikael-roos/database/-/tree/main/er/bank) (modellera direkt i Dia - lär dig rita)
+* [Library](https://gitlab.com/mikael-roos/database/-/tree/main/er/library) (modellera i markdown och rita sedan i Dia)
 
 Använd Dia för att rita.
 
