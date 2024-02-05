@@ -23,6 +23,8 @@ Repetera snabbt igenom vad som händer i kursmomentet.
 
 * Fråga om dbwebb validate, `eslint` och `eslint --fix`
 
+Att ta en backup, skriptet.
+
 
 
 Använd databasen "classicalmodels"
