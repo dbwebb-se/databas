@@ -29,6 +29,10 @@ Vi joinar och tittar på nycklar och relationer 1:N och N:M.
 Modellera med dia
 -------------------------
 
+<!--
+Implementera en logisk modell hela vägen och fokusera på nycklar och visa hur man joinar  olika relationer.
+-->
+
 Modelleringsövning med dia, utveckla logiska & fysiska modeller av konceptuella modeller.
 
 * [Bank](https://gitlab.com/mikael-roos/database/-/tree/main/er/bank) (modellera direkt i Dia - lär dig rita)
