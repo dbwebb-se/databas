@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env bash -i
 #
 # Script run for specific kmom (within docker).
 #
@@ -7,6 +7,14 @@
 #   $ACRONYM
 #   $COURSE_REPO
 #
+#echo $-
+#export TERM="xterm"
+#export PS1="$ "
+#shopt -s checkwinsize
+#PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
+#source $HOME/.bashrc
+
+
 cd me || exit
 e() { exit; }
 export -f e
