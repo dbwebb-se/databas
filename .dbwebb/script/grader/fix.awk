@@ -4,18 +4,7 @@ BEGIN {
   FS=","
   total = 0
 
-  while ((getline temp < "teachers.data") > 0) {
-    gsub(/^ | $/, "", temp)
-    kmoms[temp][0] = 0 # Kmom01
-    kmoms[temp][1] = 0 # Kmom02
-    kmoms[temp][2] = 0 # Kmom03
-    kmoms[temp][3] = 0 # Kmom04
-    kmoms[temp][4] = 0 # Kmom05
-    kmoms[temp][5] = 0 # Kmom06
-    kmoms[temp][6] = 0 # Kmom07-10
-    kmoms[temp][7] = 0 # total %
-    #kmoms[temp]["G"] = 0 # amount of G's
-  }
+  
 }
 
 {
