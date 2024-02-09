@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-AUTH="Authorization: Bearer 12133~iiDecoHsYRNR8XzVbNyYaZ1OnZFm3DkTQ2p960WbGptGIcenvBnpRfx5EFXwWyvq"
+AUTH="Authorization: Bearer $CANVAS_TOKEN"
 
 BASE_URL="https://bth.instructure.com"
 
