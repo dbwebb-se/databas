@@ -37,7 +37,7 @@ You can use the same configuration as `dbwebb validate` does by copying that con
 
 ```
 # Stay in the me directory
-cp ../example/dev-environemnt/.eslintrc.json .
+cp ../example/dev-environment/.eslintrc.json .
 ```
 
 The configuration file decides what type of code standard you are to follow in this project.
