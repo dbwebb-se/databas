@@ -1,8 +1,8 @@
--- MySQL dump 10.19  Distrib 10.3.34-MariaDB, for debian-linux-gnu (x86_64)
+-- MariaDB dump 10.19  Distrib 10.6.16-MariaDB, for debian-linux-gnu (x86_64)
 --
--- Host: DESKTOP-NKPRBVC.local    Database: bank
+-- Host: localhost    Database: bank
 -- ------------------------------------------------------
--- Server version	10.6.5-MariaDB
+-- Server version	10.6.16-MariaDB-0ubuntu0.22.04.1
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -27,7 +27,7 @@ CREATE TABLE `account` (
   `name` varchar(8) DEFAULT NULL,
   `balance` decimal(4,2) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -42,13 +42,13 @@ UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8mb4 */ ;
-/*!50003 SET character_set_results = utf8mb4 */ ;
-/*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
+/*!50003 SET character_set_client  = utf8mb3 */ ;
+/*!50003 SET character_set_results = utf8mb3 */ ;
+/*!50003 SET collation_connection  = utf8mb3_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-/*!50003 CREATE*/ /*!50017 DEFINER=`dbadm`@`localhost`*/ /*!50003 TRIGGER log_balance_update
+/*!50003 CREATE*/ /*!50017 DEFINER=`maria`@`localhost`*/ /*!50003 TRIGGER log_balance_update
 AFTER UPDATE
 ON account FOR EACH ROW
     INSERT INTO account_log (`what`, `account`, `balance`, `amount`)
@@ -74,7 +74,7 @@ CREATE TABLE `account_log` (
   `balance` decimal(4,2) DEFAULT NULL,
   `amount` decimal(4,2) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -83,24 +83,24 @@ CREATE TABLE `account_log` (
 
 LOCK TABLES `account_log` WRITE;
 /*!40000 ALTER TABLE `account_log` DISABLE KEYS */;
-INSERT INTO `account_log` VALUES (1,'2023-02-21 11:25:51','move_money from','1111',NULL,-1.50),(2,'2023-02-21 11:25:51','move_money to','2222',NULL,1.50),(3,'2023-02-21 11:26:56','trigger','2222',13.00,1.50),(4,'2023-02-21 11:26:56','trigger','1111',4.00,-1.50),(5,'2023-02-21 11:26:56','move_money from','1111',NULL,-1.50),(6,'2023-02-21 11:26:56','move_money to','2222',NULL,1.50),(7,'2023-02-21 11:26:59','trigger','2222',14.50,1.50),(8,'2023-02-21 11:26:59','trigger','1111',2.50,-1.50),(9,'2023-02-21 11:26:59','move_money from','1111',NULL,-1.50),(10,'2023-02-21 11:26:59','move_money to','2222',NULL,1.50);
+INSERT INTO `account_log` VALUES (1,'2024-02-20 10:28:20','move_money from','1111',NULL,-1.50),(2,'2024-02-20 10:28:20','move_money to','2222',NULL,1.50),(3,'2024-02-20 10:29:27','trigger','1111',2.50,1.50),(4,'2024-02-20 10:29:27','trigger','2222',14.50,-1.50),(5,'2024-02-20 10:29:27','move_money from','2222',NULL,-1.50),(6,'2024-02-20 10:29:27','move_money to','1111',NULL,1.50);
 /*!40000 ALTER TABLE `account_log` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
 -- Dumping routines for database 'bank'
 --
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 /*!50003 DROP PROCEDURE IF EXISTS `move_money` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8mb4 */ ;
-/*!50003 SET character_set_results = utf8mb4 */ ;
-/*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+/*!50003 SET character_set_client  = utf8mb3 */ ;
+/*!50003 SET character_set_results = utf8mb3 */ ;
+/*!50003 SET collation_connection  = utf8mb3_general_ci */ ;
 DELIMITER ;;
-CREATE DEFINER=`dbadm`@`localhost` PROCEDURE `move_money`(
+CREATE DEFINER=`maria`@`localhost` PROCEDURE `move_money`(
     from_account CHAR(4),
     to_account CHAR(4),
     amount NUMERIC(4, 2)
@@ -131,14 +131,13 @@ MAIN:BEGIN
         WHERE
             id = from_account;
 
-    COMMIT;
-    
-    INSERT INTO
+INSERT INTO
     account_log (what, account, amount)
     VALUES
         ('move_money from', from_account, -amount),
         ('move_money to', to_account, amount);
 
+    COMMIT;
     SELECT * FROM account;
 END ;;
 DELIMITER ;
@@ -156,4 +155,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-02-21 13:48:14
+-- Dump completed on 2024-02-20 11:54:45
