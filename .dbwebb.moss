@@ -5,14 +5,25 @@
 
 # kmom01
 
+
 # kmom02
+[kmom02]
+me/kmom02/terminal1/**/**/*.js
 
 # kmom03
+[kmom03]
+me/kmom03/terminal2/**/*.js
 
 # kmom04
+[kmom04]
+me/kmom04/express-sql/**/*.js
 
 # kmom05
+[kmom05]
+me/kmom05/eshop1/**/*.js
 
 # kmom06
+[kmom06]
+me/kmom06/eshop2/**/*.js
 
 # kmom10
