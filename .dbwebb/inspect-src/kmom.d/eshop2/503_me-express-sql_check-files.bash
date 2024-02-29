@@ -2,7 +2,7 @@
 . ".dbwebb/inspect-src/kmom.d/functions.bash"
 
 TARGET_DIR="me/kmom06/eshop2"
-CHECK_FILES="package.json config/db/eshop.json index.js cli.js sql/eshop/setup.sql sql/eshop/ddl.sql sql/eshop/insert.sql sql/eshop/reset.sql sql/eshop/backup.sql"
+CHECK_FILES="config/db/eshop.json index.js cli.js sql/eshop/setup.sql sql/eshop/ddl.sql sql/eshop/insert.sql sql/eshop/reset.sql sql/eshop/backup.sql"
 
 cd $TARGET_DIR || exit 1
 
