@@ -6,6 +6,7 @@
 module.exports = {
     showBalance: showBalance,
     createAccount: createAccount,
+    createAccount2,
     showAccount: showAccount,
     editAccount: editAccount,
     deleteAccount: deleteAccount
@@ -71,6 +72,27 @@ async function createAccount(id, name, balance) {
     res = await db.query(sql, [id, name, balance]);
     console.log(res);
     console.info(`SQL: ${sql} got ${res.length} rows.`);
+    return res
+}
+
+
+
+/**
+ * Create a new account (version 2).
+ *
+ * @async
+ * @param {string} id      A id of the account.
+ *
+ * @returns {void}
+ */
+async function createAccount2(id) {
+    let sql = `CALL create_account2(?);`;
+    let res;
+
+    res = await db.query(sql, [id]);
+    console.log(res);
+    console.info(`SQL: ${sql} got ${res.length} rows.`);
+    return res
 }
 
 

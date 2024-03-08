@@ -1,0 +1,18 @@
+<%- include("header", {title: title}); %>
+
+<h1>Create new account (version 2)</h1>
+
+<p>Create a new account in the bank.</p>
+
+<form class="label-left" method="post">
+    <fieldset>
+        <legend>Create account</legend>
+
+        <label for="id">Id</label>
+        <input id="id" type="text" name="id">
+
+        <input type="submit" name="doit" value="Create">
+    </fieldset>
+</form>
+
+<%- include("footer"); %>

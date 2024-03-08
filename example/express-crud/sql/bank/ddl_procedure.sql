@@ -10,8 +10,8 @@ DROP TABLE IF EXISTS account;
 CREATE TABLE account
 (
     `id` CHAR(4) PRIMARY KEY,
-    `name` VARCHAR(8),
-    `balance` DECIMAL(4, 2)
+    `name` VARCHAR(8) DEFAULT 'No name',
+    `balance` DECIMAL(4, 2) DEFAULT 0.0
 );
 
 -- DELETE FROM account;
@@ -56,6 +56,20 @@ DELIMITER ;
 
 -- CALL create_account("1337", "Mega", 37.0);
 -- SHOW WARNINGS;
+
+--
+-- Create another procedure for insert into account
+--
+DROP PROCEDURE IF EXISTS create_account2;
+DELIMITER ;;
+CREATE PROCEDURE create_account2(
+    a_id CHAR(4)
+)
+BEGIN
+    INSERT INTO account (id) VALUES (a_id);
+END
+;;
+DELIMITER ;
 
 --
 -- Create procedure for show account details

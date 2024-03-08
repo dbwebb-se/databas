@@ -44,6 +44,20 @@ router.post("/create", urlencodedParser, async (req, res) => {
     res.redirect("/bank/balance");
 });
 
+router.get("/create2", (req, res) => {
+    let data = {
+        title: `Create new account ${sitename}`
+    };
+
+    res.render("bank/create2", data);
+});
+
+router.post("/create2", urlencodedParser, async (req, res) => {
+    // console.log(JSON.stringify(req.body, null, 4));
+    const result = await bank.createAccount2(req.body.id);
+    res.redirect(`/bank/edit/${req.body.id}`);
+});
+
 router.get("/account/:id", async (req, res) => {
     let id = req.params.id;
     let data = {
