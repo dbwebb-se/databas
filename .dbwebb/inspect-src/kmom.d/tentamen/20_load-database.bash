@@ -12,7 +12,8 @@ CREATE DATABASE $target;
 echo $sql | mariadb
 
 echo "Load user database from sql/$target/backup.sql"
-mariadb $target < me/tentamen/sql/$target/backup.sql
+#mariadb $target < me/tentamen/sql/$target/backup.sql
+tail -n +2 me/tentamen/sql/$target/backup.sql | mariadb $target 
 
 #echo "Executing: mariadb < example/sql/list_proc_func_trig.sql"
 mariadb $target < example/sql/list_proc_func_trig.sql

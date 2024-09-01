@@ -5,7 +5,10 @@ set -e
 target="eshop"
 
 mariadb -udbwebb < example/sql/inspect/setup_eshop.sql
-mariadb -udbwebb $target < me/kmom05/eshop1/sql/eshop/backup.sql
+
+#mariadb -udbwebb $target < me/kmom05/eshop1/sql/eshop/backup.sql
+tail -n +2 me/kmom05/eshop1/sql/eshop/backup.sql | mariadb $target 
+
 mariadb -udbwebb $target < example/sql/list_proc_func_trig.sql
 
 mariadb -udbwebb -t -e "SHOW TABLES;" $target

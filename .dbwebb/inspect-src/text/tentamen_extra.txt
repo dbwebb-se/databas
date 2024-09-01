@@ -1,3 +1,42 @@
+# 2024
+
+visa
+
+AVDRAG -1p man kan inte se samtliga typer i webbklienten exam/visa.
+AVDRAG -1p man kan inte se samtliga typer i terminalklienten visa.
+(AVDRAG -1p man kan inte se detaljer om developer.)
+AVDRAG -2p man kan inte se samtliga typer i webbklienten/terminalklienten.
+
+AVDRAG 1: Strängen debate är inte avkortad.
+
+sök
+
+AVDRAG -1p man kan inte söka på "expert" och få en träff (delsträng i type).
+AVDRAG -1p man kan inte söka på "gene" och få en träff (delsträng i type).
+AVDRAG -1p man kan inte söka på "blu" och få en träff (delsträng i product).
+AVDRAG -2p (webbklient & terminalklient) man kan inte söka på "gene" och få en träff (delsträng i type).
+
+BONUS 1p man kan söka på "mell".
+BONUS 1p man kan söka på "expert".
+
+
+AVDRAG -1p man kan inte söka på "expert" och få en träff (delsträng i type).
+AVDRAG -1p man kan inte se samtliga typer i webbklienten exam/visa.
+AVDRAG -1p man kan inte söka på "gene" och få en träff (delsträng i type).
+Det saknas rader i 'report' så den ger ingen poäng.
+
+Sorteringen var inte 100 i 'report', men det får vara tillräckligt nära,
+
+Jag har rättat om din inlämning och du får färre avdrag för "gene" och du landar på 23p.
+
+### Kolla igenom alla ovanför Bjarnehall avseende "search expert"
+### Efter P Karlsson, ny rättning -> 23
+
+### fusk?
+
+
+# Tidigare
+
 AVDRAG -1p Din package.json saknar detaljer så att dina program inte går att köra.
 
 KOMMENTAR/AVDRAG 0-5p Du har en annan filstruktur än den som var anvisad. Jag fixade genom att flytta runt på dina filer/kataloger.

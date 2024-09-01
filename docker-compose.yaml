@@ -25,9 +25,10 @@ services:
         #stdin_open: true # docker run -i
         #tty: true        # docker run -t
         ports:
-            - "1337:1337"
-            - "1338:1338"
+            - "1330-1340:1330-1340"
+            #- "1338:1338"
             - "3000:3000"
+            - "1255:1255"
             #- "1000-9999"
 
     # Add support for mysql and mariadb
