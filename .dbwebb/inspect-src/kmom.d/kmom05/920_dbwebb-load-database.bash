@@ -3,22 +3,18 @@
 set -e
 
 target="eshop"
-echo "MOPED1"
 
 backup="me/kmom05/eshop1/sql/eshop/backup.sql"
-version=$(grep '^-- MySQL dump' "$backup" | awk '{print $5}' | cut -d'-' -f1)
-echo "$version"
+version=$(grep '^-- Server version' "$backup" | awk '{print $4}' | cut -d'-' -f1)
+#echo "$version"
 if [[ $(echo -e "$version\n10.6" | sort -V | head -n 1) == "$version" && "$version" != "10.6" ]]; then
-    echo "Version $version is pre-10.6."
-echo "MOPED2"
+    echo "Version '$version' is pre-10.6."
     mariadb -udbwebb < example/sql/inspect/setup_eshop_pre10.6.sql
-echo "MOPED3"
 else
-    echo "Version $version is 10.6 or newer."
+    echo "Version '$version' is 10.6 or newer."
     mariadb -udbwebb < example/sql/inspect/setup_eshop.sql
 fi
 
-echo "MOPED4"
 #mariadb -udbwebb $target < me/kmom05/eshop1/sql/eshop/backup.sql
 tail -n +2 "$backup" | mariadb $target 
 
