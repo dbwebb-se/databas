@@ -1,0 +1,30 @@
+@startuml
+
+entity "User" {
+  * id : Integer
+  --
+  name : String
+  email : String
+}
+
+entity "Post" {
+  * id : Integer
+  --
+  title : String
+  content : Text
+  userId : Integer
+}
+
+entity "Comment" {
+  * id : Integer
+  --
+  text : Text
+  postId : Integer
+  userId : Integer
+}
+
+User ||--o{ Post : writes
+Post ||--o{ Comment : has
+User ||--o{ Comment : writes
+
+@enduml
