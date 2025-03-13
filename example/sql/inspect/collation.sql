@@ -18,7 +18,7 @@ ALTER DATABASE eshop
 ;
 
 SOURCE me/kmom05/eshop1/sql/eshop/backup.sql
-SOURCE me/kmom06/eshop1/sql/eshop/backup.sql
+SOURCE me/kmom06/eshop2/sql/eshop/backup.sql
 
 SHOW VARIABLES LIKE 'collation_database';
 SOURCE example/sql/list_proc_func_trig.sql
