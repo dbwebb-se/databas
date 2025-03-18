@@ -6,12 +6,20 @@ target="eshop"
 
 backup="me/kmom05/eshop1/sql/eshop/backup.sql"
 version=$(grep '^-- Server version' "$backup" | awk '{print $4}' | cut -d'-' -f1)
+os=$(grep '^-- MariaDB dump' "$backup" | awk -F 'for ' '{print $2}' | awk '{print $1}')
+
 #echo "$version"
 if [[ $(echo -e "$version\n10.6" | sort -V | head -n 1) == "$version" && "$version" != "10.6" ]]; then
-    echo "Version '$version' is pre-10.6."
+    echo "Version '$version' is pre-10.6 on $os."
     mariadb -udbwebb < example/sql/inspect/setup_eshop_pre10.6.sql
+elif [[ "${os:0:3}" == "osx" && "$(echo -e "$version\n11.6.2" | sort -V | head -n 1)" == "$version" ]]; then
+    echo "Version '$version' is 11.6.2 or older on $os."
+    mariadb -udbwebb < example/sql/inspect/setup_eshop_11.6_osx.sql
+elif [[ "${os:0:6}" == "debian" && "$(echo -e "$version\n11.4.0" | sort -V | head -n 1)" == "$version" ]]; then
+    echo "Version '$version' is 11.4.0 or older on $os."
+    mariadb -udbwebb < example/sql/inspect/setup_eshop_utf8mb4_general_ci.sql
 else
-    echo "Version '$version' is 10.6 or newer."
+    echo "Version '$version' is 10.6 or newer on $os."
     mariadb -udbwebb < example/sql/inspect/setup_eshop.sql
 fi
 
