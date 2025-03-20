@@ -9,10 +9,12 @@ CREATE DATABASE eshop
 ;
 
 -- NOT FIXED
--- 10.6.18 utf8mb4_general_ci debian-linux-gnu
--- 10.11.8 utf8mb4_general_ci debian-linux-gnu
--- 11.6.2 works
 
 -- FIXED
 -- 11.6.2 utf8mb4_general_ci osx10.20 (arm64)
 --                           osx10.19 (arm64)
+
+-- 10.6.18 utf8mb4_general_ci debian-linux-gnu
+-- 10.11.8 utf8mb4_general_ci debian-linux-gnu
+-- 11.4.0  utf8mb4_general_ci debian-linux-gnu
+-- 11.6.2 works

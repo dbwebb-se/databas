@@ -7,6 +7,8 @@ target="eshop"
 backup="me/kmom05/eshop1/sql/eshop/backup.sql"
 version=$(grep '^-- Server version' "$backup" | awk '{print $4}' | cut -d'-' -f1)
 os=$(grep '^-- MariaDB dump' "$backup" | awk -F 'for ' '{print $2}' | awk '{print $1}')
+os1=$(grep '^-- MySQL dump' "$backup" | awk -F 'for ' '{print $2}' | awk '{print $1}')
+os=${os:-"$os1"}
 
 #echo "$version"
 if [[ $(echo -e "$version\n10.6" | sort -V | head -n 1) == "$version" && "$version" != "10.6" ]]; then
