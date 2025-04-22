@@ -25,3 +25,18 @@ SOURCE example/sql/list_proc_func_trig.sql
 SHOW TABLES;
 SELECT * FROM v_proc;
 SELECT * FROM v_trig;
+
+ALTER DATABASE exam CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci;
+SOURCE me/tentamen/sql/exam/backup.sql
+
+ALTER DATABASE exam CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+SOURCE me/tentamen/sql/exam/backup.sql
+
+ALTER DATABASE exam CHARACTER SET utf8mb4 COLLATE utf8mb4_uca1400_ai_ci;
+SOURCE me/tentamen/sql/exam/backup.sql
+
+ALTER DATABASE eshop CHARACTER SET utf8mb4 COLLATE utf8mb4_uca1400_ai_ci;
+SOURCE me/kmom05/eshop1/sql/eshop/backup.sql
+
+ALTER DATABASE eshop CHARACTER SET utf8mb4 COLLATE utf8mb4_uca1400_ai_ci;
+SOURCE me/kmom06/eshop1/sql/eshop/backup.sql
