@@ -38,5 +38,5 @@ SOURCE me/tentamen/sql/exam/backup.sql
 ALTER DATABASE eshop CHARACTER SET utf8mb4 COLLATE utf8mb4_uca1400_ai_ci;
 SOURCE me/kmom05/eshop1/sql/eshop/backup.sql
 
-ALTER DATABASE eshop CHARACTER SET utf8mb4 COLLATE utf8mb4_uca1400_ai_ci;
-SOURCE me/kmom06/eshop1/sql/eshop/backup.sql
+ALTER DATABASE eshop CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+SOURCE me/kmom06/eshop2/sql/eshop/backup.sql
